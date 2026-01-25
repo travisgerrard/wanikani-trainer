@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wk-trainer-v9';
+const CACHE_NAME = 'wk-trainer-v10';
 const ASSETS = [
     './',
     './index.html',
@@ -23,16 +23,38 @@ self.addEventListener('install', event => {
                     if (audioFiles.length > 0) {
                         await cache.addAll(audioFiles);
                         console.log(`[SW] Cached ${audioFiles.length} audio files`);
-                        
-                        // Notify clients that we are ready
-                        const allClients = await self.clients.matchAll();
-                        allClients.forEach(client => {
-                            client.postMessage({ type: 'OFFLINE_READY' });
-                        });
                     }
                 }
             } catch (err) {
                 console.error('[SW] Failed to cache audio files:', err);
+            }
+
+            // 3. Fetch and cache images from sentences.json
+            try {
+                const response = await fetch('./sentences.json');
+                if (response.ok) {
+                    const sentences = await response.json();
+                    const imageFiles = [];
+                    sentences.forEach(item => {
+                        item.sentences.forEach(s => {
+                            if (s.image) {
+                                imageFiles.push(`./${s.image}`);
+                            }
+                        });
+                    });
+                    if (imageFiles.length > 0) {
+                        await cache.addAll(imageFiles);
+                        console.log(`[SW] Cached ${imageFiles.length} image files`);
+                    }
+
+                    // Notify clients that we are ready
+                    const allClients = await self.clients.matchAll();
+                    allClients.forEach(client => {
+                        client.postMessage({ type: 'OFFLINE_READY' });
+                    });
+                }
+            } catch (err) {
+                console.error('[SW] Failed to cache image files:', err);
             }
 
             return self.skipWaiting();
