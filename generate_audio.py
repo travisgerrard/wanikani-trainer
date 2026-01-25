@@ -21,12 +21,14 @@ Usage:
     # MLX / Apple Silicon (Qwen3-TTS)
     python generate_audio.py --tts qwen
 
+    # Kokoro ONNX (High quality, on-device)
+    python generate_audio.py --tts kokoro
+
 Requirements:
     pip install edge-tts        # for Edge TTS (recommended)
     pip install requests        # for VOICEVOX API
     pip install mlx-audio soundfile  # for Qwen (Apple Silicon)
-
-Note: Kokoro ONNX does NOT properly support Japanese (espeak limitation).
+    pip install kokoro-onnx soundfile # for Kokoro
 """
 
 import json
@@ -40,69 +42,66 @@ import re
 # Lazy imports for optional dependencies
 requests = None
 piper = None
+kokoro_obj = None
+misaki_g2p = None
 
-def ensure_requests():
-    global requests
-    if requests is None:
-        import requests as req
-        requests = req
+def get_kokoro():
+    global kokoro_obj
+    if kokoro_obj is None:
+        from kokoro_onnx import Kokoro
+        model_dir = Path(__file__).parent / "models"
+        model_path = model_dir / "kokoro-v1.0.onnx"
+        voices_path = model_dir / "voices.bin"
+        if not model_path.exists() or not voices_path.exists():
+            return None
+        kokoro_obj = Kokoro(str(model_path), str(voices_path))
+    return kokoro_obj
 
-def clean_text(text: str) -> str:
-    """Remove bracketed readings from text (e.g., 漢字[かんじ] -> 漢字)."""
-    # Remove [text] or (text) or （text）
-    text = re.sub(r'\[.*?\]', '', text)
-    text = re.sub(r'\(.*?\)', '', text)
-    text = re.sub(r'（.*?）', '', text)
-    return text.strip()
-
-def generate_edge(text: str, output_path: Path) -> bool:
-    """Generate audio using Microsoft Edge TTS (free, good quality)."""
-    try:
-        import asyncio
-        import edge_tts
-
-        async def _generate():
-            # Japanese female voice - Nanami is natural sounding
-            voice = "ja-JP-NanamiNeural"
-            communicate = edge_tts.Communicate(text, voice)
-            await communicate.save(str(output_path))
-
-        asyncio.run(_generate())
-        return True
-    except ImportError:
-        print("    edge-tts not installed. Run: pip install edge-tts")
-        return False
-    except Exception as e:
-        print(f"    Edge TTS error: {e}")
-        return False
+def get_misaki():
+    global misaki_g2p
+    if misaki_g2p is None:
+        try:
+            # Try Japanese-specific G2P first (requires unidic)
+            from misaki.ja import JAG2P
+            misaki_g2p = JAG2P()
+        except (ImportError, RuntimeError):
+            try:
+                # Fallback to Espeak wrapper
+                from misaki.espeak import EspeakG2P
+                misaki_g2p = EspeakG2P(language='ja')
+            except ImportError:
+                return None
+    return misaki_g2p
 
 def generate_kokoro(text: str, output_path: Path) -> bool:
     """Generate audio using Kokoro ONNX (on-device, good quality)."""
     try:
-        from kokoro_onnx import Kokoro
         import soundfile as sf
-
-        # Model paths
-        model_dir = Path(__file__).parent / "models"
-        model_path = model_dir / "kokoro-v1.0.onnx"
-        voices_path = model_dir / "voices.bin"
-
-        if not model_path.exists() or not voices_path.exists():
-            print(f"    Kokoro models not found. Download to {model_dir}/")
-            print("    curl -L -o models/kokoro-v1.0.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx")
-            print("    curl -L -o models/voices.bin https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin")
+        
+        kokoro = get_kokoro()
+        if not kokoro:
+            print("    Kokoro models not found in models/")
             return False
 
-        # Initialize Kokoro
-        kokoro = Kokoro(str(model_path), str(voices_path))
+        # Use misaki for Japanese phonemization if available
+        g2p = get_misaki()
+        if g2p:
+            # Convert text to phonemes
+            phonemes, _ = g2p(text)
+            input_text = phonemes
+            # print(f"    Phonemes: {phonemes}") 
+        else:
+            input_text = text
+            print("    Warning: misaki not installed, results may be poor")
 
         # Generate audio - use Japanese voice
-        # Note: Don't pass lang parameter - espeak doesn't support Japanese phonemization
-        # The Japanese voice (jf_alpha) handles Japanese text natively
+        # Pass lang='ja' when using phonemes for Japanese
         samples, sample_rate = kokoro.create(
-            text,
+            input_text,
             voice="jf_alpha",  # Japanese Female voice
-            speed=1.0
+            speed=1.0,
+            lang='ja',
+            is_phonemes=(g2p is not None)
         )
 
         # Save as WAV first
@@ -265,10 +264,14 @@ def generate_qwen(text: str, output_path: Path) -> bool:
         print(f"    Qwen TTS error: {e}")
         return False
 
+def clean_text(text: str) -> str:
+    """Clean text for TTS."""
+    return text.strip()
+
 def main():
     parser = argparse.ArgumentParser(description="Generate audio for sentences")
-    parser.add_argument("--tts", choices=["edge", "macos", "voicevox", "qwen"], default="edge",
-                       help="TTS engine to use (edge=recommended, macos=fallback, voicevox=best, qwen=mlx)")
+    parser.add_argument("--tts", choices=["edge", "macos", "voicevox", "qwen", "kokoro"], default="edge",
+                       help="TTS engine to use (edge=recommended, macos=fallback, voicevox=best, qwen=mlx, kokoro=onnx)")
     parser.add_argument("--input", default="data/sentences.json",
                        help="Input sentences file")
     parser.add_argument("--output-dir", default="pwa/audio",
@@ -305,6 +308,9 @@ def main():
     elif args.tts == "qwen":
         tts_func = generate_qwen
         print("Using Qwen3-TTS (MLX)")
+    elif args.tts == "kokoro":
+        tts_func = generate_kokoro
+        print("Using Kokoro ONNX (jf_alpha)")
     else:
         tts_func = lambda text, path: generate_voicevox(text, path, args.speaker)
         print(f"Using VOICEVOX (speaker {args.speaker})")
