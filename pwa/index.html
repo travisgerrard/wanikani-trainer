@@ -217,6 +217,20 @@
             color: #666;
             margin-top: 4px;
         }
+
+        .sentence-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            margin: 12px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .sentence-image.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -253,6 +267,7 @@
 
         <div class="card">
             <p class="instruction" id="phase-instruction">Predict the missing word...</p>
+            <img id="sentence-image" class="sentence-image hidden" alt="Sentence illustration">
             <div class="sentence" id="sentence"></div>
             <div class="english hidden" id="english"></div>
 
@@ -492,6 +507,15 @@
                 currentSentenceIndex = 0;
                 showCard();
                 return;
+            }
+
+            // Show image if available
+            const imageEl = document.getElementById('sentence-image');
+            if (sentence.image) {
+                imageEl.src = sentence.image;
+                imageEl.classList.remove('hidden');
+            } else {
+                imageEl.classList.add('hidden');
             }
 
             // Show sentence with blank
