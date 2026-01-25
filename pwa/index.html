@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>WK Trainer</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 16px;
+            padding-top: env(safe-area-inset-top, 16px);
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00d4ff;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .card {
+            background: #16213e;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 12px 0;
+        }
+
+        .sentence {
+            font-size: 1.6rem;
+            line-height: 1.5;
+            text-align: center;
+            margin: 16px 0;
+            min-height: 70px;
+        }
+
+        .blank {
+            background: #00d4ff33;
+            border-radius: 4px;
+            padding: 2px 10px;
+            border-bottom: 3px solid #00d4ff;
+        }
+
+        .english {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            font-style: italic;
+            margin: 8px 0;
+        }
+
+        .word-info {
+            text-align: center;
+            padding: 16px;
+            background: #0f3460;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .kanji { font-size: 2.2rem; color: #00d4ff; }
+        .reading { font-size: 1.1rem; color: #aaa; margin-top: 4px; }
+        .meaning { font-size: 1rem; color: #fff; margin-top: 6px; }
+
+        .timer {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin: 16px 0;
+        }
+        .timer.ready { color: #4ecdc4; }
+
+        .instruction {
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin: 8px 0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 6px 0;
+            transition: all 0.15s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active { transform: scale(0.98); }
+        button:disabled { opacity: 0.4; }
+
+        .reveal-btn { background: #00d4ff; color: #1a1a2e; font-weight: 600; }
+
+        .rating-btns { display: flex; gap: 8px; }
+        .rating-btns button { flex: 1; }
+        .easy { background: #4ecdc4; color: #1a1a2e; }
+        .medium { background: #ffe66d; color: #1a1a2e; }
+        .hard { background: #ff6b6b; color: #fff; }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            background: #0f3460;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .stat { text-align: center; }
+        .stat-value { font-size: 1.3rem; color: #00d4ff; }
+        .stat-label { font-size: 0.7rem; color: #888; }
+
+        .progress {
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        .hidden { display: none !important; }
+
+        .setup {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .setup h2 { color: #00d4ff; margin-bottom: 20px; }
+        .setup p { color: #888; margin: 12px 0; line-height: 1.5; }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: #0f3460;
+            border: 2px solid #00d4ff33;
+            border-radius: 10px;
+            color: #fff;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .sync-status {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #4ecdc4;
+            margin-top: 8px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: env(safe-area-inset-top, 8px);
+            right: 8px;
+            background: #ff6b6b;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            z-index: 1000;
+        }
+
+        .ready-badge {
+            position: fixed;
+            top: env(safe-area-inset-top, 8px);
+            right: 8px;
+            background: #4ecdc4;
+            color: #1a1a2e;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .audio-btn {
+            background: #0f3460;
+            color: #00d4ff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            padding: 10px 20px;
+            margin: 8px auto;
+            font-size: 0.9rem;
+        }
+        .audio-btn:disabled {
+            color: #666;
+        }
+        .audio-btn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .audio-status {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="offline-badge" class="offline-badge hidden">Offline</div>
+    <div id="ready-badge" class="ready-badge hidden">Ready for Offline</div>
+
+    <h1>WK Prediction Trainer</h1>
+
+    <!-- Setup Screen -->
+    <div id="setup" class="card setup">
+        <h2>Load Practice Data</h2>
+        <p>Paste your sentences.json content below, or it will try to load from the data folder.</p>
+        <textarea id="json-input" placeholder='Paste JSON here or leave empty to auto-load...'></textarea>
+        <button class="reveal-btn" onclick="loadData()" style="margin-top: 16px;">Start Training</button>
+        <div id="sync-status" class="sync-status"></div>
+    </div>
+
+    <!-- Training Screen -->
+    <div id="app" class="hidden">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="completed">0</div>
+                <div class="stat-label">Done</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="remaining">0</div>
+                <div class="stat-label">Left</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="accuracy">-</div>
+                <div class="stat-label">Easy%</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="instruction" id="phase-instruction">Predict the missing word...</p>
+            <div class="sentence" id="sentence"></div>
+            <div class="english hidden" id="english"></div>
+
+            <div id="timer-section">
+                <div class="timer" id="timer">3</div>
+                <p class="instruction">Think about what fits...</p>
+            </div>
+
+            <div id="reveal-section" class="hidden">
+                <button class="reveal-btn" id="reveal-btn">Reveal Answer</button>
+            </div>
+
+            <div id="answer-section" class="hidden">
+                <div class="word-info">
+                    <div class="kanji" id="answer-word"></div>
+                    <div class="reading" id="answer-reading"></div>
+                    <div class="meaning" id="answer-meaning"></div>
+                </div>
+
+                <!-- Audio playback button -->
+                <button class="audio-btn" id="play-audio-btn" onclick="playCurrentAudio()">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    Play Audio
+                </button>
+                <div class="audio-status" id="audio-status"></div>
+
+                <p class="instruction">How was your prediction?</p>
+                <div class="rating-btns">
+                    <button class="easy" onclick="rate('easy')">Easy</button>
+                    <button class="medium" onclick="rate('medium')">Medium</button>
+                    <button class="hard" onclick="rate('hard')">Hard</button>
+                </div>
+            </div>
+        </div>
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- Complete Screen -->
+    <div id="complete" class="card hidden">
+        <h2 style="text-align: center; color: #4ecdc4; margin-bottom: 16px;">Done!</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="final-total">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="final-easy">0</div>
+                <div class="stat-label">Easy</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="final-hard">0</div>
+                <div class="stat-label">Hard</div>
+            </div>
+        </div>
+        <button class="reveal-btn" onclick="restart()">Again</button>
+        <button id="export-easy-btn" style="background: #4ecdc4; color: #1a1a2e; display: none;" onclick="exportEasyReviews()">
+            Export Easy Reviews for WaniKani
+        </button>
+        <div id="export-status" class="sync-status"></div>
+        <button style="background: #0f3460; color: #888;" onclick="resetData()">Load New Data</button>
+    </div>
+
+    <!-- Hidden audio element -->
+    <audio id="audio-player" preload="auto"></audio>
+
+    <script>
+        // State
+        let data = [];
+        let audioManifest = [];
+        let currentIndex = 0;
+        let currentSentenceIndex = 0;
+        let stats = { easy: 0, medium: 0, hard: 0 };
+        let timerInterval = null;
+        let audioAvailable = false;
+        let easyReviews = [];  // Track items rated Easy for WaniKani sync
+
+        const STORAGE_KEY = 'wk_trainer_data';
+        const STATS_KEY = 'wk_trainer_stats';
+        const audioPlayer = document.getElementById('audio-player');
+
+        // Offline detection
+        function updateOnlineStatus() {
+            const badge = document.getElementById('offline-badge');
+            if (navigator.onLine) {
+                badge.classList.add('hidden');
+            } else {
+                badge.classList.remove('hidden');
+            }
+        }
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+
+        // Load audio manifest
+        async function loadAudioManifest() {
+            try {
+                const response = await fetch('audio/manifest.json');
+                if (response.ok) {
+                    audioManifest = await response.json();
+                    audioAvailable = audioManifest.length > 0;
+                    console.log(`Loaded ${audioManifest.length} audio entries`);
+                }
+            } catch (e) {
+                console.log('No audio manifest found');
+                audioAvailable = false;
+            }
+        }
+
+        // Get audio file for current word/sentence
+        function getAudioFile(word, sentenceIndex) {
+            const entry = audioManifest.find(
+                a => a.word === word && a.sentence_index === sentenceIndex
+            );
+            return entry ? `audio/${entry.file}` : null;
+        }
+
+        // Play current audio
+        function playCurrentAudio() {
+            const item = getCurrentItem();
+            if (!item) return;
+
+            const audioFile = getAudioFile(item.word, currentSentenceIndex);
+            const statusEl = document.getElementById('audio-status');
+            const btn = document.getElementById('play-audio-btn');
+
+            if (audioFile) {
+                audioPlayer.src = audioFile;
+                audioPlayer.play()
+                    .then(() => {
+                        statusEl.textContent = '';
+                    })
+                    .catch(err => {
+                        statusEl.textContent = 'Audio not available';
+                        console.log('Audio play error:', err);
+                    });
+            } else {
+                statusEl.textContent = 'No audio for this sentence';
+            }
+        }
+
+        // Load data
+        async function loadData() {
+            const input = document.getElementById('json-input').value.trim();
+            const statusEl = document.getElementById('sync-status');
+
+            try {
+                if (input) {
+                    data = JSON.parse(input);
+                    statusEl.textContent = 'Loaded from paste';
+                } else {
+                    const cached = localStorage.getItem(STORAGE_KEY);
+                    if (cached) {
+                        data = JSON.parse(cached);
+                        statusEl.textContent = 'Loaded from cache';
+                    } else {
+                        // Try multiple paths for sentences.json
+                        let response = await fetch('sentences.json').catch(() => null);
+                        if (!response || !response.ok) {
+                            response = await fetch('../data/sentences.json').catch(() => null);
+                        }
+                        if (!response || !response.ok) throw new Error('No data file found');
+                        data = await response.json();
+                        statusEl.textContent = 'Loaded from file';
+                    }
+                }
+
+                // Filter and validate
+                data = data.filter(item => item.sentences && item.sentences.length > 0);
+                if (data.length === 0) throw new Error('No valid sentences');
+
+                // Cache for offline
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+                // Load audio manifest
+                await loadAudioManifest();
+
+                // Shuffle
+                data = data.sort(() => Math.random() - 0.5);
+
+                // Start training
+                document.getElementById('setup').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                updateStats();
+                showCard();
+
+            } catch (e) {
+                statusEl.textContent = 'Error: ' + e.message;
+                statusEl.style.color = '#ff6b6b';
+            }
+        }
+
+        function resetData() {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(STATS_KEY);
+            localStorage.removeItem('wk_easy_reviews');
+            stats = { easy: 0, medium: 0, hard: 0 };
+            easyReviews = [];
+            currentIndex = 0;
+            currentSentenceIndex = 0;
+            document.getElementById('complete').classList.add('hidden');
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('setup').classList.remove('hidden');
+            document.getElementById('json-input').value = '';
+            document.getElementById('sync-status').textContent = '';
+            document.getElementById('sync-status').style.color = '#4ecdc4';
+        }
+
+        function updateStats() {
+            const completed = stats.easy + stats.medium + stats.hard;
+            const total = data.reduce((sum, item) => sum + item.sentences.length, 0);
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('remaining').textContent = total - completed;
+            if (completed > 0) {
+                document.getElementById('accuracy').textContent = Math.round((stats.easy / completed) * 100) + '%';
+            }
+            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+        }
+
+        function getCurrentItem() {
+            return currentIndex < data.length ? data[currentIndex] : null;
+        }
+
+        function getCurrentSentence() {
+            const item = getCurrentItem();
+            return item ? item.sentences[currentSentenceIndex] : null;
+        }
+
+        function showCard() {
+            const item = getCurrentItem();
+            if (!item) { showComplete(); return; }
+
+            const sentence = getCurrentSentence();
+            if (!sentence) {
+                currentIndex++;
+                currentSentenceIndex = 0;
+                showCard();
+                return;
+            }
+
+            // Show sentence with blank
+            const blankSentence = sentence.japanese.replace(
+                item.word,
+                '<span class="blank">???</span>'
+            );
+            document.getElementById('sentence').innerHTML = blankSentence;
+            document.getElementById('english').textContent = sentence.english;
+            document.getElementById('english').classList.add('hidden');
+
+            // Set answer
+            document.getElementById('answer-word').textContent = item.word;
+            document.getElementById('answer-reading').textContent = item.reading;
+            document.getElementById('answer-meaning').textContent = item.meaning;
+
+            // Reset audio status
+            document.getElementById('audio-status').textContent = '';
+
+            // Check if audio available for this sentence
+            const audioFile = getAudioFile(item.word, currentSentenceIndex);
+            const audioBtn = document.getElementById('play-audio-btn');
+            if (audioFile && audioAvailable) {
+                audioBtn.disabled = false;
+                audioBtn.style.display = 'inline-flex';
+            } else {
+                audioBtn.style.display = 'none';
+            }
+
+            // Reset UI
+            document.getElementById('timer-section').classList.remove('hidden');
+            document.getElementById('reveal-section').classList.add('hidden');
+            document.getElementById('answer-section').classList.add('hidden');
+            document.getElementById('phase-instruction').textContent = 'Predict the missing word...';
+
+            startTimer();
+
+            // Progress
+            const total = data.reduce((sum, item) => sum + item.sentences.length, 0);
+            let current = 0;
+            for (let i = 0; i < currentIndex; i++) current += data[i].sentences.length;
+            current += currentSentenceIndex + 1;
+            document.getElementById('progress').textContent = `${current} / ${total}`;
+        }
+
+        function startTimer() {
+            let seconds = 3;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = seconds;
+            timerEl.classList.remove('ready');
+
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                seconds--;
+                if (seconds > 0) {
+                    timerEl.textContent = seconds;
+                } else {
+                    clearInterval(timerInterval);
+                    timerEl.textContent = '✓';
+                    timerEl.classList.add('ready');
+                    setTimeout(() => {
+                        document.getElementById('timer-section').classList.add('hidden');
+                        document.getElementById('reveal-section').classList.remove('hidden');
+                        document.getElementById('phase-instruction').textContent = 'Ready?';
+                    }, 200);
+                }
+            }, 1000);
+        }
+
+        document.getElementById('reveal-btn').addEventListener('click', () => {
+            const sentence = getCurrentSentence();
+            document.getElementById('sentence').innerHTML = sentence.japanese;
+            document.getElementById('english').classList.remove('hidden');
+            document.getElementById('reveal-section').classList.add('hidden');
+            document.getElementById('answer-section').classList.remove('hidden');
+            document.getElementById('phase-instruction').textContent = 'How did you do?';
+
+            // Auto-play audio if available
+            const item = getCurrentItem();
+            const audioFile = getAudioFile(item.word, currentSentenceIndex);
+            if (audioFile && audioAvailable) {
+                audioPlayer.src = audioFile;
+                audioPlayer.play().catch(() => {});
+            }
+        });
+
+        function rate(rating) {
+            stats[rating]++;
+
+            // Track Easy ratings for WaniKani sync
+            if (rating === 'easy') {
+                const item = getCurrentItem();
+                if (item && item.subject_id) {
+                    // Only add if not already tracked
+                    if (!easyReviews.find(r => r.subject_id === item.subject_id)) {
+                        easyReviews.push({
+                            subject_id: item.subject_id,
+                            word: item.word,
+                            reading: item.reading,
+                            meaning: item.meaning
+                        });
+                    }
+                }
+            }
+
+            updateStats();
+
+            currentSentenceIndex++;
+            const item = getCurrentItem();
+            if (!item || currentSentenceIndex >= item.sentences.length) {
+                currentIndex++;
+                currentSentenceIndex = 0;
+            }
+            showCard();
+        }
+
+        function showComplete() {
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('complete').classList.remove('hidden');
+            document.getElementById('final-total').textContent = stats.easy + stats.medium + stats.hard;
+            document.getElementById('final-easy').textContent = stats.easy;
+            document.getElementById('final-hard').textContent = stats.hard;
+
+            // Show export button if there are Easy reviews to sync
+            const exportBtn = document.getElementById('export-easy-btn');
+            const exportStatus = document.getElementById('export-status');
+            if (easyReviews.length > 0) {
+                exportBtn.style.display = 'block';
+                exportStatus.textContent = `${easyReviews.length} items ready to sync`;
+            } else {
+                exportBtn.style.display = 'none';
+                exportStatus.textContent = '';
+            }
+        }
+
+        function restart() {
+            stats = { easy: 0, medium: 0, hard: 0 };
+            easyReviews = [];  // Clear Easy reviews on restart
+            currentIndex = 0;
+            currentSentenceIndex = 0;
+            data = data.sort(() => Math.random() - 0.5);
+            document.getElementById('complete').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            updateStats();
+            showCard();
+        }
+
+        function exportEasyReviews() {
+            if (easyReviews.length === 0) {
+                document.getElementById('export-status').textContent = 'No Easy reviews to export';
+                return;
+            }
+
+            const exportStatus = document.getElementById('export-status');
+
+            // Save to localStorage for sync script to read
+            const exportData = JSON.stringify(easyReviews, null, 2);
+            localStorage.setItem('wk_easy_reviews', exportData);
+
+            // Also trigger download as backup
+            const blob = new Blob([exportData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'easy_reviews.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            exportStatus.textContent = `Exported ${easyReviews.length} items! Run sync_to_wanikani.py to submit.`;
+            exportStatus.style.color = '#4ecdc4';
+
+            // Clear after export
+            easyReviews = [];
+            document.getElementById('export-easy-btn').style.display = 'none';
+        }
+
+        // Check if we have audio files cached
+        async function checkOfflineReadiness() {
+            try {
+                // Check if manifest is in ANY cache
+                const manifestRes = await caches.match('audio/manifest.json');
+                
+                if (manifestRes) {
+                    const manifest = await manifestRes.json();
+                    // Check a few files to be sure
+                    const checkCount = Math.min(5, manifest.length);
+                    let found = 0;
+                    for(let i=0; i<checkCount; i++) {
+                        const match = await caches.match(`audio/${manifest[i].file}`);
+                        if(match) found++;
+                    }
+                    
+                    if (found === checkCount) {
+                        showReadyBadge();
+                    }
+                }
+            } catch (e) {
+                console.log('Cache check failed', e);
+            }
+        }
+
+        function showReadyBadge() {
+            const readyBadge = document.getElementById('ready-badge');
+            readyBadge.classList.remove('hidden');
+            // Keep it visible
+        }
+
+        // Try auto-load on start
+        window.addEventListener('load', () => {
+            // 1. Check offline status
+            checkOfflineReadiness();
+
+            // 2. Auto-load data
+            console.log("Attempting auto-load...");
+            loadData(); 
+        });
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(registration => {
+                    console.log('SW registered');
+                    
+                    // Listen for messages from SW
+                    navigator.serviceWorker.addEventListener('message', event => {
+                        if (event.data && event.data.type === 'OFFLINE_READY') {
+                            showReadyBadge();
+                        }
+                    });
+                })
+                .catch(err => console.log('SW failed', err));
+        }
+    </script>
+</body>
+</html>

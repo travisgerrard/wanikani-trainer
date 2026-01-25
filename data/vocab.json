@@ -1,0 +1,3426 @@
+[
+  {
+    "id": 7677,
+    "characters": "見当たる",
+    "reading": "みあたる",
+    "meaning": "To Be Found",
+    "level": 7,
+    "srs_stage": 1
+  },
+  {
+    "id": 2930,
+    "characters": "自由",
+    "reading": "じゆう",
+    "meaning": "Freedom",
+    "level": 7,
+    "srs_stage": 1
+  },
+  {
+    "id": 2700,
+    "characters": "見分ける",
+    "reading": "みわける",
+    "meaning": "To Distinguish",
+    "level": 8,
+    "srs_stage": 1
+  },
+  {
+    "id": 3476,
+    "characters": "見付ける",
+    "reading": "みつける",
+    "meaning": "To Find",
+    "level": 9,
+    "srs_stage": 1
+  },
+  {
+    "id": 9386,
+    "characters": "直前",
+    "reading": "ちょくぜん",
+    "meaning": "Just Before",
+    "level": 11,
+    "srs_stage": 1
+  },
+  {
+    "id": 3365,
+    "characters": "深夜",
+    "reading": "しんや",
+    "meaning": "Middle Of The Night",
+    "level": 12,
+    "srs_stage": 1
+  },
+  {
+    "id": 3576,
+    "characters": "育てる",
+    "reading": "そだてる",
+    "meaning": "To Bring Up",
+    "level": 13,
+    "srs_stage": 1
+  },
+  {
+    "id": 2828,
+    "characters": "外来",
+    "reading": "がいらい",
+    "meaning": "Outpatient",
+    "level": 16,
+    "srs_stage": 1
+  },
+  {
+    "id": 2587,
+    "characters": "立てる",
+    "reading": "たてる",
+    "meaning": "To Stand Something Up",
+    "level": 5,
+    "srs_stage": 2
+  },
+  {
+    "id": 8662,
+    "characters": "海王星",
+    "reading": "かいおうせい",
+    "meaning": "Neptune",
+    "level": 7,
+    "srs_stage": 2
+  },
+  {
+    "id": 3222,
+    "characters": "調べる",
+    "reading": "しらべる",
+    "meaning": "To Investigate",
+    "level": 10,
+    "srs_stage": 2
+  },
+  {
+    "id": 3196,
+    "characters": "線路",
+    "reading": "せんろ",
+    "meaning": "Railroad Track",
+    "level": 10,
+    "srs_stage": 2
+  },
+  {
+    "id": 9384,
+    "characters": "直線",
+    "reading": "ちょくせん",
+    "meaning": "Straight Line",
+    "level": 10,
+    "srs_stage": 2
+  },
+  {
+    "id": 3251,
+    "characters": "友好",
+    "reading": "ゆうこう",
+    "meaning": "Friendship",
+    "level": 11,
+    "srs_stage": 2
+  },
+  {
+    "id": 3603,
+    "characters": "目標",
+    "reading": "もくひょう",
+    "meaning": "Goal",
+    "level": 13,
+    "srs_stage": 2
+  },
+  {
+    "id": 3661,
+    "characters": "協力",
+    "reading": "きょうりょく",
+    "meaning": "Cooperation",
+    "level": 14,
+    "srs_stage": 2
+  },
+  {
+    "id": 3702,
+    "characters": "格好",
+    "reading": "かっこう",
+    "meaning": "Shape",
+    "level": 14,
+    "srs_stage": 2
+  },
+  {
+    "id": 3775,
+    "characters": "不法",
+    "reading": "ふほう",
+    "meaning": "Illegal",
+    "level": 15,
+    "srs_stage": 2
+  },
+  {
+    "id": 3801,
+    "characters": "保守的",
+    "reading": "ほしゅてき",
+    "meaning": "Conservative",
+    "level": 16,
+    "srs_stage": 2
+  },
+  {
+    "id": 3547,
+    "characters": "同感",
+    "reading": "どうかん",
+    "meaning": "Agreement",
+    "level": 20,
+    "srs_stage": 2
+  },
+  {
+    "id": 2646,
+    "characters": "休止",
+    "reading": "きゅうし",
+    "meaning": "Pause",
+    "level": 4,
+    "srs_stage": 3
+  },
+  {
+    "id": 2740,
+    "characters": "交ぜる",
+    "reading": "まぜる",
+    "meaning": "To Mix Something",
+    "level": 5,
+    "srs_stage": 3
+  },
+  {
+    "id": 2814,
+    "characters": "声",
+    "reading": "こえ",
+    "meaning": "Voice",
+    "level": 5,
+    "srs_stage": 3
+  },
+  {
+    "id": 2756,
+    "characters": "当たる",
+    "reading": "あたる",
+    "meaning": "To Be Right",
+    "level": 5,
+    "srs_stage": 3
+  },
+  {
+    "id": 2771,
+    "characters": "自立",
+    "reading": "じりつ",
+    "meaning": "Independence",
+    "level": 5,
+    "srs_stage": 3
+  },
+  {
+    "id": 2784,
+    "characters": "何日",
+    "reading": "なんにち",
+    "meaning": "How Many Days",
+    "level": 5,
+    "srs_stage": 3
+  },
+  {
+    "id": 2867,
+    "characters": "名曲",
+    "reading": "めいきょく",
+    "meaning": "Famous Music",
+    "level": 6,
+    "srs_stage": 3
+  },
+  {
+    "id": 9011,
+    "characters": "木星",
+    "reading": "もくせい",
+    "meaning": "Jupiter",
+    "level": 7,
+    "srs_stage": 3
+  },
+  {
+    "id": 2946,
+    "characters": "未来",
+    "reading": "みらい",
+    "meaning": "Future",
+    "level": 7,
+    "srs_stage": 3
+  },
+  {
+    "id": 2940,
+    "characters": "以前",
+    "reading": "いぜん",
+    "meaning": "Previously",
+    "level": 7,
+    "srs_stage": 3
+  },
+  {
+    "id": 2953,
+    "characters": "夏休み",
+    "reading": "なつやすみ",
+    "meaning": "Summer Vacation",
+    "level": 7,
+    "srs_stage": 3
+  },
+  {
+    "id": 3463,
+    "characters": "交じる",
+    "reading": "まじる",
+    "meaning": "To Be Mixed",
+    "level": 8,
+    "srs_stage": 3
+  },
+  {
+    "id": 3010,
+    "characters": "反対",
+    "reading": "はんたい",
+    "meaning": "Opposite",
+    "level": 8,
+    "srs_stage": 3
+  },
+  {
+    "id": 7741,
+    "characters": "通す",
+    "reading": "とおす",
+    "meaning": "To Let Something Pass",
+    "level": 9,
+    "srs_stage": 3
+  },
+  {
+    "id": 7487,
+    "characters": "対談",
+    "reading": "たいだん",
+    "meaning": "Talk",
+    "level": 9,
+    "srs_stage": 3
+  },
+  {
+    "id": 3154,
+    "characters": "必要",
+    "reading": "ひつよう",
+    "meaning": "Necessary",
+    "level": 9,
+    "srs_stage": 3
+  },
+  {
+    "id": 3183,
+    "characters": "運ぶ",
+    "reading": "はこぶ",
+    "meaning": "To Carry",
+    "level": 10,
+    "srs_stage": 3
+  },
+  {
+    "id": 3226,
+    "characters": "親友",
+    "reading": "しんゆう",
+    "meaning": "Close Friend",
+    "level": 10,
+    "srs_stage": 3
+  },
+  {
+    "id": 8743,
+    "characters": "足し算",
+    "reading": "たしざん",
+    "meaning": "Addition",
+    "level": 10,
+    "srs_stage": 3
+  },
+  {
+    "id": 9385,
+    "characters": "直進",
+    "reading": "ちょくしん",
+    "meaning": "Going Straight Ahead",
+    "level": 10,
+    "srs_stage": 3
+  },
+  {
+    "id": 8939,
+    "characters": "進める",
+    "reading": "すすめる",
+    "meaning": "To Advance Something",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 7466,
+    "characters": "発売中",
+    "reading": "はつばいちゅう",
+    "meaning": "Now For Sale",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 3498,
+    "characters": "乗り場",
+    "reading": "のりば",
+    "meaning": "Boarding Area",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 3269,
+    "characters": "努力",
+    "reading": "どりょく",
+    "meaning": "Great Effort",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 3261,
+    "characters": "最初",
+    "reading": "さいしょ",
+    "meaning": "The First",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 4373,
+    "characters": "意外",
+    "reading": "いがい",
+    "meaning": "Unexpected",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 3270,
+    "characters": "労働",
+    "reading": "ろうどう",
+    "meaning": "Manual Labor",
+    "level": 11,
+    "srs_stage": 3
+  },
+  {
+    "id": 3390,
+    "characters": "湯気",
+    "reading": "ゆげ",
+    "meaning": "Steam",
+    "level": 12,
+    "srs_stage": 3
+  },
+  {
+    "id": 3577,
+    "characters": "追い付く",
+    "reading": "おいつく",
+    "meaning": "To Catch Up With",
+    "level": 13,
+    "srs_stage": 3
+  },
+  {
+    "id": 6899,
+    "characters": "疲れる",
+    "reading": "つかれる",
+    "meaning": "To Get Tired",
+    "level": 13,
+    "srs_stage": 3
+  },
+  {
+    "id": 8943,
+    "characters": "受かる",
+    "reading": "うかる",
+    "meaning": "To Get Accepted",
+    "level": 13,
+    "srs_stage": 3
+  },
+  {
+    "id": 7694,
+    "characters": "想定",
+    "reading": "そうてい",
+    "meaning": "Assumption",
+    "level": 13,
+    "srs_stage": 3
+  },
+  {
+    "id": 3534,
+    "characters": "楽器",
+    "reading": "がっき",
+    "meaning": "Musical Instrument",
+    "level": 13,
+    "srs_stage": 3
+  },
+  {
+    "id": 3629,
+    "characters": "選手",
+    "reading": "せんしゅ",
+    "meaning": "Pro Athlete",
+    "level": 13,
+    "srs_stage": 3
+  },
+  {
+    "id": 3945,
+    "characters": "回転ずし",
+    "reading": "かいてんずし",
+    "meaning": "Rotating Sushi",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 8700,
+    "characters": "合図",
+    "reading": "あいず",
+    "meaning": "Signal",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3655,
+    "characters": "例外",
+    "reading": "れいがい",
+    "meaning": "Exception",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3913,
+    "characters": "卒業",
+    "reading": "そつぎょう",
+    "meaning": "Graduation",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3674,
+    "characters": "完成",
+    "reading": "かんせい",
+    "meaning": "Completion",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3666,
+    "characters": "囲む",
+    "reading": "かこむ",
+    "meaning": "To Surround",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3706,
+    "characters": "残業",
+    "reading": "ざんぎょう",
+    "meaning": "Overtime",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3701,
+    "characters": "性格",
+    "reading": "せいかく",
+    "meaning": "Personality",
+    "level": 14,
+    "srs_stage": 3
+  },
+  {
+    "id": 3905,
+    "characters": "練習する",
+    "reading": "れんしゅうする",
+    "meaning": "To Practice",
+    "level": 15,
+    "srs_stage": 3
+  },
+  {
+    "id": 3742,
+    "characters": "地区",
+    "reading": "ちく",
+    "meaning": "District",
+    "level": 15,
+    "srs_stage": 3
+  },
+  {
+    "id": 3782,
+    "characters": "世紀",
+    "reading": "せいき",
+    "meaning": "Century",
+    "level": 15,
+    "srs_stage": 3
+  },
+  {
+    "id": 3774,
+    "characters": "文法",
+    "reading": "ぶんぽう",
+    "meaning": "Grammar",
+    "level": 15,
+    "srs_stage": 3
+  },
+  {
+    "id": 7278,
+    "characters": "丈",
+    "reading": "たけ",
+    "meaning": "Height",
+    "level": 15,
+    "srs_stage": 3
+  },
+  {
+    "id": 9257,
+    "characters": "問う",
+    "reading": "とう",
+    "meaning": "To Question Something",
+    "level": 15,
+    "srs_stage": 3
+  },
+  {
+    "id": 3691,
+    "characters": "取材",
+    "reading": "しゅざい",
+    "meaning": "Covering An Event",
+    "level": 16,
+    "srs_stage": 3
+  },
+  {
+    "id": 2673,
+    "characters": "気分",
+    "reading": "きぶん",
+    "meaning": "Feeling",
+    "level": 4,
+    "srs_stage": 4
+  },
+  {
+    "id": 2723,
+    "characters": "写す",
+    "reading": "うつす",
+    "meaning": "To Copy",
+    "level": 4,
+    "srs_stage": 4
+  },
+  {
+    "id": 2719,
+    "characters": "他人",
+    "reading": "たにん",
+    "meaning": "Another Person",
+    "level": 4,
+    "srs_stage": 4
+  },
+  {
+    "id": 2813,
+    "characters": "図",
+    "reading": "ず",
+    "meaning": "Diagram",
+    "level": 5,
+    "srs_stage": 4
+  },
+  {
+    "id": 2843,
+    "characters": "近日",
+    "reading": "きんじつ",
+    "meaning": "Soon",
+    "level": 5,
+    "srs_stage": 4
+  },
+  {
+    "id": 3715,
+    "characters": "私生活",
+    "reading": "しせいかつ",
+    "meaning": "Personal Life",
+    "level": 6,
+    "srs_stage": 4
+  },
+  {
+    "id": 5717,
+    "characters": "社会",
+    "reading": "しゃかい",
+    "meaning": "Society",
+    "level": 7,
+    "srs_stage": 4
+  },
+  {
+    "id": 4071,
+    "characters": "取り出す",
+    "reading": "とりだす",
+    "meaning": "To Pick Out",
+    "level": 7,
+    "srs_stage": 4
+  },
+  {
+    "id": 2968,
+    "characters": "高い",
+    "reading": "たかい",
+    "meaning": "Tall",
+    "level": 7,
+    "srs_stage": 4
+  },
+  {
+    "id": 2967,
+    "characters": "交通",
+    "reading": "こうつう",
+    "meaning": "Traffic",
+    "level": 7,
+    "srs_stage": 4
+  },
+  {
+    "id": 7738,
+    "characters": "生地",
+    "reading": "きじ",
+    "meaning": "Material",
+    "level": 8,
+    "srs_stage": 4
+  },
+  {
+    "id": 3470,
+    "characters": "通り",
+    "reading": "とおり",
+    "meaning": "Avenue",
+    "level": 9,
+    "srs_stage": 4
+  },
+  {
+    "id": 3083,
+    "characters": "用事",
+    "reading": "ようじ",
+    "meaning": "Task",
+    "level": 9,
+    "srs_stage": 4
+  },
+  {
+    "id": 3137,
+    "characters": "相談",
+    "reading": "そうだん",
+    "meaning": "Consultation",
+    "level": 9,
+    "srs_stage": 4
+  },
+  {
+    "id": 3156,
+    "characters": "仮に",
+    "reading": "かりに",
+    "meaning": "Supposing",
+    "level": 9,
+    "srs_stage": 4
+  },
+  {
+    "id": 3086,
+    "characters": "返事",
+    "reading": "へんじ",
+    "meaning": "Reply",
+    "level": 9,
+    "srs_stage": 4
+  },
+  {
+    "id": 3009,
+    "characters": "対立",
+    "reading": "たいりつ",
+    "meaning": "Conflict",
+    "level": 10,
+    "srs_stage": 4
+  },
+  {
+    "id": 3717,
+    "characters": "私鉄",
+    "reading": "してつ",
+    "meaning": "Private Railway",
+    "level": 10,
+    "srs_stage": 4
+  },
+  {
+    "id": 3188,
+    "characters": "開発",
+    "reading": "かいはつ",
+    "meaning": "Development",
+    "level": 10,
+    "srs_stage": 4
+  },
+  {
+    "id": 3114,
+    "characters": "乗り物",
+    "reading": "のりもの",
+    "meaning": "Vehicle",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 3108,
+    "characters": "本物",
+    "reading": "ほんもの",
+    "meaning": "Real Thing",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 4217,
+    "characters": "比べる",
+    "reading": "くらべる",
+    "meaning": "To Compare",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 7514,
+    "characters": "通う",
+    "reading": "かよう",
+    "meaning": "To Commute",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 7747,
+    "characters": "見事",
+    "reading": "みごと",
+    "meaning": "Splendid",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 3500,
+    "characters": "仕事",
+    "reading": "しごと",
+    "meaning": "Job",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 3274,
+    "characters": "運命",
+    "reading": "うんめい",
+    "meaning": "Fate",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 7687,
+    "characters": "初歩",
+    "reading": "しょほ",
+    "meaning": "Basics",
+    "level": 11,
+    "srs_stage": 4
+  },
+  {
+    "id": 3906,
+    "characters": "映す",
+    "reading": "うつす",
+    "meaning": "To Project",
+    "level": 12,
+    "srs_stage": 4
+  },
+  {
+    "id": 6654,
+    "characters": "誰か",
+    "reading": "だれか",
+    "meaning": "Someone",
+    "level": 12,
+    "srs_stage": 4
+  },
+  {
+    "id": 6900,
+    "characters": "疲労",
+    "reading": "ひろう",
+    "meaning": "Fatigue",
+    "level": 12,
+    "srs_stage": 4
+  },
+  {
+    "id": 3378,
+    "characters": "期待",
+    "reading": "きたい",
+    "meaning": "Expectation",
+    "level": 12,
+    "srs_stage": 4
+  },
+  {
+    "id": 7748,
+    "characters": "植える",
+    "reading": "うえる",
+    "meaning": "To Plant Something",
+    "level": 12,
+    "srs_stage": 4
+  },
+  {
+    "id": 9009,
+    "characters": "天王星",
+    "reading": "てんのうせい",
+    "meaning": "Uranus",
+    "level": 13,
+    "srs_stage": 4
+  },
+  {
+    "id": 3579,
+    "characters": "追いかける",
+    "reading": "おいかける",
+    "meaning": "To Chase",
+    "level": 13,
+    "srs_stage": 4
+  },
+  {
+    "id": 3644,
+    "characters": "駅前",
+    "reading": "えきまえ",
+    "meaning": "Front Of Station",
+    "level": 13,
+    "srs_stage": 4
+  },
+  {
+    "id": 3668,
+    "characters": "固い",
+    "reading": "かたい",
+    "meaning": "Hard",
+    "level": 14,
+    "srs_stage": 4
+  },
+  {
+    "id": 3686,
+    "characters": "骨折",
+    "reading": "こっせつ",
+    "meaning": "Broken Bone",
+    "level": 14,
+    "srs_stage": 4
+  },
+  {
+    "id": 3700,
+    "characters": "合格する",
+    "reading": "ごうかくする",
+    "meaning": "To Pass A Test",
+    "level": 14,
+    "srs_stage": 4
+  },
+  {
+    "id": 3713,
+    "characters": "目的",
+    "reading": "もくてき",
+    "meaning": "Purpose",
+    "level": 14,
+    "srs_stage": 4
+  },
+  {
+    "id": 3371,
+    "characters": "太陽",
+    "reading": "たいよう",
+    "meaning": "Sun",
+    "level": 15,
+    "srs_stage": 4
+  },
+  {
+    "id": 9269,
+    "characters": "受け入れる",
+    "reading": "うけいれる",
+    "meaning": "To Accept Something",
+    "level": 15,
+    "srs_stage": 4
+  },
+  {
+    "id": 3138,
+    "characters": "相手",
+    "reading": "あいて",
+    "meaning": "Partner",
+    "level": 15,
+    "srs_stage": 4
+  },
+  {
+    "id": 3770,
+    "characters": "有毒",
+    "reading": "ゆうどく",
+    "meaning": "Toxic",
+    "level": 15,
+    "srs_stage": 4
+  },
+  {
+    "id": 3778,
+    "characters": "猫",
+    "reading": "ねこ",
+    "meaning": "Cat",
+    "level": 15,
+    "srs_stage": 4
+  },
+  {
+    "id": 9382,
+    "characters": "舐める",
+    "reading": "なめる",
+    "meaning": "To Lick",
+    "level": 15,
+    "srs_stage": 4
+  },
+  {
+    "id": 2498,
+    "characters": "入り口",
+    "reading": "いりぐち",
+    "meaning": "Entrance",
+    "level": 1,
+    "srs_stage": 5
+  },
+  {
+    "id": 2508,
+    "characters": "土",
+    "reading": "つち",
+    "meaning": "Dirt",
+    "level": 2,
+    "srs_stage": 5
+  },
+  {
+    "id": 2572,
+    "characters": "正す",
+    "reading": "ただす",
+    "meaning": "To Correct",
+    "level": 2,
+    "srs_stage": 5
+  },
+  {
+    "id": 2595,
+    "characters": "今月",
+    "reading": "こんげつ",
+    "meaning": "This Month",
+    "level": 3,
+    "srs_stage": 5
+  },
+  {
+    "id": 2626,
+    "characters": "中古",
+    "reading": "ちゅうこ",
+    "meaning": "Secondhand",
+    "level": 3,
+    "srs_stage": 5
+  },
+  {
+    "id": 2576,
+    "characters": "生まれる",
+    "reading": "うまれる",
+    "meaning": "To Be Born",
+    "level": 3,
+    "srs_stage": 5
+  },
+  {
+    "id": 8961,
+    "characters": "口にする",
+    "reading": "くちにする",
+    "meaning": "To Mention",
+    "level": 4,
+    "srs_stage": 5
+  },
+  {
+    "id": 2671,
+    "characters": "気に入る",
+    "reading": "きにいる",
+    "meaning": "To Take A Liking",
+    "level": 4,
+    "srs_stage": 5
+  },
+  {
+    "id": 8694,
+    "characters": "大気",
+    "reading": "たいき",
+    "meaning": "Atmosphere",
+    "level": 4,
+    "srs_stage": 5
+  },
+  {
+    "id": 9238,
+    "characters": "上手い",
+    "reading": "うまい",
+    "meaning": "Good At",
+    "level": 5,
+    "srs_stage": 5
+  },
+  {
+    "id": 2494,
+    "characters": "下がる",
+    "reading": "さがる",
+    "meaning": "To Get Lower",
+    "level": 5,
+    "srs_stage": 5
+  },
+  {
+    "id": 8736,
+    "characters": "本来",
+    "reading": "ほんらい",
+    "meaning": "Originally",
+    "level": 5,
+    "srs_stage": 5
+  },
+  {
+    "id": 7670,
+    "characters": "仕草",
+    "reading": "しぐさ",
+    "meaning": "Gesture",
+    "level": 5,
+    "srs_stage": 5
+  },
+  {
+    "id": 2780,
+    "characters": "何千",
+    "reading": "なんぜん",
+    "meaning": "Thousands",
+    "level": 5,
+    "srs_stage": 5
+  },
+  {
+    "id": 2809,
+    "characters": "作文",
+    "reading": "さくぶん",
+    "meaning": "Composition",
+    "level": 5,
+    "srs_stage": 5
+  },
+  {
+    "id": 2724,
+    "characters": "写る",
+    "reading": "うつる",
+    "meaning": "To Be In A Photograph",
+    "level": 6,
+    "srs_stage": 5
+  },
+  {
+    "id": 2661,
+    "characters": "大文字",
+    "reading": "おおもじ",
+    "meaning": "Uppercase Letters",
+    "level": 6,
+    "srs_stage": 5
+  },
+  {
+    "id": 2880,
+    "characters": "出血",
+    "reading": "しゅっけつ",
+    "meaning": "Bleeding",
+    "level": 6,
+    "srs_stage": 5
+  },
+  {
+    "id": 7482,
+    "characters": "車両",
+    "reading": "しゃりょう",
+    "meaning": "Vehicle",
+    "level": 6,
+    "srs_stage": 5
+  },
+  {
+    "id": 9166,
+    "characters": "一千万",
+    "reading": "いっせんまん",
+    "meaning": "Ten Million",
+    "level": 6,
+    "srs_stage": 5
+  },
+  {
+    "id": 3422,
+    "characters": "手作り",
+    "reading": "てづくり",
+    "meaning": "Handmade",
+    "level": 7,
+    "srs_stage": 5
+  },
+  {
+    "id": 2720,
+    "characters": "代わる",
+    "reading": "かわる",
+    "meaning": "To Substitute For",
+    "level": 7,
+    "srs_stage": 5
+  },
+  {
+    "id": 6237,
+    "characters": "〜丁目",
+    "reading": "ちょうめ",
+    "meaning": "District Of A Town",
+    "level": 7,
+    "srs_stage": 5
+  },
+  {
+    "id": 9278,
+    "characters": "仕組み",
+    "reading": "しくみ",
+    "meaning": "System",
+    "level": 7,
+    "srs_stage": 5
+  },
+  {
+    "id": 4721,
+    "characters": "象",
+    "reading": "ぞう",
+    "meaning": "Elephant",
+    "level": 7,
+    "srs_stage": 5
+  },
+  {
+    "id": 9356,
+    "characters": "西日",
+    "reading": "にしび",
+    "meaning": "Afternoon Sun",
+    "level": 7,
+    "srs_stage": 5
+  },
+  {
+    "id": 3465,
+    "characters": "当てる",
+    "reading": "あてる",
+    "meaning": "To Guess",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 4848,
+    "characters": "前回",
+    "reading": "ぜんかい",
+    "meaning": "Last Time",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 3428,
+    "characters": "向こう",
+    "reading": "むこう",
+    "meaning": "Over There",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 2935,
+    "characters": "辺り",
+    "reading": "あたり",
+    "meaning": "Area",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 3004,
+    "characters": "君主国",
+    "reading": "くんしゅこく",
+    "meaning": "Monarchy",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 8814,
+    "characters": "投手",
+    "reading": "とうしゅ",
+    "meaning": "Pitcher",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 3014,
+    "characters": "役人",
+    "reading": "やくにん",
+    "meaning": "Public Official",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 3069,
+    "characters": "人数",
+    "reading": "にんずう",
+    "meaning": "The Number Of People",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 3051,
+    "characters": "答え",
+    "reading": "こたえ",
+    "meaning": "Answer",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 9372,
+    "characters": "夜明け",
+    "reading": "よあけ",
+    "meaning": "Dawn",
+    "level": 8,
+    "srs_stage": 5
+  },
+  {
+    "id": 2872,
+    "characters": "目次",
+    "reading": "もくじ",
+    "meaning": "Table Of Contents",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3483,
+    "characters": "高さ",
+    "reading": "たかさ",
+    "meaning": "Height",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 9078,
+    "characters": "交代",
+    "reading": "こうたい",
+    "meaning": "Change",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3471,
+    "characters": "気を付けて",
+    "reading": "きをつけて",
+    "meaning": "Be Careful",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3475,
+    "characters": "付く",
+    "reading": "つく",
+    "meaning": "To Be Attached",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3111,
+    "characters": "苦しい",
+    "reading": "くるしい",
+    "meaning": "Painful",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 7684,
+    "characters": "記事",
+    "reading": "きじ",
+    "meaning": "Article",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 4377,
+    "characters": "表す",
+    "reading": "あらわす",
+    "meaning": "To Express Something",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3135,
+    "characters": "発音",
+    "reading": "はつおん",
+    "meaning": "Pronunciation",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3136,
+    "characters": "発見",
+    "reading": "はっけん",
+    "meaning": "Discovery",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3118,
+    "characters": "部屋",
+    "reading": "へや",
+    "meaning": "Room",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 4163,
+    "characters": "受験",
+    "reading": "じゅけん",
+    "meaning": "Taking An Exam",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 3523,
+    "characters": "返す",
+    "reading": "かえす",
+    "meaning": "To Return Something",
+    "level": 9,
+    "srs_stage": 5
+  },
+  {
+    "id": 2870,
+    "characters": "次",
+    "reading": "つぎ",
+    "meaning": "Next",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 7535,
+    "characters": "思わず",
+    "reading": "おもわず",
+    "meaning": "Unintentionally",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3484,
+    "characters": "楽しみ",
+    "reading": "たのしみ",
+    "meaning": "Looking Forward To",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 7628,
+    "characters": "入院",
+    "reading": "にゅういん",
+    "meaning": "Hospitalization",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3172,
+    "characters": "転がる",
+    "reading": "ころがる",
+    "meaning": "To Roll",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3176,
+    "characters": "回転",
+    "reading": "かいてん",
+    "meaning": "Revolve",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3203,
+    "characters": "電鉄",
+    "reading": "でんてつ",
+    "meaning": "Electric Railway",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3227,
+    "characters": "頭",
+    "reading": "あたま",
+    "meaning": "Head",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3228,
+    "characters": "顔",
+    "reading": "かお",
+    "meaning": "Face",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3564,
+    "characters": "心配",
+    "reading": "しんぱい",
+    "meaning": "A Worry",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3179,
+    "characters": "進行",
+    "reading": "しんこう",
+    "meaning": "Advance",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3182,
+    "characters": "軽い",
+    "reading": "かるい",
+    "meaning": "Lightweight",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3236,
+    "characters": "最近",
+    "reading": "さいきん",
+    "meaning": "Recent",
+    "level": 10,
+    "srs_stage": 5
+  },
+  {
+    "id": 3507,
+    "characters": "苦しむ",
+    "reading": "くるしむ",
+    "meaning": "To Suffer",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 7745,
+    "characters": "心持ち",
+    "reading": "こころもち",
+    "meaning": "Feeling",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 2817,
+    "characters": "売り上げ",
+    "reading": "うりあげ",
+    "meaning": "Amount Sold",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 3482,
+    "characters": "仕返し",
+    "reading": "しかえし",
+    "meaning": "Getting Even",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 7493,
+    "characters": "丁度いい",
+    "reading": "ちょうどいい",
+    "meaning": "Just Right",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 7627,
+    "characters": "見物",
+    "reading": "けんぶつ",
+    "meaning": "Sightseeing",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 3240,
+    "characters": "競争",
+    "reading": "きょうそう",
+    "meaning": "Competition",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 3283,
+    "characters": "注文",
+    "reading": "ちゅうもん",
+    "meaning": "Order",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 3259,
+    "characters": "最低",
+    "reading": "さいてい",
+    "meaning": "The Lowest",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 7579,
+    "characters": "用意",
+    "reading": "ようい",
+    "meaning": "Preparation",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 7463,
+    "characters": "味方",
+    "reading": "みかた",
+    "meaning": "Ally",
+    "level": 11,
+    "srs_stage": 5
+  },
+  {
+    "id": 2779,
+    "characters": "北西",
+    "reading": "ほくせい",
+    "meaning": "Northwest",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3556,
+    "characters": "転ぶ",
+    "reading": "ころぶ",
+    "meaning": "To Fall Over",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 2721,
+    "characters": "一代",
+    "reading": "いちだい",
+    "meaning": "Lifetime",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 4073,
+    "characters": "取れる",
+    "reading": "とれる",
+    "meaning": "To Come Off",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3553,
+    "characters": "三番目",
+    "reading": "さんばんめ",
+    "meaning": "The Third Thing",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3551,
+    "characters": "父親",
+    "reading": "ちちおや",
+    "meaning": "Father",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3340,
+    "characters": "店員",
+    "reading": "てんいん",
+    "meaning": "Shop Staff",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3342,
+    "characters": "社員",
+    "reading": "しゃいん",
+    "meaning": "Employee",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3346,
+    "characters": "文章",
+    "reading": "ぶんしょう",
+    "meaning": "Writing",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3355,
+    "characters": "商売",
+    "reading": "しょうばい",
+    "meaning": "Business",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 7691,
+    "characters": "期間",
+    "reading": "きかん",
+    "meaning": "Period",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3368,
+    "characters": "球",
+    "reading": "たま",
+    "meaning": "Sphere",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3393,
+    "characters": "着る",
+    "reading": "きる",
+    "meaning": "To Wear",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 8747,
+    "characters": "湯",
+    "reading": "ゆ",
+    "meaning": "Hot Water",
+    "level": 12,
+    "srs_stage": 5
+  },
+  {
+    "id": 3573,
+    "characters": "体育",
+    "reading": "たいいく",
+    "meaning": "PE Class",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 6030,
+    "characters": "彼女",
+    "reading": "かのじょ",
+    "meaning": "She",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3394,
+    "characters": "着く",
+    "reading": "つく",
+    "meaning": "To Arrive",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 7576,
+    "characters": "中指",
+    "reading": "なかゆび",
+    "meaning": "Middle Finger",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 7637,
+    "characters": "学問",
+    "reading": "がくもん",
+    "meaning": "Schooling",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3903,
+    "characters": "整理",
+    "reading": "せいり",
+    "meaning": "Arrangement",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3630,
+    "characters": "水銀",
+    "reading": "すいぎん",
+    "meaning": "Mercury",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3627,
+    "characters": "輪",
+    "reading": "わ",
+    "meaning": "Ring",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3527,
+    "characters": "一億",
+    "reading": "いちおく",
+    "meaning": "One Hundred Million",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3598,
+    "characters": "暗殺",
+    "reading": "あんさつ",
+    "meaning": "Assassination",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 3623,
+    "characters": "課長",
+    "reading": "かちょう",
+    "meaning": "Section Manager",
+    "level": 13,
+    "srs_stage": 5
+  },
+  {
+    "id": 7688,
+    "characters": "待合",
+    "reading": "まちあい",
+    "meaning": "Waiting Room",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3489,
+    "characters": "間に合う",
+    "reading": "まにあう",
+    "meaning": "To Be In Time For",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3927,
+    "characters": "消化不良",
+    "reading": "しょうかふりょう",
+    "meaning": "Indigestion",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 7585,
+    "characters": "深さ",
+    "reading": "ふかさ",
+    "meaning": "Depth",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3650,
+    "characters": "消しゴム",
+    "reading": "けしごむ",
+    "meaning": "Eraser",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 6946,
+    "characters": "合わせる",
+    "reading": "あわせる",
+    "meaning": "To Join Together",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3497,
+    "characters": "知り合い",
+    "reading": "しりあい",
+    "meaning": "Acquaintance",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3710,
+    "characters": "料理",
+    "reading": "りょうり",
+    "meaning": "Cooking",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3657,
+    "characters": "例えば",
+    "reading": "たとえば",
+    "meaning": "For Example",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3689,
+    "characters": "望む",
+    "reading": "のぞむ",
+    "meaning": "To Wish",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3697,
+    "characters": "松",
+    "reading": "まつ",
+    "meaning": "Pine",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3678,
+    "characters": "女性",
+    "reading": "じょせい",
+    "meaning": "Female",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3660,
+    "characters": "協会",
+    "reading": "きょうかい",
+    "meaning": "Association",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3718,
+    "characters": "予約",
+    "reading": "よやく",
+    "meaning": "Reservation",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3693,
+    "characters": "材料",
+    "reading": "ざいりょう",
+    "meaning": "Ingredients",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3923,
+    "characters": "妥協",
+    "reading": "だきょう",
+    "meaning": "Compromise",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3667,
+    "characters": "雰囲気",
+    "reading": "ふんいき",
+    "meaning": "Atmosphere",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3728,
+    "characters": "骨",
+    "reading": "ほね",
+    "meaning": "Bone",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3723,
+    "characters": "芸能界",
+    "reading": "げいのうかい",
+    "meaning": "Show Business",
+    "level": 14,
+    "srs_stage": 5
+  },
+  {
+    "id": 3589,
+    "characters": "感想",
+    "reading": "かんそう",
+    "meaning": "Impressions",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 4218,
+    "characters": "比例",
+    "reading": "ひれい",
+    "meaning": "Being Proportional",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3900,
+    "characters": "指輪",
+    "reading": "ゆびわ",
+    "meaning": "Ring",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 9036,
+    "characters": "初耳",
+    "reading": "はつみみ",
+    "meaning": "Something Heard For The First Time",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3893,
+    "characters": "不器用",
+    "reading": "ぶきよう",
+    "meaning": "Clumsy",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3760,
+    "characters": "春休み",
+    "reading": "はるやすみ",
+    "meaning": "Spring Break",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3682,
+    "characters": "技能",
+    "reading": "ぎのう",
+    "meaning": "Skill",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3743,
+    "characters": "単に",
+    "reading": "たんに",
+    "meaning": "Simply",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3791,
+    "characters": "計画",
+    "reading": "けいかく",
+    "meaning": "Plan",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3758,
+    "characters": "式",
+    "reading": "しき",
+    "meaning": "Ceremony",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3795,
+    "characters": "飯",
+    "reading": "めし",
+    "meaning": "Meal",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 8751,
+    "characters": "昨年",
+    "reading": "さくねん",
+    "meaning": "Last Year",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 4464,
+    "characters": "解ける",
+    "reading": "とける",
+    "meaning": "To Be Solved",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 5715,
+    "characters": "了解",
+    "reading": "りょうかい",
+    "meaning": "Understanding",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 7277,
+    "characters": "丈夫",
+    "reading": "じょうぶ",
+    "meaning": "Sturdy",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3776,
+    "characters": "泣く",
+    "reading": "なく",
+    "meaning": "To Cry",
+    "level": 15,
+    "srs_stage": 5
+  },
+  {
+    "id": 3799,
+    "characters": "仮面",
+    "reading": "かめん",
+    "meaning": "Mask",
+    "level": 16,
+    "srs_stage": 5
+  },
+  {
+    "id": 2495,
+    "characters": "下げる",
+    "reading": "さげる",
+    "meaning": "To Lower Something",
+    "level": 1,
+    "srs_stage": 6
+  },
+  {
+    "id": 2699,
+    "characters": "見せる",
+    "reading": "みせる",
+    "meaning": "To Show",
+    "level": 4,
+    "srs_stage": 6
+  },
+  {
+    "id": 2648,
+    "characters": "先ず",
+    "reading": "まず",
+    "meaning": "First Of All",
+    "level": 4,
+    "srs_stage": 6
+  },
+  {
+    "id": 2652,
+    "characters": "先日",
+    "reading": "せんじつ",
+    "meaning": "The Other Day",
+    "level": 4,
+    "srs_stage": 6
+  },
+  {
+    "id": 2656,
+    "characters": "名字",
+    "reading": "みょうじ",
+    "meaning": "Surname",
+    "level": 4,
+    "srs_stage": 6
+  },
+  {
+    "id": 2739,
+    "characters": "不正",
+    "reading": "ふせい",
+    "meaning": "Injustice",
+    "level": 4,
+    "srs_stage": 6
+  },
+  {
+    "id": 4313,
+    "characters": "穴",
+    "reading": "あな",
+    "meaning": "Hole",
+    "level": 4,
+    "srs_stage": 6
+  },
+  {
+    "id": 2698,
+    "characters": "見える",
+    "reading": "みえる",
+    "meaning": "To Be Visible",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2556,
+    "characters": "出す",
+    "reading": "だす",
+    "meaning": "To Take Out",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2743,
+    "characters": "光",
+    "reading": "ひかり",
+    "meaning": "Light",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2746,
+    "characters": "日光",
+    "reading": "にっこう",
+    "meaning": "Sunlight",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2768,
+    "characters": "牛肉",
+    "reading": "ぎゅうにく",
+    "meaning": "Beef",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2794,
+    "characters": "林",
+    "reading": "はやし",
+    "meaning": "Forest",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2770,
+    "characters": "自分",
+    "reading": "じぶん",
+    "meaning": "Oneself",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 2811,
+    "characters": "工作",
+    "reading": "こうさく",
+    "meaning": "Handicraft",
+    "level": 5,
+    "srs_stage": 6
+  },
+  {
+    "id": 9282,
+    "characters": "十分",
+    "reading": "じゅうぶん",
+    "meaning": "Enough",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 3418,
+    "characters": "出来る",
+    "reading": "できる",
+    "meaning": "To Be Able To Do",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 3441,
+    "characters": "年上",
+    "reading": "としうえ",
+    "meaning": "Older",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 9155,
+    "characters": "他の人",
+    "reading": "ほかのひと",
+    "meaning": "Someone Else",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 3439,
+    "characters": "早口",
+    "reading": "はやくち",
+    "meaning": "Fast Talker",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2776,
+    "characters": "行う",
+    "reading": "おこなう",
+    "meaning": "To Carry Something Out",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2857,
+    "characters": "安全",
+    "reading": "あんぜん",
+    "meaning": "Safety",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2860,
+    "characters": "安心",
+    "reading": "あんしん",
+    "meaning": "Relief",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2849,
+    "characters": "土地",
+    "reading": "とち",
+    "meaning": "Land",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2901,
+    "characters": "歩く",
+    "reading": "あるく",
+    "meaning": "To Walk",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2868,
+    "characters": "有る",
+    "reading": "ある",
+    "meaning": "To Have",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2911,
+    "characters": "後ろ",
+    "reading": "うしろ",
+    "meaning": "Behind",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 2920,
+    "characters": "科学",
+    "reading": "かがく",
+    "meaning": "Science",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 7674,
+    "characters": "活気",
+    "reading": "かっき",
+    "meaning": "Energy",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 7733,
+    "characters": "活用",
+    "reading": "かつよう",
+    "meaning": "Utilizing",
+    "level": 6,
+    "srs_stage": 6
+  },
+  {
+    "id": 3448,
+    "characters": "青空",
+    "reading": "あおぞら",
+    "meaning": "Blue Sky",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 2974,
+    "characters": "地理",
+    "reading": "ちり",
+    "meaning": "Geography",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 2943,
+    "characters": "必ず",
+    "reading": "かならず",
+    "meaning": "Surely",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 4849,
+    "characters": "時代",
+    "reading": "じだい",
+    "meaning": "Period",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 2948,
+    "characters": "年末",
+    "reading": "ねんまつ",
+    "meaning": "Year End",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 2977,
+    "characters": "風船",
+    "reading": "ふうせん",
+    "meaning": "Balloon",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 9350,
+    "characters": "北国",
+    "reading": "きたぐに",
+    "meaning": "Northern Country",
+    "level": 7,
+    "srs_stage": 6
+  },
+  {
+    "id": 7459,
+    "characters": "地上",
+    "reading": "ちじょう",
+    "meaning": "Above Ground",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 7530,
+    "characters": "向ける",
+    "reading": "むける",
+    "meaning": "To Turn Something Towards",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3457,
+    "characters": "この前",
+    "reading": "このまえ",
+    "meaning": "The Other Day",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 2761,
+    "characters": "池",
+    "reading": "いけ",
+    "meaning": "Pond",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 2997,
+    "characters": "助ける",
+    "reading": "たすける",
+    "meaning": "To Help",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3057,
+    "characters": "〜道",
+    "reading": "どう",
+    "meaning": "Method Of",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3043,
+    "characters": "住所",
+    "reading": "じゅうしょ",
+    "meaning": "Address",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3075,
+    "characters": "電話",
+    "reading": "でんわ",
+    "meaning": "Telephone",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3068,
+    "characters": "数学",
+    "reading": "すうがく",
+    "meaning": "Mathematics",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3031,
+    "characters": "作者",
+    "reading": "さくしゃ",
+    "meaning": "Author",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3032,
+    "characters": "学者",
+    "reading": "がくしゃ",
+    "meaning": "Scholar",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 3035,
+    "characters": "場所",
+    "reading": "ばしょ",
+    "meaning": "Place",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 9355,
+    "characters": "北風",
+    "reading": "きたかぜ",
+    "meaning": "North Wind",
+    "level": 8,
+    "srs_stage": 6
+  },
+  {
+    "id": 2984,
+    "characters": "海魚",
+    "reading": "うみざかな",
+    "meaning": "Ocean Fish",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 9300,
+    "characters": "十分間",
+    "reading": "じゅっぷんかん",
+    "meaning": "Ten Minutes",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 9261,
+    "characters": "下る",
+    "reading": "くだる",
+    "meaning": "To Descend",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3429,
+    "characters": "曲がる",
+    "reading": "まがる",
+    "meaning": "To Be Bent",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3466,
+    "characters": "交わる",
+    "reading": "まじわる",
+    "meaning": "To Intersect",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3514,
+    "characters": "白黒",
+    "reading": "しろくろ",
+    "meaning": "Black And White",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 9237,
+    "characters": "立場",
+    "reading": "たちば",
+    "meaning": "Standpoint",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3085,
+    "characters": "大事",
+    "reading": "だいじ",
+    "meaning": "Important",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3088,
+    "characters": "使う",
+    "reading": "つかう",
+    "meaning": "To Use",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 4219,
+    "characters": "対比",
+    "reading": "たいひ",
+    "meaning": "Contrast",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 4150,
+    "characters": "試食",
+    "reading": "ししょく",
+    "meaning": "Food Sample",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 4376,
+    "characters": "発表",
+    "reading": "はっぴょう",
+    "meaning": "Announcement",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 7682,
+    "characters": "何度",
+    "reading": "なんど",
+    "meaning": "How Many Times",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3103,
+    "characters": "事実",
+    "reading": "じじつ",
+    "meaning": "Fact",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 4164,
+    "characters": "実験",
+    "reading": "じっけん",
+    "meaning": "Experiment",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3155,
+    "characters": "要点",
+    "reading": "ようてん",
+    "meaning": "Main Point",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 7460,
+    "characters": "全部",
+    "reading": "ぜんぶ",
+    "meaning": "All",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3148,
+    "characters": "送る",
+    "reading": "おくる",
+    "meaning": "To Send Something",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 9351,
+    "characters": "南国",
+    "reading": "なんごく",
+    "meaning": "Tropical Country",
+    "level": 9,
+    "srs_stage": 6
+  },
+  {
+    "id": 3487,
+    "characters": "近道",
+    "reading": "ちかみち",
+    "meaning": "Shortcut",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 8741,
+    "characters": "部首",
+    "reading": "ぶしゅ",
+    "meaning": "Radical",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3491,
+    "characters": "楽しむ",
+    "reading": "たのしむ",
+    "meaning": "To Enjoy Something",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3494,
+    "characters": "化かす",
+    "reading": "ばかす",
+    "meaning": "To Bewitch",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 9306,
+    "characters": "一ヶ所",
+    "reading": "いっかしょ",
+    "meaning": "One Place",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 8962,
+    "characters": "山道",
+    "reading": "やまみち",
+    "meaning": "Mountain Road",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3485,
+    "characters": "〜向け",
+    "reading": "むけ",
+    "meaning": "Made For",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 7472,
+    "characters": "速い",
+    "reading": "はやい",
+    "meaning": "Fast",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3217,
+    "characters": "鳴く",
+    "reading": "なく",
+    "meaning": "To Make An Animal Sound",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3224,
+    "characters": "親しい",
+    "reading": "したしい",
+    "meaning": "Intimate",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 4379,
+    "characters": "曲線",
+    "reading": "きょくせん",
+    "meaning": "Curve",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 7575,
+    "characters": "病む",
+    "reading": "やむ",
+    "meaning": "To Get Sick",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3195,
+    "characters": "道路",
+    "reading": "どうろ",
+    "meaning": "Paved Road",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3185,
+    "characters": "開ける",
+    "reading": "あける",
+    "meaning": "To Open Something",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 4375,
+    "characters": "開始",
+    "reading": "かいし",
+    "meaning": "Start",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3180,
+    "characters": "落ちる",
+    "reading": "おちる",
+    "meaning": "To Fall Down",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 4465,
+    "characters": "解決",
+    "reading": "かいけつ",
+    "meaning": "Solving",
+    "level": 10,
+    "srs_stage": 6
+  },
+  {
+    "id": 3039,
+    "characters": "入所",
+    "reading": "にゅうしょ",
+    "meaning": "Admission",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3213,
+    "characters": "物語",
+    "reading": "ものがたり",
+    "meaning": "Tale",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 4148,
+    "characters": "試す",
+    "reading": "ためす",
+    "meaning": "To Try Something Out",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 7631,
+    "characters": "平仮名",
+    "reading": "ひらがな",
+    "meaning": "Hiragana",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 2819,
+    "characters": "売り手",
+    "reading": "うりて",
+    "meaning": "Seller",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3502,
+    "characters": "負け犬",
+    "reading": "まけいぬ",
+    "meaning": "Loser",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3245,
+    "characters": "伝える",
+    "reading": "つたえる",
+    "meaning": "To Convey",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 8815,
+    "characters": "伝記",
+    "reading": "でんき",
+    "meaning": "Biography",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3297,
+    "characters": "神",
+    "reading": "かみ",
+    "meaning": "God",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3298,
+    "characters": "神道",
+    "reading": "しんとう",
+    "meaning": "Shinto",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3288,
+    "characters": "指す",
+    "reading": "さす",
+    "meaning": "To Point",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3275,
+    "characters": "命令",
+    "reading": "めいれい",
+    "meaning": "Order",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3281,
+    "characters": "注ぐ",
+    "reading": "そそぐ",
+    "meaning": "To Pour",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3286,
+    "characters": "教育",
+    "reading": "きょういく",
+    "meaning": "Education",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3315,
+    "characters": "便所",
+    "reading": "べんじょ",
+    "meaning": "Restroom",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3287,
+    "characters": "拾う",
+    "reading": "ひろう",
+    "meaning": "To Pick Something Up",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 3249,
+    "characters": "共有",
+    "reading": "きょうゆう",
+    "meaning": "Shared",
+    "level": 11,
+    "srs_stage": 6
+  },
+  {
+    "id": 7635,
+    "characters": "落ち",
+    "reading": "おち",
+    "meaning": "Conclusion",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 8933,
+    "characters": "苦しめる",
+    "reading": "くるしめる",
+    "meaning": "To Hurt Someone",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3950,
+    "characters": "運",
+    "reading": "うん",
+    "meaning": "Luck",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 7693,
+    "characters": "集まり",
+    "reading": "あつまり",
+    "meaning": "Gathering",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3561,
+    "characters": "開く",
+    "reading": "あく",
+    "meaning": "To Open",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3567,
+    "characters": "勝手",
+    "reading": "かって",
+    "meaning": "As One Pleases",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3560,
+    "characters": "終電",
+    "reading": "しゅうでん",
+    "meaning": "Last Train",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3332,
+    "characters": "大根",
+    "reading": "だいこん",
+    "meaning": "Daikon",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 7581,
+    "characters": "船員",
+    "reading": "せんいん",
+    "meaning": "Sailor",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3333,
+    "characters": "流す",
+    "reading": "ながす",
+    "meaning": "To Flush Something",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3335,
+    "characters": "一流",
+    "reading": "いちりゅう",
+    "meaning": "First Rate",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3321,
+    "characters": "家庭",
+    "reading": "かてい",
+    "meaning": "Family",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3361,
+    "characters": "家族",
+    "reading": "かぞく",
+    "meaning": "Family",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3357,
+    "characters": "悪い",
+    "reading": "わるい",
+    "meaning": "Bad",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3367,
+    "characters": "最深",
+    "reading": "さいしん",
+    "meaning": "Deepest",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 4847,
+    "characters": "気温",
+    "reading": "きおん",
+    "meaning": "Temperature",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3369,
+    "characters": "野球",
+    "reading": "やきゅう",
+    "meaning": "Baseball",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3424,
+    "characters": "合う",
+    "reading": "あう",
+    "meaning": "To Suit",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3398,
+    "characters": "短い",
+    "reading": "みじかい",
+    "meaning": "Short",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 9358,
+    "characters": "大西洋",
+    "reading": "たいせいよう",
+    "meaning": "Atlantic Ocean",
+    "level": 12,
+    "srs_stage": 6
+  },
+  {
+    "id": 3292,
+    "characters": "洋風",
+    "reading": "ようふう",
+    "meaning": "Western Style",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3515,
+    "characters": "酒好き",
+    "reading": "さけずき",
+    "meaning": "Drinker",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 9245,
+    "characters": "空く",
+    "reading": "あく",
+    "meaning": "To Become Empty",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3312,
+    "characters": "仲良く",
+    "reading": "なかよく",
+    "meaning": "Friendly",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3554,
+    "characters": "見返る",
+    "reading": "みかえる",
+    "meaning": "To Look Back At",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3570,
+    "characters": "神風",
+    "reading": "かみかぜ",
+    "meaning": "Kamikaze",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3646,
+    "characters": "駅長",
+    "reading": "えきちょう",
+    "meaning": "Station Master",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3530,
+    "characters": "問題",
+    "reading": "もんだい",
+    "meaning": "Problem",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3636,
+    "characters": "話題",
+    "reading": "わだい",
+    "meaning": "Topic",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3535,
+    "characters": "食器",
+    "reading": "しょっき",
+    "meaning": "Tableware",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3610,
+    "characters": "自然",
+    "reading": "しぜん",
+    "meaning": "Nature",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3614,
+    "characters": "熱心",
+    "reading": "ねっしん",
+    "meaning": "Enthusiasm",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3640,
+    "characters": "養子",
+    "reading": "ようし",
+    "meaning": "Adopted Child",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3539,
+    "characters": "事情",
+    "reading": "じじょう",
+    "meaning": "Circumstances",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3590,
+    "characters": "感謝",
+    "reading": "かんしゃ",
+    "meaning": "Thanks",
+    "level": 13,
+    "srs_stage": 6
+  },
+  {
+    "id": 3642,
+    "characters": "本館",
+    "reading": "ほんかん",
+    "meaning": "Main Building",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 9243,
+    "characters": "行",
+    "reading": "ぎょう",
+    "meaning": "Line of Text",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3034,
+    "characters": "場合",
+    "reading": "ばあい",
+    "meaning": "Case",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3652,
+    "characters": "山登り",
+    "reading": "やまのぼり",
+    "meaning": "Mountain Climbing",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3881,
+    "characters": "消える",
+    "reading": "きえる",
+    "meaning": "To Disappear",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 8954,
+    "characters": "温まる",
+    "reading": "あたたまる",
+    "meaning": "To Warm Up",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 7739,
+    "characters": "具合",
+    "reading": "ぐあい",
+    "meaning": "Condition",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3798,
+    "characters": "落ち着く",
+    "reading": "おちつく",
+    "meaning": "To Calm Down",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3897,
+    "characters": "良好",
+    "reading": "りょうこう",
+    "meaning": "Good",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3685,
+    "characters": "折角",
+    "reading": "せっかく",
+    "meaning": "With Trouble",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3687,
+    "characters": "失望",
+    "reading": "しつぼう",
+    "meaning": "Disappointment",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3675,
+    "characters": "念願",
+    "reading": "ねんがん",
+    "meaning": "Heart's Desire",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 5619,
+    "characters": "閉店",
+    "reading": "へいてん",
+    "meaning": "Store Closed",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3663,
+    "characters": "一周",
+    "reading": "いっしゅう",
+    "meaning": "One Time Around",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3665,
+    "characters": "周年",
+    "reading": "しゅうねん",
+    "meaning": "Anniversary",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 7584,
+    "characters": "周り",
+    "reading": "まわり",
+    "meaning": "Circumference",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3695,
+    "characters": "束",
+    "reading": "たば",
+    "meaning": "Bundle",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 3696,
+    "characters": "約束",
+    "reading": "やくそく",
+    "meaning": "Promise",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 8749,
+    "characters": "本能",
+    "reading": "ほんのう",
+    "meaning": "Instinct",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 7752,
+    "characters": "意図的",
+    "reading": "いとてき",
+    "meaning": "Intentional",
+    "level": 14,
+    "srs_stage": 6
+  },
+  {
+    "id": 7544,
+    "characters": "伝",
+    "reading": "つて",
+    "meaning": "Intermediary",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 9249,
+    "characters": "下りる",
+    "reading": "おりる",
+    "meaning": "To Go Down",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 9066,
+    "characters": "由来",
+    "reading": "ゆらい",
+    "meaning": "Origin",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 9244,
+    "characters": "疑う",
+    "reading": "うたがう",
+    "meaning": "To Doubt",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 9049,
+    "characters": "乗客",
+    "reading": "じょうきゃく",
+    "meaning": "Passenger",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3754,
+    "characters": "岩",
+    "reading": "いわ",
+    "meaning": "Boulder",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3759,
+    "characters": "春",
+    "reading": "はる",
+    "meaning": "Spring",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 7543,
+    "characters": "列",
+    "reading": "れつ",
+    "meaning": "Line",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3681,
+    "characters": "技",
+    "reading": "わざ",
+    "meaning": "Technique",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3683,
+    "characters": "特技",
+    "reading": "とくぎ",
+    "meaning": "Specialty",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3744,
+    "characters": "単語",
+    "reading": "たんご",
+    "meaning": "Word",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3792,
+    "characters": "計算",
+    "reading": "けいさん",
+    "meaning": "Calculation",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3761,
+    "characters": "昨今",
+    "reading": "さっこん",
+    "meaning": "These Days",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3932,
+    "characters": "変事",
+    "reading": "へんじ",
+    "meaning": "Unexpected Incident",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3735,
+    "characters": "信心",
+    "reading": "しんじん",
+    "meaning": "Faith",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3731,
+    "characters": "大仏",
+    "reading": "だいぶつ",
+    "meaning": "Giant Buddha Statue",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3777,
+    "characters": "浅い",
+    "reading": "あさい",
+    "meaning": "Shallow",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 7280,
+    "characters": "頑丈",
+    "reading": "がんじょう",
+    "meaning": "Solid",
+    "level": 15,
+    "srs_stage": 6
+  },
+  {
+    "id": 3453,
+    "characters": "見直す",
+    "reading": "みなおす",
+    "meaning": "To Reevaluate",
+    "level": 16,
+    "srs_stage": 6
+  },
+  {
+    "id": 9302,
+    "characters": "首相",
+    "reading": "しゅしょう",
+    "meaning": "Prime Minister",
+    "level": 16,
+    "srs_stage": 6
+  },
+  {
+    "id": 3584,
+    "characters": "待合室",
+    "reading": "まちあいしつ",
+    "meaning": "Waiting Room",
+    "level": 16,
+    "srs_stage": 6
+  },
+  {
+    "id": 7483,
+    "characters": "実感",
+    "reading": "じっかん",
+    "meaning": "Realization",
+    "level": 21,
+    "srs_stage": 6
+  }
+]

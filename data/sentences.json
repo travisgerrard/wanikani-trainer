@@ -1,0 +1,346 @@
+[
+  {
+    "subject_id": 7677,
+    "word": "見当たる",
+    "reading": "みあたる",
+    "meaning": "To Be Found",
+    "level": 7,
+    "sentences": [
+      {
+        "japanese": "探していた鍵がやっと見当たった。",
+        "english": "The key I was looking for was finally found."
+      },
+      {
+        "japanese": "良いアイデアが見当たらない。",
+        "english": "I can't find a good idea."
+      }
+    ]
+  },
+  {
+    "subject_id": 2930,
+    "word": "自由",
+    "reading": "じゆう",
+    "meaning": "Freedom",
+    "level": 7,
+    "sentences": [
+      {
+        "japanese": "学校から帰ったら、自分の部屋で自由に遊びたい。",
+        "english": "After coming home from school, I want to play freely in my room."
+      },
+      {
+        "japanese": "この町には規則がない！完全な自由だ！ everyone, let's dance!",
+        "english": "This town has no rules! It's complete freedom! Everyone, let's dance!"
+      }
+    ]
+  },
+  {
+    "subject_id": 2700,
+    "word": "見分ける",
+    "reading": "みわける",
+    "meaning": "To Distinguish",
+    "level": 8,
+    "sentences": [
+      {
+        "japanese": "この二つのペンを(色)で見分けてください。",
+        "english": "Please distinguish these two pens by color."
+      },
+      {
+        "japanese": "今日の昼ごはん、牛肉と豚肉どちらが(味)で見分けられますか？",
+        "english": "Today's lunch, can you tell the difference between beef and pork by taste?"
+      }
+    ]
+  },
+  {
+    "subject_id": 3476,
+    "word": "見付ける",
+    "reading": "みつける",
+    "meaning": "To Find",
+    "level": 9,
+    "sentences": [
+      {
+        "japanese": "図書館で面白い本をみつけました。",
+        "english": "I found an interesting book at the library."
+      },
+      {
+        "japanese": "迷子の子供をみつけて、涙が止まらなかったです。",
+        "english": "When I found a lost child, I couldn't stop crying."
+      }
+    ]
+  },
+  {
+    "subject_id": 9386,
+    "word": "直前",
+    "reading": "ちょくぜん",
+    "meaning": "Just Before",
+    "level": 11,
+    "sentences": [
+      {
+        "japanese": "直前(ちょくぜん)に、スマホを落としたので、画面が割れました。",
+        "english": "I just dropped my smartphone right before, so the screen cracked!"
+      },
+      {
+        "japanese": "直前(ちょくぜん)に、レストランの予約を確認しましたか？",
+        "english": "Did you check your reservation at the restaurant just now?"
+      },
+      {
+        "japanese": "試験の直前(ちょくぜん)、友達から「頑張って！」とメッセージをもらったら、突然、猫が机に飛び乗ってきて、全然集中できませんでした。",
+        "english": "Right before the exam, my friend sent me a message saying \"Do your best!\", but then suddenly a cat jumped onto my desk and I couldn't concentrate at all!"
+      }
+    ]
+  },
+  {
+    "subject_id": 3365,
+    "word": "深夜",
+    "reading": "しんや",
+    "meaning": "Middle Of The Night",
+    "level": 12,
+    "sentences": [
+      {
+        "japanese": "深夜に、静かに家へ帰りました。",
+        "english": "I quietly returned home late at night."
+      },
+      {
+        "japanese": "なぜ深夜の公園で泣いているのか？ あなたの恋人と別れたのですか？",
+        "english": "Why are you crying in the park so late at night? Did you break up with your lover?"
+      }
+    ]
+  },
+  {
+    "subject_id": 3576,
+    "word": "育てる",
+    "reading": "そだてる",
+    "meaning": "To Bring Up",
+    "level": 13,
+    "sentences": [
+      {
+        "japanese": "私は子どもを育てるのが大好きです。",
+        "english": "I love bringing up children."
+      },
+      {
+        "japanese": "この犬は私に育ててもらって、世界一強くなりたいです！",
+        "english": "This dog wants me to bring it up so that it can become the strongest in the world!"
+      }
+    ]
+  },
+  {
+    "subject_id": 2828,
+    "word": "外来",
+    "reading": "がいらい",
+    "meaning": "Outpatient",
+    "level": 16,
+    "sentences": [
+      {
+        "japanese": "今日の外来 (がいらい) は10時から始まります。",
+        "english": "Today's outpatient clinic starts at 10 AM."
+      },
+      {
+        "japanese": "外来 (がいらい) の待ち時間は長かったけど、 finally 医者 (いしゃ) に見てもらえてホッとした！",
+        "english": "The waiting time in the outpatient clinic was long, but I finally got to see a doctor and felt relieved!"
+      }
+    ]
+  },
+  {
+    "subject_id": 2587,
+    "word": "立てる",
+    "reading": "たてる",
+    "meaning": "To Stand Something Up",
+    "level": 5,
+    "sentences": [
+      {
+        "japanese": "今、テーブルに椅子を立てています。",
+        "english": "I'm standing chairs up on the table now."
+      },
+      {
+        "japanese": "この映画では、巨大なロボットが町を立てた！ everyone is in shock!",
+        "english": "In this movie, a giant robot stood up (the town) and everyone was shocked!"
+      }
+    ]
+  },
+  {
+    "subject_id": 8662,
+    "word": "海王星",
+    "reading": "かいおうせい",
+    "meaning": "Neptune",
+    "level": 7,
+    "sentences": [
+      {
+        "japanese": "夜空に海王星が見えます。",
+        "english": "Neptune can be seen in the night sky."
+      },
+      {
+        "japanese": "海王星が地球を襲う日、私たちは準備ができているか？",
+        "english": "When Neptune attacks Earth, will we be prepared?"
+      }
+    ]
+  },
+  {
+    "subject_id": 3222,
+    "word": "調べる",
+    "reading": "しらべる",
+    "meaning": "To Investigate",
+    "level": 10,
+    "sentences": [
+      {
+        "japanese": "今日、図書館に行って本を調べます。",
+        "english": "Today, I will go to the library and investigate books."
+      },
+      {
+        "japanese": "この謎(なぞ)の食べ物は何(なん)なのか、命がけで調べます！",
+        "english": "I will investigate this mysterious food with my life on the line!"
+      }
+    ]
+  },
+  {
+    "subject_id": 3196,
+    "word": "線路",
+    "reading": "せんろ",
+    "meaning": "Railroad Track",
+    "level": 10,
+    "sentences": [
+      {
+        "japanese": "線路の近くに住んでいると、電車がよく通るので便利です。",
+        "english": "Living near railroad tracks is convenient because trains often pass by."
+      },
+      {
+        "japanese": "線路から飛び出した猫が、突如として電車に乗り込んだら、誰もが驚くでしょう !",
+        "english": "If a cat that jumped out from the railroad track suddenly got on a train, everyone would be surprised!"
+      }
+    ]
+  },
+  {
+    "subject_id": 9384,
+    "word": "直線",
+    "reading": "ちょくせん",
+    "meaning": "Straight Line",
+    "level": 10,
+    "sentences": [
+      {
+        "japanese": "道に直線の白い線が引いてあります。",
+        "english": "There are straight white lines drawn on the road."
+      },
+      {
+        "japanese": "今、私たちの愛は直線ではなく曲線だ！(曲線 means curve)",
+        "english": "Now, our love is not a straight line but a curve!"
+      }
+    ]
+  },
+  {
+    "subject_id": 3251,
+    "word": "友好",
+    "reading": "ゆうこう",
+    "meaning": "Friendship",
+    "level": 11,
+    "sentences": [
+      {
+        "japanese": "友好な関係を築くために、相手の意見にも興味を持ちましょう。",
+        "english": "To build a friendly relationship, try to be interested in others' opinions as well."
+      },
+      {
+        "japanese": "今日の試合で、チームはとても友好な態度を見せましたが、結果は0対9の大敗だった！",
+        "english": "The team showed very friendly attitudes today's game, but the result was a humiliating 0-9 loss!"
+      }
+    ]
+  },
+  {
+    "subject_id": 3603,
+    "word": "目標",
+    "reading": "もくひょう",
+    "meaning": "Goal",
+    "level": 13,
+    "sentences": [
+      {
+        "japanese": "来年、新しい目標を設定するつもりです。",
+        "english": "Next year, I plan to set a new goal."
+      },
+      {
+        "japanese": "今日の目標は、一週間で日本語が上手になれることだ！でも、 probably not...",
+        "english": "Today's goal is to become good at Japanese in a week! But probably not..."
+      }
+    ]
+  },
+  {
+    "subject_id": 3661,
+    "word": "協力",
+    "reading": "きょうりょく",
+    "meaning": "Cooperation",
+    "level": 14,
+    "sentences": [
+      {
+        "japanese": "仕事で困っていたら、同僚が協力してくれました。",
+        "english": "When I was stuck at work, my coworker helped me out."
+      },
+      {
+        "japanese": "このゲームでは、友達と協力してドラゴンを倒さないといけません！でも、 частенько我が家の猫ちゃんが「協力」って言うのが面白いです。",
+        "english": "In this game, you must cooperate with your friends to defeat the dragon! But my family cat often says \"cooperation\" (きょうりょく) in a funny way."
+      }
+    ]
+  },
+  {
+    "subject_id": 3702,
+    "word": "格好",
+    "reading": "かっこう",
+    "meaning": "Shape",
+    "level": 14,
+    "sentences": [
+      {
+        "japanese": "このバッグの(格好)が気に入った。",
+        "english": "I like the shape of this bag."
+      },
+      {
+        "japanese": "そのネコは、月光の中、とても(格好)よく見えた。",
+        "english": "That cat looked very stylish in the moonlight."
+      }
+    ]
+  },
+  {
+    "subject_id": 3775,
+    "word": "不法",
+    "reading": "ふほう",
+    "meaning": "Illegal",
+    "level": 15,
+    "sentences": [
+      {
+        "japanese": "彼は不法な駐車をして、警察に捕まった。",
+        "english": "He was arrested for illegal parking."
+      },
+      {
+        "japanese": "不法な魔法使いが街中でダンスパーティーを開いている！誰か止めてください！",
+        "english": "An illegal sorcerer is holding a dance party in the middle of town! Please, someone stop him!"
+      }
+    ]
+  },
+  {
+    "subject_id": 3801,
+    "word": "保守的",
+    "reading": "ほしゅてき",
+    "meaning": "Conservative",
+    "level": 16,
+    "sentences": [
+      {
+        "japanese": "彼は政治の問題で(ほしゅてきな)考え方をすることが多いです。",
+        "english": "He tends to have conservative views on political issues."
+      },
+      {
+        "japanese": "あの人、保守的すぎて、iPhoneも使ってないんです！スマホの時代に、まだiPod使ってるんだもん…",
+        "english": "That person is so conservative, they don’t even use iPhones! In the smartphone era, they’re still using an iPod…"
+      }
+    ]
+  },
+  {
+    "subject_id": 3547,
+    "word": "同感",
+    "reading": "どうかん",
+    "meaning": "Agreement",
+    "level": 20,
+    "sentences": [
+      {
+        "japanese": "あなたの意見に同感(どうかん)します。",
+        "english": "I agree with your opinion."
+      },
+      {
+        "japanese": "このパーティーがつまらないと gesagt? 同感です！全員でバンジージャンプに行きましょう！",
+        "english": "You said this party is boring? Me too! Let's all go bungee jumping!"
+      }
+    ]
+  }
+]

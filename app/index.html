@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaniKani Prediction Trainer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #00d4ff;
+            font-size: 1.5rem;
+        }
+        .card {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+        .sentence {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 80px;
+        }
+        .sentence .blank {
+            background: #00d4ff33;
+            border-radius: 4px;
+            padding: 2px 12px;
+            border-bottom: 3px solid #00d4ff;
+        }
+        .english {
+            color: #888;
+            font-size: 1rem;
+            text-align: center;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        .word-info {
+            text-align: center;
+            margin: 20px 0;
+            padding: 16px;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+        .word-info .kanji {
+            font-size: 2.5rem;
+            color: #00d4ff;
+        }
+        .word-info .reading {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+        .word-info .meaning {
+            font-size: 1rem;
+            color: #fff;
+            margin-top: 8px;
+        }
+        .timer {
+            text-align: center;
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin: 20px 0;
+        }
+        .timer.ready {
+            color: #4ecdc4;
+        }
+        .instruction {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px 0;
+            transition: all 0.2s;
+        }
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .reveal-btn {
+            background: #00d4ff;
+            color: #1a1a2e;
+        }
+        .reveal-btn:hover:not(:disabled) {
+            background: #00a8cc;
+        }
+        .rating-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .rating-btns button {
+            flex: 1;
+        }
+        .easy { background: #4ecdc4; color: #1a1a2e; }
+        .medium { background: #ffe66d; color: #1a1a2e; }
+        .hard { background: #ff6b6b; color: #fff; }
+        .progress {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        .hidden { display: none; }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 16px;
+            background: #0f3460;
+            border-radius: 8px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            color: #00d4ff;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+        }
+        .no-data p {
+            color: #888;
+        }
+        code {
+            background: #0f3460;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>WaniKani Prediction Trainer</h1>
+
+    <div id="no-data" class="card no-data hidden">
+        <h2>No data found</h2>
+        <p>Run these commands first:</p>
+        <p><code>python fetch_vocab.py</code></p>
+        <p><code>python generate_sentences.py --limit 20</code></p>
+        <p>Then refresh this page.</p>
+    </div>
+
+    <div id="app" class="hidden">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="completed">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="remaining">0</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="accuracy">-</div>
+                <div class="stat-label">Easy %</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="instruction" id="phase-instruction">Try to predict the missing word...</p>
+
+            <div class="sentence" id="sentence"></div>
+            <div class="english hidden" id="english"></div>
+
+            <div id="timer-section">
+                <div class="timer" id="timer">3</div>
+                <p class="instruction">Think about what word fits here...</p>
+            </div>
+
+            <div id="reveal-section" class="hidden">
+                <button class="reveal-btn" id="reveal-btn">Reveal Answer</button>
+            </div>
+
+            <div id="answer-section" class="hidden">
+                <div class="word-info">
+                    <div class="kanji" id="answer-word"></div>
+                    <div class="reading" id="answer-reading"></div>
+                    <div class="meaning" id="answer-meaning"></div>
+                </div>
+
+                <p class="instruction">How was your prediction?</p>
+                <div class="rating-btns">
+                    <button class="easy" onclick="rate('easy')">Easy</button>
+                    <button class="medium" onclick="rate('medium')">Medium</button>
+                    <button class="hard" onclick="rate('hard')">Hard</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <div id="complete" class="card hidden">
+        <h2 style="text-align: center; color: #4ecdc4;">Session Complete!</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="final-total">0</div>
+                <div class="stat-label">Practiced</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="final-easy">0</div>
+                <div class="stat-label">Easy</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="final-hard">0</div>
+                <div class="stat-label">Hard</div>
+            </div>
+        </div>
+        <button class="reveal-btn" onclick="restart()">Practice Again</button>
+    </div>
+
+    <script>
+        let data = [];
+        let currentIndex = 0;
+        let currentSentenceIndex = 0;
+        let stats = { easy: 0, medium: 0, hard: 0 };
+        let timerInterval = null;
+
+        // Load data
+        async function loadData() {
+            try {
+                const response = await fetch('../data/sentences.json');
+                if (!response.ok) throw new Error('No data');
+                data = await response.json();
+
+                // Filter to only items with sentences
+                data = data.filter(item => item.sentences && item.sentences.length > 0);
+
+                // Shuffle for variety
+                data = data.sort(() => Math.random() - 0.5);
+
+                if (data.length === 0) throw new Error('No sentences');
+
+                document.getElementById('no-data').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                updateStats();
+                showCard();
+            } catch (e) {
+                document.getElementById('no-data').classList.remove('hidden');
+                document.getElementById('app').classList.add('hidden');
+            }
+        }
+
+        function updateStats() {
+            const completed = stats.easy + stats.medium + stats.hard;
+            const total = data.reduce((sum, item) => sum + item.sentences.length, 0);
+            const remaining = total - completed;
+
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('remaining').textContent = remaining;
+
+            if (completed > 0) {
+                const easyPct = Math.round((stats.easy / completed) * 100);
+                document.getElementById('accuracy').textContent = easyPct + '%';
+            }
+        }
+
+        function getCurrentItem() {
+            if (currentIndex >= data.length) return null;
+            return data[currentIndex];
+        }
+
+        function getCurrentSentence() {
+            const item = getCurrentItem();
+            if (!item) return null;
+            return item.sentences[currentSentenceIndex];
+        }
+
+        function showCard() {
+            const item = getCurrentItem();
+            if (!item) {
+                showComplete();
+                return;
+            }
+
+            const sentence = getCurrentSentence();
+            if (!sentence) {
+                // Move to next word
+                currentIndex++;
+                currentSentenceIndex = 0;
+                showCard();
+                return;
+            }
+
+            // Show sentence with blank
+            const blankSentence = sentence.japanese.replace(
+                item.word,
+                `<span class="blank">???</span>`
+            );
+            document.getElementById('sentence').innerHTML = blankSentence;
+            document.getElementById('english').textContent = sentence.english;
+            document.getElementById('english').classList.add('hidden');
+
+            // Set up answer
+            document.getElementById('answer-word').textContent = item.word;
+            document.getElementById('answer-reading').textContent = item.reading;
+            document.getElementById('answer-meaning').textContent = item.meaning;
+
+            // Reset UI state
+            document.getElementById('timer-section').classList.remove('hidden');
+            document.getElementById('reveal-section').classList.add('hidden');
+            document.getElementById('answer-section').classList.add('hidden');
+            document.getElementById('phase-instruction').textContent = 'Try to predict the missing word...';
+
+            // Start timer
+            startTimer();
+
+            // Update progress
+            const totalSentences = data.reduce((sum, item) => sum + item.sentences.length, 0);
+            let currentNum = 0;
+            for (let i = 0; i < currentIndex; i++) {
+                currentNum += data[i].sentences.length;
+            }
+            currentNum += currentSentenceIndex + 1;
+            document.getElementById('progress').textContent = `${currentNum} of ${totalSentences}`;
+        }
+
+        function startTimer() {
+            let seconds = 3;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = seconds;
+            timerEl.classList.remove('ready');
+
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                seconds--;
+                if (seconds > 0) {
+                    timerEl.textContent = seconds;
+                } else {
+                    clearInterval(timerInterval);
+                    timerEl.textContent = '✓';
+                    timerEl.classList.add('ready');
+
+                    // Show reveal button
+                    setTimeout(() => {
+                        document.getElementById('timer-section').classList.add('hidden');
+                        document.getElementById('reveal-section').classList.remove('hidden');
+                        document.getElementById('phase-instruction').textContent = 'Ready to check your prediction?';
+                    }, 300);
+                }
+            }, 1000);
+        }
+
+        document.getElementById('reveal-btn').addEventListener('click', () => {
+            const item = getCurrentItem();
+            const sentence = getCurrentSentence();
+
+            // Show full sentence
+            document.getElementById('sentence').innerHTML = sentence.japanese;
+            document.getElementById('english').classList.remove('hidden');
+
+            // Show answer section
+            document.getElementById('reveal-section').classList.add('hidden');
+            document.getElementById('answer-section').classList.remove('hidden');
+            document.getElementById('phase-instruction').textContent = 'How did you do?';
+        });
+
+        function rate(rating) {
+            stats[rating]++;
+            updateStats();
+
+            // Move to next sentence
+            currentSentenceIndex++;
+            const item = getCurrentItem();
+            if (!item || currentSentenceIndex >= item.sentences.length) {
+                currentIndex++;
+                currentSentenceIndex = 0;
+            }
+
+            showCard();
+        }
+
+        function showComplete() {
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('complete').classList.remove('hidden');
+
+            const total = stats.easy + stats.medium + stats.hard;
+            document.getElementById('final-total').textContent = total;
+            document.getElementById('final-easy').textContent = stats.easy;
+            document.getElementById('final-hard').textContent = stats.hard;
+        }
+
+        function restart() {
+            stats = { easy: 0, medium: 0, hard: 0 };
+            currentIndex = 0;
+            currentSentenceIndex = 0;
+            data = data.sort(() => Math.random() - 0.5);
+
+            document.getElementById('complete').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            updateStats();
+            showCard();
+        }
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
