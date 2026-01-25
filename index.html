@@ -281,7 +281,7 @@
             <div class="audio-status" id="audio-status"></div>
 
             <div id="timer-section">
-                <div class="timer" id="timer">3</div>
+                <div class="timer" id="timer">5</div>
                 <p class="instruction">Think about what fits...</p>
             </div>
 
@@ -398,6 +398,8 @@
             const btn = document.getElementById('play-audio-btn');
 
             if (audioFile) {
+                // Clear any pending transition listener from showCard
+                audioPlayer.onended = null;
                 audioPlayer.src = audioFile;
                 audioPlayer.play()
                     .then(() => {
@@ -511,25 +513,24 @@
                 return;
             }
 
-            // Show image if available
+            // 1. Initial State: Show Image, Hide Sentence
             const imageEl = document.getElementById('sentence-image');
             if (sentence.image) {
                 imageEl.src = sentence.image;
                 imageEl.classList.remove('hidden');
             } else {
-                imageEl.classList.add('hidden'); // Only hide if NO image exists
+                imageEl.classList.add('hidden');
             }
 
-            // Show sentence with blank
-            const blankSentence = sentence.japanese.replace(
-                item.word,
-                '<span class="blank">???</span>'
-            );
-            document.getElementById('sentence').innerHTML = blankSentence;
-            document.getElementById('english').textContent = sentence.english;
+            // Hide other elements for the "Listen" phase
+            document.getElementById('sentence').classList.add('hidden');
             document.getElementById('english').classList.add('hidden');
+            document.getElementById('timer-section').classList.add('hidden');
+            document.getElementById('reveal-section').classList.add('hidden');
+            document.getElementById('answer-section').classList.add('hidden');
+            document.getElementById('phase-instruction').textContent = 'Listen to the sentence...';
 
-            // Set answer
+            // Set answer info (stays hidden)
             document.getElementById('answer-word').textContent = item.word;
             document.getElementById('answer-reading').textContent = item.reading;
             document.getElementById('answer-meaning').textContent = item.meaning;
@@ -537,23 +538,40 @@
             // Reset audio status
             document.getElementById('audio-status').textContent = '';
 
-            // Check if audio available for this sentence
+            // 2. Audio Stage
             const audioFile = getAudioFile(item.word, currentSentenceIndex);
             const audioBtn = document.getElementById('play-audio-btn');
+
+            const proceedToPrediction = () => {
+                // Show sentence with blank
+                const blankSentence = sentence.japanese.replace(
+                    item.word,
+                    '<span class="blank">???</span>'
+                );
+                document.getElementById('sentence').innerHTML = blankSentence;
+                document.getElementById('sentence').classList.remove('hidden');
+                document.getElementById('english').textContent = sentence.english;
+                
+                document.getElementById('phase-instruction').textContent = 'Predict the missing word...';
+                document.getElementById('timer-section').classList.remove('hidden');
+                startTimer();
+            };
+
             if (audioFile && audioAvailable) {
-                audioBtn.style.display = 'inline-flex'; // Show immediately
+                audioBtn.style.display = 'inline-flex';
                 audioBtn.disabled = false;
+                
+                audioPlayer.src = audioFile;
+                audioPlayer.onended = proceedToPrediction;
+                audioPlayer.play().catch(err => {
+                    console.log('Autoplay blocked or error:', err);
+                    proceedToPrediction();
+                });
             } else {
                 audioBtn.style.display = 'none';
+                // Fallback: Show sentence after a short delay if no audio
+                setTimeout(proceedToPrediction, 1000);
             }
-
-            // Reset UI
-            document.getElementById('timer-section').classList.remove('hidden');
-            document.getElementById('reveal-section').classList.add('hidden');
-            document.getElementById('answer-section').classList.add('hidden');
-            document.getElementById('phase-instruction').textContent = 'Predict the missing word...';
-
-            startTimer();
 
             // Progress
             const total = data.reduce((sum, item) => sum + item.sentences.length, 0);
@@ -564,7 +582,7 @@
         }
 
         function startTimer() {
-            let seconds = 3;
+            let seconds = 5;
             const timerEl = document.getElementById('timer');
             timerEl.textContent = seconds;
             timerEl.classList.remove('ready');
