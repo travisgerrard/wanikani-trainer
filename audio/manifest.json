@@ -1,13 +1,43 @@
 [
   {
-    "word": "見当たる",
+    "word": "猫",
     "sentence_index": 0,
-    "file": "見当たる_0.mp3"
+    "file": "猫_0.mp3"
   },
   {
-    "word": "見当たる",
+    "word": "猫",
     "sentence_index": 1,
-    "file": "見当たる_1.mp3"
+    "file": "猫_1.mp3"
+  },
+  {
+    "word": "計画",
+    "sentence_index": 0,
+    "file": "計画_0.mp3"
+  },
+  {
+    "word": "計画",
+    "sentence_index": 1,
+    "file": "計画_1.mp3"
+  },
+  {
+    "word": "料理",
+    "sentence_index": 0,
+    "file": "料理_0.mp3"
+  },
+  {
+    "word": "料理",
+    "sentence_index": 1,
+    "file": "料理_1.mp3"
+  },
+  {
+    "word": "心配",
+    "sentence_index": 0,
+    "file": "心配_0.mp3"
+  },
+  {
+    "word": "心配",
+    "sentence_index": 1,
+    "file": "心配_1.mp3"
   },
   {
     "word": "自由",
@@ -18,25 +48,5 @@
     "word": "自由",
     "sentence_index": 1,
     "file": "自由_1.mp3"
-  },
-  {
-    "word": "見分ける",
-    "sentence_index": 0,
-    "file": "見分ける_0.mp3"
-  },
-  {
-    "word": "見分ける",
-    "sentence_index": 1,
-    "file": "見分ける_1.mp3"
-  },
-  {
-    "word": "見付ける",
-    "sentence_index": 0,
-    "file": "見付ける_0.mp3"
-  },
-  {
-    "word": "見付ける",
-    "sentence_index": 1,
-    "file": "見付ける_1.mp3"
   }
 ]
