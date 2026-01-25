@@ -8,13 +8,11 @@
     "sentences": [
       {
         "japanese": "屋根の上で猫が寝ています。",
-        "english": "The cat is sleeping on the roof.",
-        "image": "images/cat_sleeping_roof.png"
+        "english": "The cat is sleeping on the roof."
       },
       {
         "japanese": "あの野良猫に餌をあげたいです。",
-        "english": "I want to feed that stray cat.",
-        "image": "images/feed_stray_cat.png"
+        "english": "I want to feed that stray cat."
       }
     ]
   },
@@ -27,13 +25,11 @@
     "sentences": [
       {
         "japanese": "計画はうまくいきました。",
-        "english": "The plan went well.",
-        "image": "images/plan_success.png"
+        "english": "The plan went well."
       },
       {
         "japanese": "計画を変更する必要があります。",
-        "english": "We need to change the plan.",
-        "image": "images/change_plan.png"
+        "english": "We need to change the plan."
       }
     ]
   },
@@ -46,13 +42,11 @@
     "sentences": [
       {
         "japanese": "私の趣味は料理です。",
-        "english": "My hobby is cooking.",
-        "image": "images/hobby_cooking.png"
+        "english": "My hobby is cooking."
       },
       {
         "japanese": "この料理はおいしいです。",
-        "english": "This dish is delicious.",
-        "image": "images/delicious_food.png"
+        "english": "This dish is delicious."
       }
     ]
   },
@@ -65,13 +59,11 @@
     "sentences": [
       {
         "japanese": "私のことは心配しないでください。",
-        "english": "Please don't worry about me.",
-        "image": "images/dont_worry.png"
+        "english": "Please don't worry about me."
       },
       {
         "japanese": "試験の結果が心配です。",
-        "english": "I am worried about the test results.",
-        "image": "images/exam_worry.png"
+        "english": "I am worried about the test results."
       }
     ]
   },
@@ -84,13 +76,11 @@
     "sentences": [
       {
         "japanese": "もっと自由な時間が欲しいです。",
-        "english": "I want more free time.",
-        "image": "images/want_free_time.png"
+        "english": "I want more free time."
       },
       {
         "japanese": "鳥は空を自由に飛びます。",
-        "english": "Birds fly freely in the sky.",
-        "image": "images/birds_fly_free.png"
+        "english": "Birds fly freely in the sky."
       }
     ]
   }
