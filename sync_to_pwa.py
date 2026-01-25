@@ -28,18 +28,41 @@ def main():
         print("Run fetch_vocab.py and generate_sentences.py first")
         return
 
-    # Copy to PWA folder
-    dest = pwa_dir / "sentences.json"
-    shutil.copy(source, dest)
-
-    # Also create a backup with word count in name
     with open(source, 'r', encoding='utf-8') as f:
         data = json.load(f)
+
+    # Filter invalid sentences (where word is not in Japanese sentence)
+    cleaned_data = []
+    removed_count = 0
+    
+    for item in data:
+        target_word = item['word']
+        valid_sentences = []
+        
+        for sentence in item['sentences']:
+            if target_word in sentence['japanese']:
+                valid_sentences.append(sentence)
+            else:
+                removed_count += 1
+                # print(f"Skipping invalid sentence for '{target_word}'")
+        
+        if valid_sentences:
+            item['sentences'] = valid_sentences
+            cleaned_data.append(item)
+    
+    data = cleaned_data
+
+    # Save to PWA folder
+    dest = pwa_dir / "sentences.json"
+    with open(dest, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
     word_count = len(data)
     sentence_count = sum(len(item.get('sentences', [])) for item in data)
 
     print(f"Synced to PWA: {word_count} words, {sentence_count} sentences")
+    if removed_count > 0:
+        print(f"  (Filtered out {removed_count} sentences where target word was missing)")
     print(f"  → {dest}")
     print()
     print("To use on mobile:")
