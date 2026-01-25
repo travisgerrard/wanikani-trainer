@@ -18,9 +18,13 @@ Usage:
     # Best quality (requires VOICEVOX app running)
     python generate_audio.py --tts voicevox
 
+    # MLX / Apple Silicon (Qwen3-TTS)
+    python generate_audio.py --tts qwen
+
 Requirements:
     pip install edge-tts        # for Edge TTS (recommended)
     pip install requests        # for VOICEVOX API
+    pip install mlx-audio soundfile  # for Qwen (Apple Silicon)
 
 Note: Kokoro ONNX does NOT properly support Japanese (espeak limitation).
 """
@@ -205,10 +209,66 @@ def generate_voicevox(text: str, output_path: Path, speaker_id: int = 1) -> bool
         print(f"    VOICEVOX error: {e}")
         return False
 
+def generate_qwen(text: str, output_path: Path) -> bool:
+    """Generate audio using Qwen3-TTS via MLX (requires Apple Silicon)."""
+    try:
+        from mlx_audio.tts.generate import generate_audio
+        import shutil
+
+        # Model and Voice configuration
+        model_id = "mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit"
+        voice = "Ono_Anna" # Playful Japanese female voice
+        
+        # mlx-audio generate_audio often creates a directory or uses a prefix
+        # We'll use a temporary directory to catch its output
+        temp_dir = output_path.parent / f"temp_{output_path.stem}"
+        temp_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Generate audio
+        # Note: we use lang_code='ja' although the model handles it via the voice
+        generate_audio(
+            text=text,
+            model=model_id,
+            voice=voice,
+            output_path=str(temp_dir),
+            verbose=False,
+            lang_code='ja'
+        )
+        
+        # Find the generated wav file (usually audio_000.wav)
+        wav_files = list(temp_dir.glob("*.wav"))
+        if not wav_files:
+            print("    Qwen TTS failed to produce a WAV file.")
+            shutil.rmtree(temp_dir, ignore_errors=True)
+            return False
+            
+        temp_wav = wav_files[0]
+        
+        # Convert to MP3
+        try:
+            subprocess.run([
+                'ffmpeg', '-i', str(temp_wav),
+                '-codec:a', 'libmp3lame', '-qscale:a', '2',
+                str(output_path), '-y'
+            ], check=True, capture_output=True)
+        except FileNotFoundError:
+            # Fallback to just copying the WAV if ffmpeg is missing
+            shutil.copy(temp_wav, output_path.with_suffix('.wav'))
+
+        # Cleanup temp directory
+        shutil.rmtree(temp_dir, ignore_errors=True)
+        return True
+    except ImportError:
+        print("    mlx-audio not installed correctly. Run: pip install --upgrade git+https://github.com/Blaizzy/mlx-audio.git")
+        return False
+    except Exception as e:
+        print(f"    Qwen TTS error: {e}")
+        return False
+
 def main():
     parser = argparse.ArgumentParser(description="Generate audio for sentences")
-    parser.add_argument("--tts", choices=["edge", "macos", "voicevox"], default="edge",
-                       help="TTS engine to use (edge=recommended, macos=fallback, voicevox=best)")
+    parser.add_argument("--tts", choices=["edge", "macos", "voicevox", "qwen"], default="edge",
+                       help="TTS engine to use (edge=recommended, macos=fallback, voicevox=best, qwen=mlx)")
     parser.add_argument("--input", default="data/sentences.json",
                        help="Input sentences file")
     parser.add_argument("--output-dir", default="pwa/audio",
@@ -242,6 +302,9 @@ def main():
     elif args.tts == "macos":
         tts_func = generate_macos
         print("Using macOS Kyoko voice")
+    elif args.tts == "qwen":
+        tts_func = generate_qwen
+        print("Using Qwen3-TTS (MLX)")
     else:
         tts_func = lambda text, path: generate_voicevox(text, path, args.speaker)
         print(f"Using VOICEVOX (speaker {args.speaker})")

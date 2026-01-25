@@ -62,17 +62,27 @@ def call_openai_compatible(prompt: str, base_url: str) -> str:
 def generate_sentences(word: dict, call_llm) -> dict:
     """Generate practice sentences for a vocabulary word."""
 
-    prompt = f"""You are a Japanese language teacher. Create 2 example sentences using this vocabulary word:
+    prompt = f"""You are a Japanese language teacher using neuroscience-based learning. Create 2 example sentences using this vocabulary word.
+
+    **CORE RULE: HIGH VALENCE.**
+    Human memory prioritizes information associated with strong emotions, danger, absurdity, or humor.
+    DO NOT create boring, standard textbook sentences like "I went to the library."
+
+    Instead, use themes like:
+    - Danger / Urgency (e.g., zombies, explosions, running away)
+    - Absurdity / Surrealism (e.g., talking animals, flying sushi)
+    - Strong Emotion (e.g., intense love, furious anger, crushing despair)
+    - Social Taboo / Embarrassment
 
 Word: {word['characters']}
 Reading: {word['reading']}
 Meaning: {word['meaning']}
 
 Requirements:
-1. First sentence: Practical, everyday usage
-2. Second sentence: Funny, dramatic, or emotionally engaging
-3. Use simple grammar (JLPT N5-N4 level)
-4. Include furigana in parentheses for any kanji not in the target word
+1. Sentence 1: A situation involving **Danger or Urgency**.
+2. Sentence 2: A situation involving **Absurdity or Humor**.
+3. Use simple grammar (JLPT N5-N4 level).
+4. Include furigana in parentheses for any kanji not in the target word.
 
 Format your response EXACTLY like this:
 SENTENCE1_JP: [Japanese sentence]
@@ -81,10 +91,10 @@ SENTENCE2_JP: [Japanese sentence]
 SENTENCE2_EN: [English translation]
 
 Example for 病院 (びょういん) - hospital:
-SENTENCE1_JP: 昨日、病院に行きました。
-SENTENCE1_EN: I went to the hospital yesterday.
-SENTENCE2_JP: この病院のカレーは日本一おいしいです！
-SENTENCE2_EN: This hospital's curry is the most delicious in Japan!
+SENTENCE1_JP: ゾンビに噛(か)まれたので、急いで病院に行きました！
+SENTENCE1_EN: I was bitten by a zombie, so I went to the hospital in a hurry!
+SENTENCE2_JP: この病院の院長(いんちょう)は、実は宇宙人(うちゅうじん)です。
+SENTENCE2_EN: The director of this hospital is actually an alien.
 """
 
     try:

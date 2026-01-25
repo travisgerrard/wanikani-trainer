@@ -38,7 +38,7 @@ Located in the `pwa/` directory.
 ### Key Commands
 *   **Fetch Data:** `python fetch_vocab.py`
 *   **Generate Sentences:** `python generate_sentences.py [--limit N]`
-*   **Generate Audio:** `python generate_audio.py [--limit N] [--tts macos|voicevox]`
+*   **Generate Audio:** `python generate_audio.py [--limit N] [--tts macos|voicevox|qwen]`
 *   **Deploy to PWA:** `python sync_to_pwa.py`
 *   **Sync Reviews:** `python sync_to_wanikani.py`
 *   **Local Test:** `python -m http.server 8000` (Access at `http://localhost:8000/pwa/`)
