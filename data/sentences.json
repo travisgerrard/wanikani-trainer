@@ -1,18 +1,69 @@
 [
   {
-    "subject_id": 7677,
-    "word": "見当たる",
-    "reading": "みあたる",
-    "meaning": "To Be Found",
-    "level": 7,
+    "subject_id": 3778,
+    "word": "猫",
+    "reading": "ねこ",
+    "meaning": "Cat",
+    "level": 15,
     "sentences": [
       {
-        "japanese": "爆弾を持った男が逃げていて、道で鍵が見当たるのを探しています !",
-        "english": "A man with a bomb is running away, and I'm looking for a key that can be found on the street!"
+        "japanese": "屋根の上で猫が寝ています。",
+        "english": "The cat is sleeping on the roof."
       },
       {
-        "japanese": "道で猫(ねこ)が話すと、鍵が見当たる場所を教えてくれました。",
-        "english": "On the street, a cat started talking and told me where to find a key."
+        "japanese": "あの野良猫に餌をあげたいです。",
+        "english": "I want to feed that stray cat."
+      }
+    ]
+  },
+  {
+    "subject_id": 3791,
+    "word": "計画",
+    "reading": "けいかく",
+    "meaning": "Plan",
+    "level": 15,
+    "sentences": [
+      {
+        "japanese": "計画はうまくいきました。",
+        "english": "The plan went well."
+      },
+      {
+        "japanese": "計画を変更する必要があります。",
+        "english": "We need to change the plan."
+      }
+    ]
+  },
+  {
+    "subject_id": 3710,
+    "word": "料理",
+    "reading": "りょうり",
+    "meaning": "Cooking",
+    "level": 14,
+    "sentences": [
+      {
+        "japanese": "私の趣味は料理です。",
+        "english": "My hobby is cooking."
+      },
+      {
+        "japanese": "この料理はおいしいです。",
+        "english": "This dish is delicious."
+      }
+    ]
+  },
+  {
+    "subject_id": 3564,
+    "word": "心配",
+    "reading": "しんぱい",
+    "meaning": "A Worry",
+    "level": 10,
+    "sentences": [
+      {
+        "japanese": "私のことは心配しないでください。",
+        "english": "Please don't worry about me."
+      },
+      {
+        "japanese": "試験の結果が心配です。",
+        "english": "I am worried about the test results."
       }
     ]
   },
@@ -24,59 +75,12 @@
     "level": 7,
     "sentences": [
       {
-        "japanese": "逃げる時、自由に動けないと危険だ！足が絡(から)まって転(ころ)びそうだったよ。",
-        "english": "When running away, I need freedom of movement or it’s dangerous! My feet got tangled and I almost fell."
+        "japanese": "もっと自由な時間が欲しいです。",
+        "english": "I want more free time."
       },
       {
-        "japanese": "この町では、猫(ねこ)が自由に空を飛んで、魚(さかな)のお弁当を食べてるよ。",
-        "english": "In this town, cats fly freely in the sky and eat sushi lunchboxes."
-      }
-    ]
-  },
-  {
-    "subject_id": 2700,
-    "word": "見分ける",
-    "reading": "みわける",
-    "meaning": "To Distinguish",
-    "level": 8,
-    "sentences": [
-      {
-        "japanese": "爆弾(ばくだん)を持っているかもしれない suspects (疑(あい)わしい人物(じんぶつ)) を**見分(みわけ)**けるのに、犬(いぬ)が使(つか)われています。",
-        "english": "Dogs are being used to distinguish suspicious people who might be carrying bombs!"
-      },
-      {
-        "japanese": "このスーパーのお弁当(べんとう)は、味(あじ)が似ているから**見分(みわけ)**けない！全部(ぜんぶ)カレーだと思(おも)って食べてしまいます。",
-        "english": "I can't distinguish these bento boxes from the supermarket because they all taste the same! I end up eating them thinking they're all curry."
-      }
-    ]
-  },
-  {
-    "subject_id": 3476,
-    "word": "見付ける",
-    "reading": "みつける",
-    "meaning": "To Find",
-    "level": 9,
-    "sentences": [
-      {
-        "japanese": "道を歩いていると、突然地震が起きて建物から落ちるものを見付けました！",
-        "english": "While walking on the street, an earthquake suddenly hit, and I found something falling from a building!"
-      },
-      {
-        "japanese": "今日の昼ご飯は、空から落ちたおにぎりを拾(ひろ)って食べるつもりです。",
-        "english": "For today's lunch, I'm planning to eat onigiri that fell from the sky!"
-      }
-    ]
-  },
-  {
-    "subject_id": 9386,
-    "word": "直前",
-    "reading": "ちょくぜん",
-    "meaning": "Just Before",
-    "level": 11,
-    "sentences": [
-      {
-        "japanese": "",
-        "english": ""
+        "japanese": "鳥は空を自由に飛びます。",
+        "english": "Birds fly freely in the sky."
       }
     ]
   }
