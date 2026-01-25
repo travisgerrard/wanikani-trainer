@@ -271,6 +271,15 @@
             <div class="sentence" id="sentence"></div>
             <div class="english hidden" id="english"></div>
 
+            <!-- Audio playback button (Moved here for pre-reveal access) -->
+            <button class="audio-btn" id="play-audio-btn" onclick="playCurrentAudio()" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                Play Audio
+            </button>
+            <div class="audio-status" id="audio-status"></div>
+
             <div id="timer-section">
                 <div class="timer" id="timer">3</div>
                 <p class="instruction">Think about what fits...</p>
@@ -286,15 +295,6 @@
                     <div class="reading" id="answer-reading"></div>
                     <div class="meaning" id="answer-meaning"></div>
                 </div>
-
-                <!-- Audio playback button -->
-                <button class="audio-btn" id="play-audio-btn" onclick="playCurrentAudio()">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                    Play Audio
-                </button>
-                <div class="audio-status" id="audio-status"></div>
 
                 <p class="instruction">How was your prediction?</p>
                 <div class="rating-btns">
@@ -370,10 +370,12 @@
                 if (response.ok) {
                     audioManifest = await response.json();
                     audioAvailable = audioManifest.length > 0;
-                    console.log(`Loaded ${audioManifest.length} audio entries`);
+                    console.log(`Loaded ${audioManifest.length} audio entries:`, audioManifest);
+                } else {
+                    console.log('Audio manifest fetch failed:', response.status);
                 }
             } catch (e) {
-                console.log('No audio manifest found');
+                console.log('No audio manifest found:', e);
                 audioAvailable = false;
             }
         }
@@ -515,7 +517,7 @@
                 imageEl.src = sentence.image;
                 imageEl.classList.remove('hidden');
             } else {
-                imageEl.classList.add('hidden');
+                imageEl.classList.add('hidden'); // Only hide if NO image exists
             }
 
             // Show sentence with blank
@@ -539,8 +541,8 @@
             const audioFile = getAudioFile(item.word, currentSentenceIndex);
             const audioBtn = document.getElementById('play-audio-btn');
             if (audioFile && audioAvailable) {
+                audioBtn.style.display = 'inline-flex'; // Show immediately
                 audioBtn.disabled = false;
-                audioBtn.style.display = 'inline-flex';
             } else {
                 audioBtn.style.display = 'none';
             }
@@ -594,13 +596,14 @@
             document.getElementById('answer-section').classList.remove('hidden');
             document.getElementById('phase-instruction').textContent = 'How did you do?';
 
-            // Auto-play audio if available
-            const item = getCurrentItem();
-            const audioFile = getAudioFile(item.word, currentSentenceIndex);
-            if (audioFile && audioAvailable) {
-                audioPlayer.src = audioFile;
-                audioPlayer.play().catch(() => {});
+            // Ensure image stays visible
+            const imageEl = document.getElementById('sentence-image');
+            if (sentence.image) {
+                imageEl.src = sentence.image;
+                imageEl.classList.remove('hidden');
             }
+
+            // Audio button stays visible
         });
 
         function rate(rating) {
