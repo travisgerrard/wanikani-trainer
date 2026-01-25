@@ -31,20 +31,22 @@ def main():
     with open(source, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    # Filter invalid sentences (where word is not in Japanese sentence)
+    # Filter invalid sentences (log warnings but keep them)
     cleaned_data = []
-    removed_count = 0
+    warning_count = 0
     
     for item in data:
         target_word = item['word']
         valid_sentences = []
         
         for sentence in item['sentences']:
-            if target_word in sentence['japanese']:
-                valid_sentences.append(sentence)
-            else:
-                removed_count += 1
-                # print(f"Skipping invalid sentence for '{target_word}'")
+            # We keep all sentences even if exact word match fails (due to conjugation)
+            # Just log a warning for debugging
+            if target_word not in sentence['japanese']:
+                warning_count += 1
+                # print(f"Warning: '{target_word}' not found in '{sentence['japanese']}' (conjugation?)")
+            
+            valid_sentences.append(sentence)
         
         if valid_sentences:
             item['sentences'] = valid_sentences
@@ -61,8 +63,8 @@ def main():
     sentence_count = sum(len(item.get('sentences', [])) for item in data)
 
     print(f"Synced to PWA: {word_count} words, {sentence_count} sentences")
-    if removed_count > 0:
-        print(f"  (Filtered out {removed_count} sentences where target word was missing)")
+    if warning_count > 0:
+        print(f"  (Note: {warning_count} sentences don't contain exact dictionary form of word)")
     print(f"  → {dest}")
     print()
     print("To use on mobile:")
