@@ -1,115 +1,5 @@
 [
   {
-    "word": "不法",
-    "sentence_index": 0,
-    "file": "不法_0.mp3"
-  },
-  {
-    "word": "不法",
-    "sentence_index": 1,
-    "file": "不法_1.mp3"
-  },
-  {
-    "word": "保守的",
-    "sentence_index": 0,
-    "file": "保守的_0.mp3"
-  },
-  {
-    "word": "保守的",
-    "sentence_index": 1,
-    "file": "保守的_1.mp3"
-  },
-  {
-    "word": "協力",
-    "sentence_index": 0,
-    "file": "協力_0.mp3"
-  },
-  {
-    "word": "協力",
-    "sentence_index": 1,
-    "file": "協力_1.mp3"
-  },
-  {
-    "word": "友好",
-    "sentence_index": 0,
-    "file": "友好_0.mp3"
-  },
-  {
-    "word": "友好",
-    "sentence_index": 1,
-    "file": "友好_1.mp3"
-  },
-  {
-    "word": "同感",
-    "sentence_index": 0,
-    "file": "同感_0.mp3"
-  },
-  {
-    "word": "同感",
-    "sentence_index": 1,
-    "file": "同感_1.mp3"
-  },
-  {
-    "word": "外来",
-    "sentence_index": 0,
-    "file": "外来_0.mp3"
-  },
-  {
-    "word": "外来",
-    "sentence_index": 1,
-    "file": "外来_1.mp3"
-  },
-  {
-    "word": "心配",
-    "sentence_index": 0,
-    "file": "心配_0.mp3"
-  },
-  {
-    "word": "心配",
-    "sentence_index": 1,
-    "file": "心配_1.mp3"
-  },
-  {
-    "word": "料理",
-    "sentence_index": 0,
-    "file": "料理_0.mp3"
-  },
-  {
-    "word": "料理",
-    "sentence_index": 1,
-    "file": "料理_1.mp3"
-  },
-  {
-    "word": "格好",
-    "sentence_index": 0,
-    "file": "格好_0.mp3"
-  },
-  {
-    "word": "格好",
-    "sentence_index": 1,
-    "file": "格好_1.mp3"
-  },
-  {
-    "word": "海王星",
-    "sentence_index": 0,
-    "file": "海王星_0.mp3"
-  },
-  {
-    "word": "海王星",
-    "sentence_index": 1,
-    "file": "海王星_1.mp3"
-  },
-  {
-    "word": "深夜",
-    "sentence_index": 0,
-    "file": "深夜_0.mp3"
-  },
-  {
-    "word": "深夜",
-    "sentence_index": 1,
-    "file": "深夜_1.mp3"
-  },
-  {
     "word": "猫",
     "sentence_index": 0,
     "file": "猫_0.mp3"
@@ -118,111 +8,6 @@
     "word": "猫",
     "sentence_index": 1,
     "file": "猫_1.mp3"
-  },
-  {
-    "word": "目標",
-    "sentence_index": 0,
-    "file": "目標_0.mp3"
-  },
-  {
-    "word": "目標",
-    "sentence_index": 1,
-    "file": "目標_1.mp3"
-  },
-  {
-    "word": "直前",
-    "sentence_index": 0,
-    "file": "直前_0.mp3"
-  },
-  {
-    "word": "直前",
-    "sentence_index": 1,
-    "file": "直前_1.mp3"
-  },
-  {
-    "word": "直前",
-    "sentence_index": 2,
-    "file": "直前_2.mp3"
-  },
-  {
-    "word": "直線",
-    "sentence_index": 0,
-    "file": "直線_0.mp3"
-  },
-  {
-    "word": "直線",
-    "sentence_index": 1,
-    "file": "直線_1.mp3"
-  },
-  {
-    "word": "立てる",
-    "sentence_index": 0,
-    "file": "立てる_0.mp3"
-  },
-  {
-    "word": "立てる",
-    "sentence_index": 1,
-    "file": "立てる_1.mp3"
-  },
-  {
-    "word": "線路",
-    "sentence_index": 0,
-    "file": "線路_0.mp3"
-  },
-  {
-    "word": "線路",
-    "sentence_index": 1,
-    "file": "線路_1.mp3"
-  },
-  {
-    "word": "育てる",
-    "sentence_index": 0,
-    "file": "育てる_0.mp3"
-  },
-  {
-    "word": "育てる",
-    "sentence_index": 1,
-    "file": "育てる_1.mp3"
-  },
-  {
-    "word": "自由",
-    "sentence_index": 0,
-    "file": "自由_0.mp3"
-  },
-  {
-    "word": "自由",
-    "sentence_index": 1,
-    "file": "自由_1.mp3"
-  },
-  {
-    "word": "見付ける",
-    "sentence_index": 0,
-    "file": "見付ける_0.mp3"
-  },
-  {
-    "word": "見付ける",
-    "sentence_index": 1,
-    "file": "見付ける_1.mp3"
-  },
-  {
-    "word": "見分ける",
-    "sentence_index": 0,
-    "file": "見分ける_0.mp3"
-  },
-  {
-    "word": "見分ける",
-    "sentence_index": 1,
-    "file": "見分ける_1.mp3"
-  },
-  {
-    "word": "見当たる",
-    "sentence_index": 0,
-    "file": "見当たる_0.mp3"
-  },
-  {
-    "word": "見当たる",
-    "sentence_index": 1,
-    "file": "見当たる_1.mp3"
   },
   {
     "word": "計画",
@@ -235,13 +20,33 @@
     "file": "計画_1.mp3"
   },
   {
-    "word": "調べる",
+    "word": "料理",
     "sentence_index": 0,
-    "file": "調べる_0.mp3"
+    "file": "料理_0.mp3"
   },
   {
-    "word": "調べる",
+    "word": "料理",
     "sentence_index": 1,
-    "file": "調べる_1.mp3"
+    "file": "料理_1.mp3"
+  },
+  {
+    "word": "心配",
+    "sentence_index": 0,
+    "file": "心配_0.mp3"
+  },
+  {
+    "word": "心配",
+    "sentence_index": 1,
+    "file": "心配_1.mp3"
+  },
+  {
+    "word": "自由",
+    "sentence_index": 0,
+    "file": "自由_0.mp3"
+  },
+  {
+    "word": "自由",
+    "sentence_index": 1,
+    "file": "自由_1.mp3"
   }
 ]
