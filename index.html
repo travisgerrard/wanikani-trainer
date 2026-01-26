@@ -231,6 +231,19 @@
         .sentence-image.hidden {
             display: none;
         }
+
+        .show-image-btn {
+            background: #0f3460;
+            color: #888;
+            font-size: 0.8rem;
+            padding: 8px 16px;
+            margin: 8px auto;
+            width: auto;
+            display: block;
+        }
+        .show-image-btn:hover {
+            color: #00d4ff;
+        }
     </style>
 </head>
 <body>
@@ -268,6 +281,7 @@
         <div class="card">
             <p class="instruction" id="phase-instruction">Predict the missing word...</p>
             <img id="sentence-image" class="sentence-image hidden" alt="Sentence illustration">
+            <button id="show-image-btn" class="show-image-btn hidden" onclick="toggleImage()">Show Image</button>
             <div class="sentence" id="sentence"></div>
             <div class="english hidden" id="english"></div>
 
@@ -348,7 +362,9 @@
 
         const STORAGE_KEY = 'wk_trainer_data';
         const STATS_KEY = 'wk_trainer_stats';
+        const MASTERED_KEY = 'wk_mastered_words';  // Words previously marked Easy
         const audioPlayer = document.getElementById('audio-player');
+        let masteredWords = new Set(JSON.parse(localStorage.getItem(MASTERED_KEY) || '[]'));
 
         // Offline detection
         function updateOnlineStatus() {
@@ -411,6 +427,19 @@
                     });
             } else {
                 statusEl.textContent = 'No audio for this sentence';
+            }
+        }
+
+        // Toggle image visibility for mastered words
+        function toggleImage() {
+            const imageEl = document.getElementById('sentence-image');
+            const btn = document.getElementById('show-image-btn');
+            if (imageEl.classList.contains('hidden')) {
+                imageEl.classList.remove('hidden');
+                btn.textContent = 'Hide Image';
+            } else {
+                imageEl.classList.add('hidden');
+                btn.textContent = 'Show Image';
             }
         }
 
@@ -513,13 +542,25 @@
                 return;
             }
 
-            // 1. Initial State: Show Image, Hide Sentence
+            // 1. Initial State: Show Image (unless word is mastered), Hide Sentence
             const imageEl = document.getElementById('sentence-image');
+            const showImageBtn = document.getElementById('show-image-btn');
+            const isMastered = masteredWords.has(item.word);
+
             if (sentence.image) {
                 imageEl.src = sentence.image;
-                imageEl.classList.remove('hidden');
+                if (isMastered) {
+                    // Hide image for mastered words, show toggle button
+                    imageEl.classList.add('hidden');
+                    showImageBtn.classList.remove('hidden');
+                    showImageBtn.textContent = 'Show Image';
+                } else {
+                    imageEl.classList.remove('hidden');
+                    showImageBtn.classList.add('hidden');
+                }
             } else {
                 imageEl.classList.add('hidden');
+                showImageBtn.classList.add('hidden');
             }
 
             // Hide other elements for the "Listen" phase
@@ -608,18 +649,21 @@
 
         document.getElementById('reveal-btn').addEventListener('click', () => {
             const sentence = getCurrentSentence();
+            const item = getCurrentItem();
             document.getElementById('sentence').innerHTML = sentence.japanese;
             document.getElementById('english').classList.remove('hidden');
             document.getElementById('reveal-section').classList.add('hidden');
             document.getElementById('answer-section').classList.remove('hidden');
             document.getElementById('phase-instruction').textContent = 'How did you do?';
 
-            // Ensure image stays visible
+            // Only show image if not mastered (mastered words keep image hidden unless user toggles)
             const imageEl = document.getElementById('sentence-image');
-            if (sentence.image) {
+            const isMastered = item && masteredWords.has(item.word);
+            if (sentence.image && !isMastered) {
                 imageEl.src = sentence.image;
                 imageEl.classList.remove('hidden');
             }
+            // For mastered words, the image stays in whatever state the user left it
 
             // Audio button stays visible
         });
@@ -627,12 +671,16 @@
         function rate(rating) {
             stats[rating]++;
 
-            // Track Easy ratings for WaniKani sync
+            // Track Easy ratings for WaniKani sync and mastered words
             if (rating === 'easy') {
                 const item = getCurrentItem();
-                if (item && item.subject_id) {
-                    // Only add if not already tracked
-                    if (!easyReviews.find(r => r.subject_id === item.subject_id)) {
+                if (item) {
+                    // Add to mastered words (for hiding images)
+                    masteredWords.add(item.word);
+                    localStorage.setItem(MASTERED_KEY, JSON.stringify([...masteredWords]));
+
+                    // Track for WaniKani sync
+                    if (item.subject_id && !easyReviews.find(r => r.subject_id === item.subject_id)) {
                         easyReviews.push({
                             subject_id: item.subject_id,
                             word: item.word,
