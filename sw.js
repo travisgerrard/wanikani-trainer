@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wk-trainer-v13';
+const CACHE_NAME = 'wk-trainer-v14';
 const ASSETS = [
     './',
     './index.html',
