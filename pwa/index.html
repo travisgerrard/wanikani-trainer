@@ -725,26 +725,26 @@
 
         function rate(rating) {
             stats[rating]++;
-            const item = getCurrentItem();
+            const currentItem = getCurrentItem();
 
             // Track Medium ratings - hide image next time
-            if (rating === 'medium' && item) {
-                imageHiddenWords.add(item.word);
+            if (rating === 'medium' && currentItem) {
+                imageHiddenWords.add(currentItem.word);
                 localStorage.setItem(IMAGE_HIDDEN_KEY, JSON.stringify([...imageHiddenWords]));
             }
 
             // Track Easy ratings - hide image AND sentence next time (audio only)
-            if (rating === 'easy' && item) {
-                fullyMasteredWords.add(item.word);
+            if (rating === 'easy' && currentItem) {
+                fullyMasteredWords.add(currentItem.word);
                 localStorage.setItem(FULLY_MASTERED_KEY, JSON.stringify([...fullyMasteredWords]));
 
                 // Track for WaniKani sync
-                if (item.subject_id && !easyReviews.find(r => r.subject_id === item.subject_id)) {
+                if (currentItem.subject_id && !easyReviews.find(r => r.subject_id === currentItem.subject_id)) {
                     easyReviews.push({
-                        subject_id: item.subject_id,
-                        word: item.word,
-                        reading: item.reading,
-                        meaning: item.meaning
+                        subject_id: currentItem.subject_id,
+                        word: currentItem.word,
+                        reading: currentItem.reading,
+                        meaning: currentItem.meaning
                     });
                 }
             }
@@ -752,8 +752,7 @@
             updateStats();
 
             currentSentenceIndex++;
-            const item = getCurrentItem();
-            if (!item || currentSentenceIndex >= item.sentences.length) {
+            if (!currentItem || currentSentenceIndex >= currentItem.sentences.length) {
                 currentIndex++;
                 currentSentenceIndex = 0;
             }
