@@ -1207,6 +1207,9 @@
             const audioBtn = document.getElementById('play-audio-btn');
 
             const startPredictionPhase = () => {
+                // Clear onended so replay doesn't restart the phase
+                audioPlayer.onended = null;
+
                 // Prepare sentence text
                 const blankSentence = sentence.japanese.replace(item.word, '<span class="blank">???</span>');
                 const sentenceEl = document.getElementById('sentence');
@@ -1412,11 +1415,12 @@
         }
 
         function playCurrentAudio() {
-            // Helper to replay audio
+            // Helper to replay audio - clear onended so it doesn't restart timer
             if (!currentCard) return;
             const { item, sentenceIndex } = currentCard;
             const file = getAudioFile(item.word, sentenceIndex);
             if (file) {
+                audioPlayer.onended = null; // Don't trigger prediction phase again
                 audioPlayer.src = file;
                 audioPlayer.play();
             }
