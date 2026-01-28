@@ -27,7 +27,7 @@
             text-align: center;
             color: #00d4ff;
             font-size: 1.3rem;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
         .card {
@@ -35,6 +35,7 @@
             border-radius: 16px;
             padding: 20px;
             margin: 12px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .sentence {
@@ -77,6 +78,7 @@
             font-size: 2.5rem;
             color: #ff6b6b;
             margin: 16px 0;
+            transition: color 0.3s;
         }
         .timer.ready { color: #4ecdc4; }
 
@@ -110,6 +112,38 @@
         .easy { background: #4ecdc4; color: #1a1a2e; }
         .medium { background: #ffe66d; color: #1a1a2e; }
         .hard { background: #ff6b6b; color: #fff; }
+
+        /* Stats & Headers */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .brain-state {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #0f3460;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .brain-state.flow { color: #4ecdc4; border: 1px solid #4ecdc4; }
+        .brain-state.lock { color: #ff6b6b; border: 1px solid #ff6b6b; }
+
+        .streak-badge {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffe66d;
+            text-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .streak-badge.visible { opacity: 1; transform: scale(1); }
 
         .stats {
             display: flex;
@@ -262,7 +296,10 @@
     <div id="offline-badge" class="offline-badge hidden">Offline</div>
     <div id="ready-badge" class="ready-badge hidden">Ready for Offline</div>
 
-    <h1>WK Prediction Trainer</h1>
+    <div class="top-bar">
+        <h1>WK Trainer</h1>
+        <div id="streak-badge" class="streak-badge">x2 Streak!</div>
+    </div>
 
     <!-- Setup Screen -->
     <div id="setup" class="card setup">
@@ -277,16 +314,15 @@
     <div id="app" class="hidden">
         <div class="stats">
             <div class="stat">
-                <div class="stat-value" id="completed">0</div>
-                <div class="stat-label">Done</div>
+                <div class="stat-value" id="active-count">0</div>
+                <div class="stat-label">Active</div>
             </div>
-            <div class="stat">
-                <div class="stat-value" id="remaining">0</div>
-                <div class="stat-label">Left</div>
-            </div>
-            <div class="stat">
+             <div class="stat">
                 <div class="stat-value" id="accuracy">-</div>
-                <div class="stat-label">Easy%</div>
+                <div class="stat-label">Brain Acc.</div>
+            </div>
+            <div class="stat">
+                <div id="brain-state-display" class="brain-state">Loading...</div>
             </div>
         </div>
 
@@ -300,7 +336,7 @@
             <div class="sentence" id="sentence"></div>
             <div class="english hidden" id="english"></div>
 
-            <!-- Audio playback button (Moved here for pre-reveal access) -->
+            <!-- Audio playback button -->
             <button class="audio-btn" id="play-audio-btn" onclick="playCurrentAudio()" style="display: none;">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M8 5v14l11-7z"/>
@@ -334,26 +370,24 @@
             </div>
         </div>
         <div class="progress" id="progress"></div>
+        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.7.0</div>
     </div>
 
     <!-- Complete Screen -->
     <div id="complete" class="card hidden">
-        <h2 style="text-align: center; color: #4ecdc4; margin-bottom: 16px;">Done!</h2>
+        <h2 style="text-align: center; color: #4ecdc4; margin-bottom: 16px;">Queue Empty!</h2>
         <div class="stats">
             <div class="stat">
-                <div class="stat-value" id="final-total">0</div>
-                <div class="stat-label">Total</div>
+                <div class="stat-value" id="final-streak">0</div>
+                <div class="stat-label">Max Streak</div>
             </div>
-            <div class="stat">
-                <div class="stat-value" id="final-easy">0</div>
-                <div class="stat-label">Easy</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value" id="final-hard">0</div>
-                <div class="stat-label">Hard</div>
+             <div class="stat">
+                <div class="stat-value" id="final-acc">0%</div>
+                <div class="stat-label">Session Acc</div>
             </div>
         </div>
-        <button class="reveal-btn" onclick="restart()">Again</button>
+        <p style="text-align: center; color:#888; margin:16px 0;">Check back later or add more sentences.</p>
+        <button class="reveal-btn" onclick="restart()">Review Again</button>
         <button id="export-easy-btn" style="background: #4ecdc4; color: #1a1a2e; display: none;" onclick="exportEasyReviews()">
             Export Easy Reviews for WaniKani
         </button>
@@ -365,230 +399,277 @@
     <audio id="audio-player" preload="auto"></audio>
 
     <script>
-        // State
-        let data = [];
+        // --- Constants ---
+        // For prototype with 5 items, we use small numbers. 
+        // Real app: GATING_WINDOW=100, LESSON_BATCH=10
+        const GATING_WINDOW = 20; 
+        const LESSON_BATCH_SIZE = 2;
+        const UNLOCK_THRESHOLD = 0.9; // 90%
+        const LOCK_THRESHOLD = 0.75; // 75%
+        const SPEED_THRESHOLD = 1500; // 1.5s for dopamine bonus
+        
+        const STORAGE_KEY = 'wk_trainer_library';
+        const STATE_KEY = 'wk_trainer_state'; 
+        const EXPORT_KEY = 'wk_easy_reviews';
+
+        // --- State ---
+        let library = []; // All data loaded from JSON
         let audioManifest = [];
-        let currentIndex = 0;
-        let currentSentenceIndex = 0;
-        let stats = { easy: 0, medium: 0, hard: 0 };
+        let easyReviews = []; // Sync queue
+
+        // Persistent User State
+        let userState = {
+            activeIds: [],   // list of subject_ids currently in rotation
+            reviewHistory: [], // list of { t: timestamp, correct: bool, speed: ms }
+            masteredIds: [], // subject_ids fully mastered
+            imageHiddenIds: [], // subject_ids where image is hidden
+            fullyMasteredIds: [], // subject_ids where sentence is hidden
+            streak: 0,
+            maxStreak: 0
+        };
+
+        // Session State
+        let sessionQueue = []; // Array of { item, sentenceIndex }
+        let currentCard = null;
         let timerInterval = null;
+        let predictionStartTime = 0;
         let audioAvailable = false;
-        let easyReviews = [];  // Track items rated Easy for WaniKani sync
 
-        const STORAGE_KEY = 'wk_trainer_data';
-        const STATS_KEY = 'wk_trainer_stats';
-        const IMAGE_HIDDEN_KEY = 'wk_image_hidden_words';  // Words marked Medium (hide image)
-        const FULLY_MASTERED_KEY = 'wk_fully_mastered_words';  // Words marked Easy (hide image + sentence)
         const audioPlayer = document.getElementById('audio-player');
-        let imageHiddenWords = new Set(JSON.parse(localStorage.getItem(IMAGE_HIDDEN_KEY) || '[]'));
-        let fullyMasteredWords = new Set(JSON.parse(localStorage.getItem(FULLY_MASTERED_KEY) || '[]'));
 
-        // Offline detection
+        // --- Offline / Audio Logic (Kept from original) ---
         function updateOnlineStatus() {
             const badge = document.getElementById('offline-badge');
-            if (navigator.onLine) {
-                badge.classList.add('hidden');
-            } else {
-                badge.classList.remove('hidden');
-            }
+            if (navigator.onLine) badge.classList.add('hidden');
+            else badge.classList.remove('hidden');
         }
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
         updateOnlineStatus();
 
-        // Load audio manifest
         async function loadAudioManifest() {
             try {
                 const response = await fetch('audio/manifest.json');
                 if (response.ok) {
                     audioManifest = await response.json();
                     audioAvailable = audioManifest.length > 0;
-                    console.log(`Loaded ${audioManifest.length} audio entries:`, audioManifest);
-                } else {
-                    console.log('Audio manifest fetch failed:', response.status);
                 }
-            } catch (e) {
-                console.log('No audio manifest found:', e);
-                audioAvailable = false;
-            }
+            } catch (e) { audioAvailable = false; }
         }
 
-        // Get audio file for current word/sentence
         function getAudioFile(word, sentenceIndex) {
-            const entry = audioManifest.find(
-                a => a.word === word && a.sentence_index === sentenceIndex
-            );
+            const entry = audioManifest.find(a => a.word === word && a.sentence_index === sentenceIndex);
             return entry ? `audio/${entry.file}` : null;
         }
 
-        // Play current audio
-        function playCurrentAudio() {
-            const item = getCurrentItem();
-            if (!item) return;
+        async function checkOfflineReadiness() {
+            try {
+                const manifestRes = await caches.match('audio/manifest.json');
+                if (manifestRes) document.getElementById('ready-badge').classList.remove('hidden');
+            } catch (e) {}
+        }
 
-            const audioFile = getAudioFile(item.word, currentSentenceIndex);
-            const statusEl = document.getElementById('audio-status');
-            const btn = document.getElementById('play-audio-btn');
+        // --- Core Data Logic ---
 
-            if (audioFile) {
-                // Clear any pending transition listener from showCard
-                audioPlayer.onended = null;
-                audioPlayer.src = audioFile;
-                audioPlayer.play()
-                    .then(() => {
-                        statusEl.textContent = '';
-                    })
-                    .catch(err => {
-                        statusEl.textContent = 'Audio not available';
-                        console.log('Audio play error:', err);
+        function saveState() {
+            localStorage.setItem(STATE_KEY, JSON.stringify(userState));
+        }
+
+        function getRecentAccuracy() {
+            const history = userState.reviewHistory.slice(-GATING_WINDOW);
+            if (history.length === 0) return 0;
+            const correct = history.filter(h => h.correct).length;
+            return correct / history.length;
+        }
+
+        function getBrainState() {
+            const acc = getRecentAccuracy();
+            const historyLen = userState.reviewHistory.length;
+            
+            // Need some history to determine state
+            if (historyLen < 5) return 'learning';
+
+            if (acc >= UNLOCK_THRESHOLD) return 'flow';
+            if (acc < LOCK_THRESHOLD) return 'lock';
+            return 'learning';
+        }
+
+        function replenishQueue() {
+            // 1. Identify which items are active
+            const activeItems = library.filter(i => userState.activeIds.includes(i.subject_id));
+            
+            // 2. Build a queue from active items
+            // Simple logic: Add all sentences of active items
+            // In a real SRS, this would check due dates. Here we just rotate active items.
+            let newQueue = [];
+            activeItems.forEach(item => {
+                item.sentences.forEach((s, idx) => {
+                    newQueue.push({ item: item, sentenceIndex: idx });
+                });
+            });
+
+            // Shuffle
+            newQueue.sort(() => Math.random() - 0.5);
+            sessionQueue = newQueue;
+        }
+
+        function checkLevelUp() {
+            const state = getBrainState();
+            const activeCount = userState.activeIds.length;
+            const libraryCount = library.length;
+
+            if (state === 'lock') {
+                // Locked: focus on current active items
+                return; 
+            }
+
+            // If we are in Flow (or just starting and have room), try to add lessons
+            // "Actor" Logic: Ungate lessons if high accuracy
+            if (state === 'flow' || activeCount === 0) {
+                const potentialLessons = library.filter(i => !userState.activeIds.includes(i.subject_id));
+                
+                if (potentialLessons.length > 0) {
+                    // Add batch
+                    const toAdd = potentialLessons.slice(0, LESSON_BATCH_SIZE);
+                    toAdd.forEach(i => userState.activeIds.push(i.subject_id));
+                    console.log(`Leveled Up! Added ${toAdd.length} new items.`);
+                    
+                    // Trigger a re-shuffle to include them immediately? 
+                    // For now, they'll appear next "restart" or we could inject them.
+                    // Let's inject them into the BACK of the current session queue
+                    toAdd.forEach(item => {
+                        item.sentences.forEach((s, idx) => {
+                            sessionQueue.push({ item: item, sentenceIndex: idx });
+                        });
                     });
-            } else {
-                statusEl.textContent = 'No audio for this sentence';
+                }
             }
         }
 
-        // Toggle image visibility for mastered words
-        function toggleImage() {
-            const imageEl = document.getElementById('sentence-image');
-            const btn = document.getElementById('show-image-btn');
-            if (imageEl.classList.contains('hidden')) {
-                imageEl.classList.remove('hidden');
-                btn.textContent = 'Hide Image';
+        // --- UI Logic ---
+
+        function updateUIStats() {
+            // Accuracy
+            const acc = Math.round(getRecentAccuracy() * 100);
+            document.getElementById('accuracy').textContent = `${acc}%`;
+            
+            // Active Count
+            document.getElementById('active-count').textContent = userState.activeIds.length;
+
+            // Brain State
+            const state = getBrainState();
+            const stateEl = document.getElementById('brain-state-display');
+            if (state === 'flow') {
+                stateEl.textContent = '⚡ Flow State';
+                stateEl.className = 'brain-state flow';
+            } else if (state === 'lock') {
+                stateEl.textContent = '🔒 Locked';
+                stateEl.className = 'brain-state lock';
             } else {
-                imageEl.classList.add('hidden');
-                btn.textContent = 'Show Image';
+                stateEl.textContent = '🧠 Learning';
+                stateEl.className = 'brain-state';
+            }
+
+            // Streak
+            const streakBadge = document.getElementById('streak-badge');
+            if (userState.streak > 1) {
+                streakBadge.textContent = `x${userState.streak} Streak!`;
+                streakBadge.classList.add('visible');
+            } else {
+                streakBadge.classList.remove('visible');
             }
         }
 
-        // Toggle sentence visibility for fully mastered words
-        function toggleSentence() {
-            const sentenceEl = document.getElementById('sentence');
-            const btn = document.getElementById('show-sentence-btn');
-            if (sentenceEl.classList.contains('hidden')) {
-                sentenceEl.classList.remove('hidden');
-                btn.textContent = 'Hide Sentence';
-            } else {
-                sentenceEl.classList.add('hidden');
-                btn.textContent = 'Show Sentence';
-            }
-        }
-
-        // Load data
         async function loadData() {
             const input = document.getElementById('json-input').value.trim();
             const statusEl = document.getElementById('sync-status');
 
             try {
+                // Load raw data (Library)
                 if (input) {
-                    data = JSON.parse(input);
+                    library = JSON.parse(input);
                     statusEl.textContent = 'Loaded from paste';
                 } else {
                     const cached = localStorage.getItem(STORAGE_KEY);
                     if (cached) {
-                        data = JSON.parse(cached);
+                        library = JSON.parse(cached);
                         statusEl.textContent = 'Loaded from cache';
                     } else {
-                        // Try multiple paths for sentences.json
                         let response = await fetch('sentences.json').catch(() => null);
-                        if (!response || !response.ok) {
-                            response = await fetch('../data/sentences.json').catch(() => null);
-                        }
+                        if (!response || !response.ok) response = await fetch('../data/sentences.json').catch(() => null);
                         if (!response || !response.ok) throw new Error('No data file found');
-                        data = await response.json();
+                        library = await response.json();
                         statusEl.textContent = 'Loaded from file';
                     }
                 }
 
-                // Filter and validate
-                data = data.filter(item => item.sentences && item.sentences.length > 0);
-                if (data.length === 0) throw new Error('No valid sentences');
+                // Filter valid
+                library = library.filter(item => item.sentences && item.sentences.length > 0);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
 
-                // Cache for offline
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                // Load User State
+                const savedState = localStorage.getItem(STATE_KEY);
+                if (savedState) {
+                    userState = JSON.parse(savedState);
+                } else {
+                    // Init: If no state, take first batch as active
+                    const initialBatch = library.slice(0, 3); // Start with 3 items
+                    userState.activeIds = initialBatch.map(i => i.subject_id);
+                }
 
-                // Load audio manifest
                 await loadAudioManifest();
+                
+                // Initialize Session
+                replenishQueue();
 
-                // Shuffle
-                data = data.sort(() => Math.random() - 0.5);
-
-                // Start training
+                // Setup UI
                 document.getElementById('setup').classList.add('hidden');
                 document.getElementById('app').classList.remove('hidden');
-                updateStats();
+                updateUIStats();
                 showCard();
 
             } catch (e) {
                 statusEl.textContent = 'Error: ' + e.message;
                 statusEl.style.color = '#ff6b6b';
+                console.error(e);
             }
-        }
-
-        function resetData() {
-            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem(STATS_KEY);
-            localStorage.removeItem('wk_easy_reviews');
-            stats = { easy: 0, medium: 0, hard: 0 };
-            easyReviews = [];
-            currentIndex = 0;
-            currentSentenceIndex = 0;
-            document.getElementById('complete').classList.add('hidden');
-            document.getElementById('app').classList.add('hidden');
-            document.getElementById('setup').classList.remove('hidden');
-            document.getElementById('json-input').value = '';
-            document.getElementById('sync-status').textContent = '';
-            document.getElementById('sync-status').style.color = '#4ecdc4';
-        }
-
-        function updateStats() {
-            const completed = stats.easy + stats.medium + stats.hard;
-            const total = data.reduce((sum, item) => sum + item.sentences.length, 0);
-            document.getElementById('completed').textContent = completed;
-            document.getElementById('remaining').textContent = total - completed;
-            if (completed > 0) {
-                document.getElementById('accuracy').textContent = Math.round((stats.easy / completed) * 100) + '%';
-            }
-            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
-        }
-
-        function getCurrentItem() {
-            return currentIndex < data.length ? data[currentIndex] : null;
-        }
-
-        function getCurrentSentence() {
-            const item = getCurrentItem();
-            return item ? item.sentences[currentSentenceIndex] : null;
         }
 
         function showCard() {
-            const item = getCurrentItem();
-            if (!item) { showComplete(); return; }
-
-            const sentence = getCurrentSentence();
-            if (!sentence) {
-                currentIndex++;
-                currentSentenceIndex = 0;
-                showCard();
+            if (sessionQueue.length === 0) {
+                showComplete();
                 return;
             }
 
-            // 1. Initial State: Handle image/sentence visibility based on mastery level
+            // Pop next card
+            currentCard = sessionQueue.shift();
+            const { item, sentenceIndex } = currentCard;
+            const sentence = item.sentences[sentenceIndex];
+
+            // Setup UI Visibility based on Mastery
             const imageEl = document.getElementById('sentence-image');
             const showImageBtn = document.getElementById('show-image-btn');
             const showSentenceBtn = document.getElementById('show-sentence-btn');
             const toggleBtns = document.getElementById('toggle-btns');
-            const isImageHidden = imageHiddenWords.has(item.word) || fullyMasteredWords.has(item.word);
-            const isFullyMastered = fullyMasteredWords.has(item.word);
+            
+            const isImageHidden = userState.imageHiddenIds.includes(item.subject_id) || userState.fullyMasteredIds.includes(item.subject_id);
+            const isFullyMastered = userState.fullyMasteredIds.includes(item.subject_id);
 
-            // Reset toggle buttons
+            // Reset UI
             toggleBtns.classList.add('hidden');
             showImageBtn.classList.add('hidden');
             showSentenceBtn.classList.add('hidden');
+            document.getElementById('sentence').classList.add('hidden');
+            document.getElementById('english').classList.add('hidden');
+            document.getElementById('timer-section').classList.add('hidden');
+            document.getElementById('reveal-section').classList.add('hidden');
+            document.getElementById('answer-section').classList.add('hidden');
+            document.getElementById('phase-instruction').textContent = 'Listen to the sentence...';
 
+            // Image logic
             if (sentence.image) {
                 imageEl.src = sentence.image;
                 if (isImageHidden) {
-                    // Hide image for medium/easy words
                     imageEl.classList.add('hidden');
                     showImageBtn.classList.remove('hidden');
                     showImageBtn.textContent = 'Show Image';
@@ -600,43 +681,28 @@
                 imageEl.classList.add('hidden');
             }
 
-            // For fully mastered words, also hide sentence (show toggle button)
+            // Sentence logic
             if (isFullyMastered) {
                 showSentenceBtn.classList.remove('hidden');
                 showSentenceBtn.textContent = 'Show Sentence';
                 toggleBtns.classList.remove('hidden');
             }
 
-            // Hide other elements for the "Listen" phase
-            document.getElementById('sentence').classList.add('hidden');
-            document.getElementById('english').classList.add('hidden');
-            document.getElementById('timer-section').classList.add('hidden');
-            document.getElementById('reveal-section').classList.add('hidden');
-            document.getElementById('answer-section').classList.add('hidden');
-            document.getElementById('phase-instruction').textContent = 'Listen to the sentence...';
-
-            // Set answer info (stays hidden)
+            // Answer info
             document.getElementById('answer-word').textContent = item.word;
             document.getElementById('answer-reading').textContent = item.reading;
             document.getElementById('answer-meaning').textContent = item.meaning;
 
-            // Reset audio status
-            document.getElementById('audio-status').textContent = '';
-
-            // 2. Audio Stage
-            const audioFile = getAudioFile(item.word, currentSentenceIndex);
+            // Audio Playback
+            const audioFile = getAudioFile(item.word, sentenceIndex);
             const audioBtn = document.getElementById('play-audio-btn');
 
-            const proceedToPrediction = () => {
-                // Show sentence with blank (unless fully mastered)
-                const blankSentence = sentence.japanese.replace(
-                    item.word,
-                    '<span class="blank">???</span>'
-                );
+            const startPredictionPhase = () => {
+                // Prepare sentence text
+                const blankSentence = sentence.japanese.replace(item.word, '<span class="blank">???</span>');
                 document.getElementById('sentence').innerHTML = blankSentence;
                 document.getElementById('english').textContent = sentence.english;
 
-                // For fully mastered words, keep sentence hidden (audio only)
                 if (!isFullyMastered) {
                     document.getElementById('sentence').classList.remove('hidden');
                     document.getElementById('phase-instruction').textContent = 'Predict the missing word...';
@@ -645,31 +711,23 @@
                 }
 
                 document.getElementById('timer-section').classList.remove('hidden');
+                
+                // Track start time for speed bonus
+                predictionStartTime = Date.now();
                 startTimer();
             };
 
             if (audioFile && audioAvailable) {
                 audioBtn.style.display = 'inline-flex';
-                audioBtn.disabled = false;
-                
                 audioPlayer.src = audioFile;
-                audioPlayer.onended = proceedToPrediction;
-                audioPlayer.play().catch(err => {
-                    console.log('Autoplay blocked or error:', err);
-                    proceedToPrediction();
-                });
+                audioPlayer.onended = startPredictionPhase;
+                audioPlayer.play().catch(() => startPredictionPhase());
             } else {
                 audioBtn.style.display = 'none';
-                // Fallback: Show sentence after a short delay if no audio
-                setTimeout(proceedToPrediction, 1000);
+                setTimeout(startPredictionPhase, 500);
             }
-
-            // Progress
-            const total = data.reduce((sum, item) => sum + item.sentences.length, 0);
-            let current = 0;
-            for (let i = 0; i < currentIndex; i++) current += data[i].sentences.length;
-            current += currentSentenceIndex + 1;
-            document.getElementById('progress').textContent = `${current} / ${total}`;
+            
+            updateUIStats();
         }
 
         function startTimer() {
@@ -677,7 +735,6 @@
             const timerEl = document.getElementById('timer');
             timerEl.textContent = seconds;
             timerEl.classList.remove('ready');
-
             if (timerInterval) clearInterval(timerInterval);
 
             timerInterval = setInterval(() => {
@@ -688,123 +745,174 @@
                     clearInterval(timerInterval);
                     timerEl.textContent = '✓';
                     timerEl.classList.add('ready');
-                    setTimeout(() => {
-                        document.getElementById('timer-section').classList.add('hidden');
-                        document.getElementById('reveal-section').classList.remove('hidden');
-                        document.getElementById('phase-instruction').textContent = 'Ready?';
-                    }, 200);
+                    // Auto reveal after timeout? No, user must reveal to confirm prediction.
+                    // But we enable reveal button visibility if hidden
+                    document.getElementById('timer-section').classList.add('hidden');
+                    document.getElementById('reveal-section').classList.remove('hidden');
+                    document.getElementById('phase-instruction').textContent = 'Ready?';
                 }
             }, 1000);
         }
 
+        // Toggles
+        function toggleImage() {
+            const el = document.getElementById('sentence-image');
+            const btn = document.getElementById('show-image-btn');
+            el.classList.toggle('hidden');
+            btn.textContent = el.classList.contains('hidden') ? 'Show Image' : 'Hide Image';
+        }
+        function toggleSentence() {
+            const el = document.getElementById('sentence');
+            const btn = document.getElementById('show-sentence-btn');
+            el.classList.toggle('hidden');
+            btn.textContent = el.classList.contains('hidden') ? 'Show Sentence' : 'Hide Sentence';
+        }
+
+        // Reveal
         document.getElementById('reveal-btn').addEventListener('click', () => {
-            const sentence = getCurrentSentence();
-            const item = getCurrentItem();
+            const duration = Date.now() - predictionStartTime;
+            const { item, sentenceIndex } = currentCard;
+            const sentence = item.sentences[sentenceIndex];
+
+            // Stop timer
+            if (timerInterval) clearInterval(timerInterval);
+
+            // Show full sentence
             document.getElementById('sentence').innerHTML = sentence.japanese;
             document.getElementById('english').classList.remove('hidden');
+            document.getElementById('sentence').classList.remove('hidden');
+            
+            // Show image if available (unless hard-hidden, but reveal usually shows context)
+            if (sentence.image) {
+                document.getElementById('sentence-image').classList.remove('hidden');
+            }
+
             document.getElementById('reveal-section').classList.add('hidden');
             document.getElementById('answer-section').classList.remove('hidden');
-            document.getElementById('phase-instruction').textContent = 'How did you do?';
-
-            const isImageHidden = item && (imageHiddenWords.has(item.word) || fullyMasteredWords.has(item.word));
-            const isFullyMastered = item && fullyMasteredWords.has(item.word);
-
-            // Only show image if not hidden (medium/easy words keep image hidden unless user toggles)
-            const imageEl = document.getElementById('sentence-image');
-            if (sentence.image && !isImageHidden) {
-                imageEl.src = sentence.image;
-                imageEl.classList.remove('hidden');
-            }
-
-            // For fully mastered words, sentence stays in whatever state the user left it
-            // For others, make sure sentence is visible on reveal
-            if (!isFullyMastered) {
-                document.getElementById('sentence').classList.remove('hidden');
-            }
-
-            // Audio button stays visible
+            document.getElementById('phase-instruction').textContent = 'How was your prediction?';
+            
+            // Store duration on the button for the rating handler
+            document.getElementById('answer-section').dataset.duration = duration;
         });
 
         function rate(rating) {
-            stats[rating]++;
-            const currentItem = getCurrentItem();
+            const duration = parseInt(document.getElementById('answer-section').dataset.duration || '5000');
+            const isCorrect = (rating === 'easy' || rating === 'medium');
+            const { item } = currentCard;
+            
+            // 1. Update History
+            userState.reviewHistory.push({
+                t: Date.now(),
+                correct: isCorrect,
+                speed: duration
+            });
+            // Keep history manageable
+            if (userState.reviewHistory.length > 200) userState.reviewHistory.shift();
 
-            // Track Medium ratings - hide image next time
-            if (rating === 'medium' && currentItem) {
-                imageHiddenWords.add(currentItem.word);
-                localStorage.setItem(IMAGE_HIDDEN_KEY, JSON.stringify([...imageHiddenWords]));
+            // 2. Streak & Speed Bonus
+            if (isCorrect) {
+                if (duration < SPEED_THRESHOLD) {
+                    // Fast! Dopamine hit.
+                    userState.streak++;
+                } else {
+                    // Correct but slow - maintain or increment?
+                    // User request: "Streak multiplier only if... under 1.5 seconds"
+                    // Implies streak breaks or doesn't increase if slow? 
+                    // Let's say it doesn't increase, or maybe resets if really slow?
+                    // For now: Streak only increments on FAST. Resets on ERROR.
+                    // If correct but slow, streak stays same (or maybe decays?)
+                    // Let's implement strict: Streak only builds on speed.
+                }
+            } else {
+                userState.streak = 0;
             }
+            if (userState.streak > userState.maxStreak) userState.maxStreak = userState.streak;
 
-            // Track Easy ratings - hide image AND sentence next time (audio only)
-            if (rating === 'easy' && currentItem) {
-                fullyMasteredWords.add(currentItem.word);
-                localStorage.setItem(FULLY_MASTERED_KEY, JSON.stringify([...fullyMasteredWords]));
-
-                // Track for WaniKani sync
-                if (currentItem.subject_id && !easyReviews.find(r => r.subject_id === currentItem.subject_id)) {
-                    easyReviews.push({
-                        subject_id: currentItem.subject_id,
-                        word: currentItem.word,
-                        reading: currentItem.reading,
-                        meaning: currentItem.meaning
-                    });
+            // 3. Mastery State (Easy/Medium/Hard logic)
+            if (rating === 'medium') {
+                if (!userState.imageHiddenIds.includes(item.subject_id)) {
+                    userState.imageHiddenIds.push(item.subject_id);
                 }
             }
-
-            updateStats();
-
-            currentSentenceIndex++;
-            if (!currentItem || currentSentenceIndex >= currentItem.sentences.length) {
-                currentIndex++;
-                currentSentenceIndex = 0;
+            if (rating === 'easy') {
+                if (!userState.fullyMasteredIds.includes(item.subject_id)) {
+                    userState.fullyMasteredIds.push(item.subject_id);
+                    // Add to sync queue
+                    if (!easyReviews.find(r => r.subject_id === item.subject_id)) {
+                        easyReviews.push({
+                            subject_id: item.subject_id,
+                            word: item.word,
+                            reading: item.reading,
+                            meaning: item.meaning
+                        });
+                    }
+                }
             }
+            // Hard resets mastery?
+            if (rating === 'hard') {
+                userState.fullyMasteredIds = userState.fullyMasteredIds.filter(id => id !== item.subject_id);
+                userState.imageHiddenIds = userState.imageHiddenIds.filter(id => id !== item.subject_id);
+            }
+
+            // 4. Check Gating / Level Up
+            checkLevelUp();
+
+            // 5. Save & Next
+            saveState();
             showCard();
+        }
+
+        function playCurrentAudio() {
+            // Helper to replay audio
+            if (!currentCard) return;
+            const { item, sentenceIndex } = currentCard;
+            const file = getAudioFile(item.word, sentenceIndex);
+            if (file) {
+                audioPlayer.src = file;
+                audioPlayer.play();
+            }
         }
 
         function showComplete() {
             document.getElementById('app').classList.add('hidden');
             document.getElementById('complete').classList.remove('hidden');
-            document.getElementById('final-total').textContent = stats.easy + stats.medium + stats.hard;
-            document.getElementById('final-easy').textContent = stats.easy;
-            document.getElementById('final-hard').textContent = stats.hard;
+            
+            document.getElementById('final-streak').textContent = userState.maxStreak;
+            
+            // Session Accuracy
+            // Simple calculation: last N items match session size approx
+            // Or just use recent history
+            const acc = Math.round(getRecentAccuracy() * 100);
+            document.getElementById('final-acc').textContent = acc + '%';
 
-            // Show export button if there are Easy reviews to sync
-            const exportBtn = document.getElementById('export-easy-btn');
-            const exportStatus = document.getElementById('export-status');
+            // Export btn
             if (easyReviews.length > 0) {
-                exportBtn.style.display = 'block';
-                exportStatus.textContent = `${easyReviews.length} items ready to sync`;
-            } else {
-                exportBtn.style.display = 'none';
-                exportStatus.textContent = '';
+                document.getElementById('export-easy-btn').style.display = 'block';
+                document.getElementById('export-status').textContent = `${easyReviews.length} items to sync`;
             }
         }
 
         function restart() {
-            stats = { easy: 0, medium: 0, hard: 0 };
-            easyReviews = [];  // Clear Easy reviews on restart
-            currentIndex = 0;
-            currentSentenceIndex = 0;
-            data = data.sort(() => Math.random() - 0.5);
+            // Replenish queue and go again
+            replenishQueue();
             document.getElementById('complete').classList.add('hidden');
             document.getElementById('app').classList.remove('hidden');
-            updateStats();
             showCard();
         }
 
-        function exportEasyReviews() {
-            if (easyReviews.length === 0) {
-                document.getElementById('export-status').textContent = 'No Easy reviews to export';
-                return;
+        function resetData() {
+            if(confirm("Reset all progress?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(STATE_KEY);
+                location.reload();
             }
+        }
 
-            const exportStatus = document.getElementById('export-status');
-
-            // Save to localStorage for sync script to read
+        function exportEasyReviews() {
+             if (easyReviews.length === 0) return;
             const exportData = JSON.stringify(easyReviews, null, 2);
-            localStorage.setItem('wk_easy_reviews', exportData);
-
-            // Also trigger download as backup
+            localStorage.setItem(EXPORT_KEY, exportData);
+            
             const blob = new Blob([exportData], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -814,70 +922,25 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-
-            exportStatus.textContent = `Exported ${easyReviews.length} items! Run sync_to_wanikani.py to submit.`;
-            exportStatus.style.color = '#4ecdc4';
-
-            // Clear after export
+            
             easyReviews = [];
             document.getElementById('export-easy-btn').style.display = 'none';
+            document.getElementById('export-status').textContent = 'Exported!';
         }
 
-        // Check if we have audio files cached
-        async function checkOfflineReadiness() {
-            try {
-                // Check if manifest is in ANY cache
-                const manifestRes = await caches.match('audio/manifest.json');
-                
-                if (manifestRes) {
-                    const manifest = await manifestRes.json();
-                    // Check a few files to be sure
-                    const checkCount = Math.min(5, manifest.length);
-                    let found = 0;
-                    for(let i=0; i<checkCount; i++) {
-                        const match = await caches.match(`audio/${manifest[i].file}`);
-                        if(match) found++;
-                    }
-                    
-                    if (found === checkCount) {
-                        showReadyBadge();
-                    }
-                }
-            } catch (e) {
-                console.log('Cache check failed', e);
-            }
-        }
-
-        function showReadyBadge() {
-            const readyBadge = document.getElementById('ready-badge');
-            readyBadge.classList.remove('hidden');
-            // Keep it visible
-        }
-
-        // Try auto-load on start
+        // Init
         window.addEventListener('load', () => {
-            // 1. Check offline status
             checkOfflineReadiness();
-
-            // 2. Auto-load data
-            console.log("Attempting auto-load...");
-            loadData(); 
+            loadData();
         });
 
-        // Register service worker
+        // SW
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(registration => {
-                    console.log('SW registered');
-                    
-                    // Listen for messages from SW
-                    navigator.serviceWorker.addEventListener('message', event => {
-                        if (event.data && event.data.type === 'OFFLINE_READY') {
-                            showReadyBadge();
-                        }
-                    });
-                })
-                .catch(err => console.log('SW failed', err));
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                navigator.serviceWorker.addEventListener('message', event => {
+                    if (event.data?.type === 'OFFLINE_READY') document.getElementById('ready-badge').classList.remove('hidden');
+                });
+            });
         }
     </script>
 </body>

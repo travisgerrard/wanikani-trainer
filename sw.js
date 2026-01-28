@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wk-trainer-v15';
+const CACHE_NAME = 'wk-trainer-v17';
 const ASSETS = [
     './',
     './index.html',
@@ -7,91 +7,70 @@ const ASSETS = [
     './audio/manifest.json'
 ];
 
-// Install - cache assets AND audio files
+// Install - cache everything
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(async cache => {
-            // 1. Cache static assets
             await cache.addAll(ASSETS);
-
-            // 2. Fetch and cache audio files from manifest
+            
+            // Audio/Images caching logic
             try {
-                const response = await fetch('./audio/manifest.json');
-                if (response.ok) {
-                    const manifest = await response.json();
+                const audioRes = await fetch('./audio/manifest.json');
+                if (audioRes.ok) {
+                    const manifest = await audioRes.json();
                     const audioFiles = manifest.map(item => `./audio/${item.file}`);
-                    if (audioFiles.length > 0) {
-                        await cache.addAll(audioFiles);
-                        console.log(`[SW] Cached ${audioFiles.length} audio files`);
-                    }
+                    await cache.addAll(audioFiles);
                 }
-            } catch (err) {
-                console.error('[SW] Failed to cache audio files:', err);
-            }
-
-            // 3. Fetch and cache images from sentences.json
-            try {
-                const response = await fetch('./sentences.json');
-                if (response.ok) {
-                    const sentences = await response.json();
-                    const imageFiles = [];
-                    sentences.forEach(item => {
-                        item.sentences.forEach(s => {
-                            if (s.image) {
-                                imageFiles.push(`./${s.image}`);
-                            }
-                        });
-                    });
-                    if (imageFiles.length > 0) {
-                        await cache.addAll(imageFiles);
-                        console.log(`[SW] Cached ${imageFiles.length} image files`);
-                    }
-
-                    // Notify clients that we are ready
-                    const allClients = await self.clients.matchAll();
-                    allClients.forEach(client => {
-                        client.postMessage({ type: 'OFFLINE_READY' });
-                    });
+                const sentRes = await fetch('./sentences.json');
+                if (sentRes.ok) {
+                    const sentences = await sentRes.json();
+                    const images = [];
+                    sentences.forEach(i => i.sentences.forEach(s => { if(s.image) images.push(`./${s.image}`); }));
+                    await cache.addAll(images);
                 }
-            } catch (err) {
-                console.error('[SW] Failed to cache image files:', err);
-            }
-
+            } catch (e) { console.log("Pre-cache error", e); }
+            
             return self.skipWaiting();
         })
     );
 });
 
-// Activate - clean old caches
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(keys => {
-            return Promise.all(
-                keys.filter(key => key !== CACHE_NAME)
-                    .map(key => caches.delete(key))
-            );
-        }).then(() => self.clients.claim())
+        caches.keys().then(keys => Promise.all(
+            keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+        )).then(() => self.clients.claim())
     );
 });
 
-// Fetch - Strict Cache First (No background revalidation)
+// Fetch Strategy
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(cached => {
-                if (cached) {
-                    return cached;
-                }
-                // Not cached - fetch and cache
-                return fetch(event.request).then(response => {
-                    // Only cache valid responses
-                    if (response.ok && response.type === 'basic') {
-                        const clone = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then(cache => cache.put(event.request, clone));
-                    }
+    const url = new URL(event.request.url);
+    
+    // NETWORK FIRST for the main HTML/Root to ensure updates
+    if (url.pathname === '/' || url.pathname.endsWith('index.html')) {
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
                     return response;
-                });
-            })
+                })
+                .catch(() => caches.match(event.request))
+        );
+        return;
+    }
+
+    // CACHE FIRST for everything else (Images, Audio, JSON)
+    event.respondWith(
+        caches.match(event.request).then(cached => {
+            return cached || fetch(event.request).then(response => {
+                if (response.ok) {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+                }
+                return response;
+            });
+        })
     );
 });
