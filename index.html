@@ -330,15 +330,351 @@
             width: auto;
             flex: 0;
         }
+
+        /* Toast notification system */
+        .toast-container {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.7s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .toast.success { border-left-color: #4ecdc4; }
+        .toast.warning { border-left-color: #ffe66d; }
+        .toast.error { border-left-color: #ff6b6b; }
+        .toast.speed { border-left-color: #ff00ff; background: linear-gradient(135deg, #16213e 0%, #2a1a4a 100%); }
+
+        .toast-icon { font-size: 1.2rem; }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        /* Progress bar toward unlock */
+        .unlock-progress {
+            background: #0a0a1a;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+        }
+
+        .unlock-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .unlock-progress-label {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .unlock-progress-value {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .unlock-progress-value.flow { color: #4ecdc4; }
+        .unlock-progress-value.learning { color: #ffe66d; }
+        .unlock-progress-value.lock { color: #ff6b6b; }
+
+        .progress-bar-container {
+            background: #1a1a2e;
+            border-radius: 4px;
+            height: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease, background 0.3s ease;
+        }
+
+        .progress-bar-fill.flow { background: linear-gradient(90deg, #4ecdc4, #00d4ff); }
+        .progress-bar-fill.learning { background: linear-gradient(90deg, #ffe66d, #ffa500); }
+        .progress-bar-fill.lock { background: linear-gradient(90deg, #ff6b6b, #ff4444); }
+
+        .progress-bar-threshold {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #fff;
+            opacity: 0.5;
+        }
+
+        .unlock-progress-hint {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        /* Speed indicator */
+        .speed-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+            z-index: 1500;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.1s ease-out;
+        }
+
+        .speed-indicator.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            animation: speedPop 0.6s ease-out forwards;
+        }
+
+        @keyframes speedPop {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        /* Word mastery indicator */
+        .word-mastery {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .mastery-star {
+            font-size: 1rem;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .mastery-star.active {
+            opacity: 1;
+        }
+
+        /* Enhanced brain state display */
+        .brain-state-panel {
+            background: #0a0a1a;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .brain-state-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .brain-state-title.flow { color: #4ecdc4; }
+        .brain-state-title.learning { color: #ffe66d; }
+        .brain-state-title.lock { color: #ff6b6b; }
+
+        .brain-state-description {
+            font-size: 0.7rem;
+            color: #888;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Stats row improvements */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .stat-box {
+            background: #0f3460;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .stat-box-label {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* Rating button hints */
+        .rating-hint {
+            font-size: 0.65rem;
+            color: #666;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* Help button */
+        .help-btn {
+            position: fixed;
+            bottom: env(safe-area-inset-bottom, 16px);
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #0f3460;
+            color: #888;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            border: none;
+            padding: 0;
+        }
+
+        .help-btn:hover { color: #00d4ff; }
+
+        /* Help modal */
+        .help-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-modal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .help-content {
+            background: #16213e;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .help-content h3 {
+            color: #00d4ff;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .help-section {
+            margin-bottom: 16px;
+        }
+
+        .help-section h4 {
+            color: #ffe66d;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .help-section p {
+            color: #aaa;
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .help-close {
+            background: #00d4ff;
+            color: #1a1a2e;
+            margin-top: 16px;
+        }
     </style>
 </head>
 <body>
     <div id="offline-badge" class="offline-badge hidden">Offline</div>
     <div id="ready-badge" class="ready-badge hidden">Ready for Offline</div>
 
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Speed indicator -->
+    <div id="speed-indicator" class="speed-indicator">⚡</div>
+
     <div class="top-bar">
         <h1>WK Trainer</h1>
         <div id="streak-badge" class="streak-badge">x2 Streak!</div>
+    </div>
+
+    <!-- Help button -->
+    <button class="help-btn" onclick="toggleHelp()">?</button>
+
+    <!-- Help modal -->
+    <div id="help-modal" class="help-modal" onclick="toggleHelp()">
+        <div class="help-content" onclick="event.stopPropagation()">
+            <h3>How This Works</h3>
+
+            <div class="help-section">
+                <h4>🧠 Brain States</h4>
+                <p><strong>Flow (≥90% accuracy):</strong> You're crushing it! New words unlock automatically.<br>
+                <strong>Learning (75-90%):</strong> Keep going, building toward flow.<br>
+                <strong>Locked (&lt;75%):</strong> Focus on current words until accuracy improves.</p>
+            </div>
+
+            <div class="help-section">
+                <h4>⚡ Speed Streaks</h4>
+                <p>Answer correctly in under 1.5 seconds to build a streak. Fast answers mean the word is becoming automatic—that's the goal!</p>
+            </div>
+
+            <div class="help-section">
+                <h4>⭐ Word Mastery</h4>
+                <p><strong>Hard:</strong> Full support (image + sentence shown)<br>
+                <strong>Medium:</strong> Image hidden next time (1 star)<br>
+                <strong>Easy:</strong> Image + sentence hidden (2 stars) - ready for WaniKani sync</p>
+            </div>
+
+            <div class="help-section">
+                <h4>📊 The Numbers</h4>
+                <p><strong>Active:</strong> Words currently in rotation<br>
+                <strong>Accuracy:</strong> Last 20 reviews (determines brain state)<br>
+                <strong>Queue:</strong> Cards remaining this session</p>
+            </div>
+
+            <button class="help-close" onclick="toggleHelp()">Got It</button>
+        </div>
     </div>
 
     <!-- Setup Screen -->
@@ -352,17 +688,43 @@
 
     <!-- Training Screen -->
     <div id="app" class="hidden">
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-value" id="active-count">0</div>
-                <div class="stat-label">Active</div>
+        <!-- Brain State Panel -->
+        <div class="brain-state-panel">
+            <div id="brain-state-title" class="brain-state-title learning">🧠 Learning Mode</div>
+            <div id="brain-state-description" class="brain-state-description">Keep practicing to reach Flow State</div>
+        </div>
+
+        <!-- Progress toward unlock -->
+        <div class="unlock-progress">
+            <div class="unlock-progress-header">
+                <span class="unlock-progress-label">Accuracy (last 20)</span>
+                <span id="accuracy-display" class="unlock-progress-value learning">0%</span>
             </div>
-             <div class="stat">
-                <div class="stat-value" id="accuracy">-</div>
-                <div class="stat-label">Brain Acc.</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-threshold" style="left: 75%;" title="Lock threshold (75%)"></div>
+                <div class="progress-bar-threshold" style="left: 90%;" title="Flow threshold (90%)"></div>
+                <div id="accuracy-bar" class="progress-bar-fill learning" style="width: 0%;"></div>
             </div>
-            <div class="stat">
-                <div id="brain-state-display" class="brain-state">Loading...</div>
+            <div id="unlock-hint" class="unlock-progress-hint">Need 90% accuracy to unlock new words</div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-box-value" id="active-count">0</div>
+                <div class="stat-box-label">Active Words</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="queue-count">0</div>
+                <div class="stat-box-label">Queue</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="streak-display">0</div>
+                <div class="stat-box-label">Streak</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="mastered-count">0</div>
+                <div class="stat-box-label">Mastered</div>
             </div>
         </div>
 
@@ -399,18 +761,23 @@
                     <div class="kanji" id="answer-word"></div>
                     <div class="reading" id="answer-reading"></div>
                     <div class="meaning" id="answer-meaning"></div>
+                    <div class="word-mastery" id="word-mastery">
+                        <span class="mastery-star" id="star-1">⭐</span>
+                        <span class="mastery-star" id="star-2">⭐</span>
+                    </div>
                 </div>
 
-                <p class="instruction">How was your prediction?</p>
+                <p class="instruction" id="rating-instruction">How was your prediction?</p>
                 <div class="rating-btns">
                     <button class="easy" onclick="rate('easy')">Easy</button>
                     <button class="medium" onclick="rate('medium')">Medium</button>
                     <button class="hard" onclick="rate('hard')">Hard</button>
                 </div>
+                <div id="rating-hint" class="rating-hint">Easy/Medium = correct prediction, Hard = didn't know</div>
             </div>
         </div>
         <div class="progress" id="progress"></div>
-        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.8.0</div>
+        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.9.0</div>
     </div>
 
     <!-- Complete Screen -->
@@ -476,6 +843,35 @@
         let audioAvailable = false;
 
         const audioPlayer = document.getElementById('audio-player');
+
+        // Track previous state for change detection
+        let previousBrainState = null;
+
+        // --- Toast Notification System ---
+        function showToast(message, type = 'info', icon = '💡') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+
+            // Remove after animation
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // --- Speed Indicator ---
+        function showSpeedIndicator() {
+            const indicator = document.getElementById('speed-indicator');
+            indicator.classList.remove('show');
+            // Force reflow
+            void indicator.offsetWidth;
+            indicator.classList.add('show');
+        }
+
+        // --- Help Modal ---
+        function toggleHelp() {
+            document.getElementById('help-modal').classList.toggle('visible');
+        }
 
         // --- Offline / Audio Logic (Kept from original) ---
         function updateOnlineStatus() {
@@ -589,28 +985,73 @@
         // --- UI Logic ---
 
         function updateUIStats() {
-            // Accuracy
-            const acc = Math.round(getRecentAccuracy() * 100);
-            document.getElementById('accuracy').textContent = `${acc}%`;
-            
-            // Active Count
-            document.getElementById('active-count').textContent = userState.activeIds.length;
-
-            // Brain State
+            const acc = getRecentAccuracy();
+            const accPercent = Math.round(acc * 100);
             const state = getBrainState();
-            const stateEl = document.getElementById('brain-state-display');
+
+            // Accuracy display and progress bar
+            const accDisplay = document.getElementById('accuracy-display');
+            const accBar = document.getElementById('accuracy-bar');
+            accDisplay.textContent = `${accPercent}%`;
+            accDisplay.className = `unlock-progress-value ${state}`;
+            accBar.style.width = `${accPercent}%`;
+            accBar.className = `progress-bar-fill ${state}`;
+
+            // Unlock hint
+            const hintEl = document.getElementById('unlock-hint');
             if (state === 'flow') {
-                stateEl.textContent = '⚡ Flow State';
-                stateEl.className = 'brain-state flow';
+                const remaining = library.filter(i => !userState.activeIds.includes(i.subject_id)).length;
+                hintEl.textContent = remaining > 0
+                    ? `🎉 Flow State! ${remaining} words available to unlock`
+                    : '🏆 All words unlocked!';
             } else if (state === 'lock') {
-                stateEl.textContent = '🔒 Locked';
-                stateEl.className = 'brain-state lock';
+                const needed = Math.ceil(LOCK_THRESHOLD * GATING_WINDOW) - userState.reviewHistory.slice(-GATING_WINDOW).filter(h => h.correct).length;
+                hintEl.textContent = `🔒 Locked - focus on current words (need ~${Math.max(0, needed)} more correct)`;
             } else {
-                stateEl.textContent = '🧠 Learning';
-                stateEl.className = 'brain-state';
+                const correctNeeded = Math.ceil(UNLOCK_THRESHOLD * GATING_WINDOW);
+                const currentCorrect = userState.reviewHistory.slice(-GATING_WINDOW).filter(h => h.correct).length;
+                const needed = correctNeeded - currentCorrect;
+                hintEl.textContent = needed > 0
+                    ? `Need ~${needed} more correct answers to reach Flow State`
+                    : 'Almost there! Keep going!';
             }
 
-            // Streak
+            // Brain State Panel
+            const stateTitle = document.getElementById('brain-state-title');
+            const stateDesc = document.getElementById('brain-state-description');
+            if (state === 'flow') {
+                stateTitle.textContent = '⚡ Flow State';
+                stateTitle.className = 'brain-state-title flow';
+                stateDesc.textContent = 'Your brain is ready for new challenges! New words will unlock automatically.';
+            } else if (state === 'lock') {
+                stateTitle.textContent = '🔒 Locked Mode';
+                stateTitle.className = 'brain-state-title lock';
+                stateDesc.textContent = 'Too many errors. Focus on mastering current words before adding new ones.';
+            } else {
+                stateTitle.textContent = '🧠 Learning Mode';
+                stateTitle.className = 'brain-state-title learning';
+                stateDesc.textContent = 'Building accuracy. Reach 90% to unlock Flow State!';
+            }
+
+            // Detect state changes and show toast
+            if (previousBrainState !== null && previousBrainState !== state) {
+                if (state === 'flow') {
+                    showToast('Flow State unlocked! New words incoming!', 'success', '⚡');
+                } else if (state === 'lock') {
+                    showToast('Locked - focus on current words', 'error', '🔒');
+                } else if (previousBrainState === 'lock') {
+                    showToast('Unlocked! Keep building accuracy', 'success', '🔓');
+                }
+            }
+            previousBrainState = state;
+
+            // Stats row
+            document.getElementById('active-count').textContent = userState.activeIds.length;
+            document.getElementById('queue-count').textContent = sessionQueue.length;
+            document.getElementById('streak-display').textContent = userState.streak;
+            document.getElementById('mastered-count').textContent = userState.fullyMasteredIds.length;
+
+            // Streak badge (top right)
             const streakBadge = document.getElementById('streak-badge');
             if (userState.streak > 1) {
                 streakBadge.textContent = `x${userState.streak} Streak!`;
@@ -618,6 +1059,17 @@
             } else {
                 streakBadge.classList.remove('visible');
             }
+        }
+
+        function updateWordMastery(item) {
+            const star1 = document.getElementById('star-1');
+            const star2 = document.getElementById('star-2');
+
+            const isImageHidden = userState.imageHiddenIds.includes(item.subject_id);
+            const isFullyMastered = userState.fullyMasteredIds.includes(item.subject_id);
+
+            star1.classList.toggle('active', isImageHidden || isFullyMastered);
+            star2.classList.toggle('active', isFullyMastered);
         }
 
         async function loadData() {
@@ -787,7 +1239,10 @@
                 audioBtn.style.display = 'none';
                 setTimeout(startPredictionPhase, 500);
             }
-            
+
+            // Update mastery stars for this word
+            updateWordMastery(item);
+
             updateUIStats();
         }
 
@@ -874,7 +1329,12 @@
             const duration = parseInt(document.getElementById('answer-section').dataset.duration || '5000');
             const isCorrect = (rating === 'easy' || rating === 'medium');
             const { item } = currentCard;
-            
+
+            // Track previous mastery for change detection
+            const wasImageHidden = userState.imageHiddenIds.includes(item.subject_id);
+            const wasFullyMastered = userState.fullyMasteredIds.includes(item.subject_id);
+            const previousActiveCount = userState.activeIds.length;
+
             // 1. Update History
             userState.reviewHistory.push({
                 t: Date.now(),
@@ -889,16 +1349,18 @@
                 if (duration < SPEED_THRESHOLD) {
                     // Fast! Dopamine hit.
                     userState.streak++;
-                } else {
-                    // Correct but slow - maintain or increment?
-                    // User request: "Streak multiplier only if... under 1.5 seconds"
-                    // Implies streak breaks or doesn't increase if slow? 
-                    // Let's say it doesn't increase, or maybe resets if really slow?
-                    // For now: Streak only increments on FAST. Resets on ERROR.
-                    // If correct but slow, streak stays same (or maybe decays?)
-                    // Let's implement strict: Streak only builds on speed.
+                    showSpeedIndicator();
+                    if (userState.streak > 1) {
+                        showToast(`⚡ Speed streak x${userState.streak}! (${(duration/1000).toFixed(1)}s)`, 'speed', '🔥');
+                    } else {
+                        showToast(`Fast! ${(duration/1000).toFixed(1)}s - building automaticity`, 'speed', '⚡');
+                    }
                 }
+                // Correct but slow - streak doesn't increase
             } else {
+                if (userState.streak > 2) {
+                    showToast(`Streak broken at x${userState.streak}`, 'warning', '💔');
+                }
                 userState.streak = 0;
             }
             if (userState.streak > userState.maxStreak) userState.maxStreak = userState.streak;
@@ -907,11 +1369,13 @@
             if (rating === 'medium') {
                 if (!userState.imageHiddenIds.includes(item.subject_id)) {
                     userState.imageHiddenIds.push(item.subject_id);
+                    showToast(`"${item.word}" leveled up! Image hidden next time`, 'success', '⭐');
                 }
             }
             if (rating === 'easy') {
                 if (!userState.fullyMasteredIds.includes(item.subject_id)) {
                     userState.fullyMasteredIds.push(item.subject_id);
+                    showToast(`"${item.word}" mastered! Ready for WaniKani sync`, 'success', '⭐⭐');
                     // Add to sync queue
                     if (!easyReviews.find(r => r.subject_id === item.subject_id)) {
                         easyReviews.push({
@@ -923,14 +1387,24 @@
                     }
                 }
             }
-            // Hard resets mastery?
+            // Hard resets mastery
             if (rating === 'hard') {
+                const hadMastery = wasImageHidden || wasFullyMastered;
                 userState.fullyMasteredIds = userState.fullyMasteredIds.filter(id => id !== item.subject_id);
                 userState.imageHiddenIds = userState.imageHiddenIds.filter(id => id !== item.subject_id);
+                if (hadMastery) {
+                    showToast(`"${item.word}" reset - full support restored`, 'warning', '🔄');
+                }
             }
 
             // 4. Check Gating / Level Up
             checkLevelUp();
+
+            // Detect if new words were added
+            if (userState.activeIds.length > previousActiveCount) {
+                const added = userState.activeIds.length - previousActiveCount;
+                showToast(`+${added} new word${added > 1 ? 's' : ''} unlocked!`, 'success', '🆕');
+            }
 
             // 5. Save & Next
             saveState();
