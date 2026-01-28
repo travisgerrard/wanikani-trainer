@@ -777,7 +777,7 @@
             </div>
         </div>
         <div class="progress" id="progress"></div>
-        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.9.0</div>
+        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.9.1</div>
     </div>
 
     <!-- Complete Screen -->
@@ -1314,6 +1314,9 @@
                 imageEl.classList.remove('hidden');
                 imageEl.classList.add('animate-scale-in');
             }
+
+            // Hide toggle buttons - no longer needed after reveal
+            document.getElementById('toggle-btns').classList.add('hidden');
 
             document.getElementById('reveal-section').classList.add('hidden');
 
