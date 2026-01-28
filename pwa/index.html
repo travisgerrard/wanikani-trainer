@@ -167,6 +167,47 @@
 
         .hidden { display: none !important; }
 
+        /* Animation classes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .animate-slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.25s ease-out forwards;
+        }
+
+        /* Smooth transitions for toggled elements */
+        .sentence-image {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .sentence {
+            transition: opacity 0.3s ease;
+        }
+
+        .word-info {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
         .setup {
             text-align: center;
             padding: 30px 20px;
@@ -228,13 +269,12 @@
         .audio-btn {
             background: #0f3460;
             color: #00d4ff;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            width: 80%;
-            max-width: 280px;
+            width: 100%;
             padding: 18px 32px;
-            margin: 16px auto;
+            margin: 6px 0;
             font-size: 1.1rem;
             font-weight: 600;
         }
@@ -370,7 +410,7 @@
             </div>
         </div>
         <div class="progress" id="progress"></div>
-        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.7.0</div>
+        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.8.0</div>
     </div>
 
     <!-- Complete Screen -->
@@ -659,11 +699,28 @@
             toggleBtns.classList.add('hidden');
             showImageBtn.classList.add('hidden');
             showSentenceBtn.classList.add('hidden');
-            document.getElementById('sentence').classList.add('hidden');
-            document.getElementById('english').classList.add('hidden');
-            document.getElementById('timer-section').classList.add('hidden');
-            document.getElementById('reveal-section').classList.add('hidden');
-            document.getElementById('answer-section').classList.add('hidden');
+
+            const sentenceEl = document.getElementById('sentence');
+            const englishEl = document.getElementById('english');
+            const answerSection = document.getElementById('answer-section');
+
+            const timerSection = document.getElementById('timer-section');
+
+            // Reset animation classes so they can re-trigger
+            sentenceEl.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            englishEl.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            answerSection.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            imageEl.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            timerSection.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+
+            const revealSection = document.getElementById('reveal-section');
+            revealSection.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+
+            sentenceEl.classList.add('hidden');
+            englishEl.classList.add('hidden');
+            timerSection.classList.add('hidden');
+            revealSection.classList.add('hidden');
+            answerSection.classList.add('hidden');
             document.getElementById('phase-instruction').textContent = 'Listen to the sentence...';
 
             // Image logic
@@ -700,18 +757,22 @@
             const startPredictionPhase = () => {
                 // Prepare sentence text
                 const blankSentence = sentence.japanese.replace(item.word, '<span class="blank">???</span>');
-                document.getElementById('sentence').innerHTML = blankSentence;
+                const sentenceEl = document.getElementById('sentence');
+                sentenceEl.innerHTML = blankSentence;
                 document.getElementById('english').textContent = sentence.english;
 
                 if (!isFullyMastered) {
-                    document.getElementById('sentence').classList.remove('hidden');
+                    sentenceEl.classList.remove('hidden');
+                    sentenceEl.classList.add('animate-fade-in');
                     document.getElementById('phase-instruction').textContent = 'Predict the missing word...';
                 } else {
                     document.getElementById('phase-instruction').textContent = 'Listen and predict...';
                 }
 
-                document.getElementById('timer-section').classList.remove('hidden');
-                
+                const timerSection = document.getElementById('timer-section');
+                timerSection.classList.remove('hidden');
+                timerSection.classList.add('animate-fade-in');
+
                 // Track start time for speed bonus
                 predictionStartTime = Date.now();
                 startTimer();
@@ -748,7 +809,9 @@
                     // Auto reveal after timeout? No, user must reveal to confirm prediction.
                     // But we enable reveal button visibility if hidden
                     document.getElementById('timer-section').classList.add('hidden');
-                    document.getElementById('reveal-section').classList.remove('hidden');
+                    const revealSection = document.getElementById('reveal-section');
+                    revealSection.classList.remove('hidden');
+                    revealSection.classList.add('animate-scale-in');
                     document.getElementById('phase-instruction').textContent = 'Ready?';
                 }
             }, 1000);
@@ -777,22 +840,34 @@
             // Stop timer
             if (timerInterval) clearInterval(timerInterval);
 
-            // Show full sentence
-            document.getElementById('sentence').innerHTML = sentence.japanese;
-            document.getElementById('english').classList.remove('hidden');
-            document.getElementById('sentence').classList.remove('hidden');
-            
-            // Show image if available (unless hard-hidden, but reveal usually shows context)
+            // Show full sentence with animation
+            const sentenceEl = document.getElementById('sentence');
+            sentenceEl.innerHTML = sentence.japanese;
+            sentenceEl.classList.remove('hidden');
+            sentenceEl.classList.add('animate-fade-in');
+
+            const englishEl = document.getElementById('english');
+            englishEl.classList.remove('hidden');
+            englishEl.classList.add('animate-fade-in');
+
+            // Show image if available with animation
             if (sentence.image) {
-                document.getElementById('sentence-image').classList.remove('hidden');
+                const imageEl = document.getElementById('sentence-image');
+                imageEl.classList.remove('hidden');
+                imageEl.classList.add('animate-scale-in');
             }
 
             document.getElementById('reveal-section').classList.add('hidden');
-            document.getElementById('answer-section').classList.remove('hidden');
+
+            // Show answer section with animation
+            const answerSection = document.getElementById('answer-section');
+            answerSection.classList.remove('hidden');
+            answerSection.classList.add('animate-slide-down');
+
             document.getElementById('phase-instruction').textContent = 'How was your prediction?';
-            
+
             // Store duration on the button for the rating handler
-            document.getElementById('answer-section').dataset.duration = duration;
+            answerSection.dataset.duration = duration;
         });
 
         function rate(rating) {
