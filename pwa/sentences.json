@@ -93,5 +93,195 @@
         "image": "images/birds_fly_free.png"
       }
     ]
+  },
+  {
+    "subject_id": 2946,
+    "word": "未来",
+    "reading": "みらい",
+    "meaning": "Future",
+    "level": 7,
+    "sentences": [
+      {
+        "japanese": "未来は明るいです。",
+        "english": "The future is bright.",
+        "image": "images/future_bright.png"
+      },
+      {
+        "japanese": "私は未来について考えています。",
+        "english": "I am thinking about the future.",
+        "image": "images/thinking_future.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3226,
+    "word": "親友",
+    "reading": "しんゆう",
+    "meaning": "Close Friend",
+    "level": 10,
+    "sentences": [
+      {
+        "japanese": "彼は私の親友です。",
+        "english": "He is my close friend.",
+        "image": "images/my_best_friend.png"
+      },
+      {
+        "japanese": "親友と旅行に行きました。",
+        "english": "I went on a trip with my close friend.",
+        "image": "images/trip_with_friend.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3500,
+    "word": "仕事",
+    "reading": "しごと",
+    "meaning": "Job",
+    "level": 11,
+    "sentences": [
+      {
+        "japanese": "今日は仕事がたくさんあります。",
+        "english": "I have a lot of work today.",
+        "image": "images/lots_of_work.png"
+      },
+      {
+        "japanese": "私の仕事は楽しいです。",
+        "english": "My job is fun.",
+        "image": "images/fun_job.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3283,
+    "word": "注文",
+    "reading": "ちゅうもん",
+    "meaning": "Order",
+    "level": 11,
+    "sentences": [
+      {
+        "japanese": "ご注文はお決まりですか。",
+        "english": "Have you decided on your order?",
+        "image": "images/take_order.png"
+      },
+      {
+        "japanese": "ピザを注文しました。",
+        "english": "I ordered a pizza.",
+        "image": "images/order_pizza.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3551,
+    "word": "父親",
+    "reading": "ちちおや",
+    "meaning": "Father",
+    "level": 12,
+    "sentences": [
+      {
+        "japanese": "私の父親は先生です。",
+        "english": "My father is a teacher.",
+        "image": "images/father_teacher.png"
+      },
+      {
+        "japanese": "父親を尊敬しています。",
+        "english": "I respect my father.",
+        "image": "images/respect_father.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 6030,
+    "word": "彼女",
+    "reading": "かのじょ",
+    "meaning": "She/Girlfriend",
+    "level": 13,
+    "sentences": [
+      {
+        "japanese": "彼女はとても美しいです。",
+        "english": "She is very beautiful.",
+        "image": "images/beautiful_woman.png"
+      },
+      {
+        "japanese": "彼には彼女がいますか。",
+        "english": "Does he have a girlfriend?",
+        "image": "images/has_girlfriend.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3644,
+    "word": "駅前",
+    "reading": "えきまえ",
+    "meaning": "Front Of Station",
+    "level": 13,
+    "sentences": [
+      {
+        "japanese": "駅前で会いましょう。",
+        "english": "Let's meet in front of the station.",
+        "image": "images/meet_station.png"
+      },
+      {
+        "japanese": "駅前にコンビニがあります。",
+        "english": "There is a convenience store in front of the station.",
+        "image": "images/station_convenience.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3913,
+    "word": "卒業",
+    "reading": "そつぎょう",
+    "meaning": "Graduation",
+    "level": 14,
+    "sentences": [
+      {
+        "japanese": "卒業おめでとうございます。",
+        "english": "Congratulations on your graduation.",
+        "image": "images/congrats_grad.png"
+      },
+      {
+        "japanese": "卒業したら旅行したいです。",
+        "english": "I want to travel after graduation.",
+        "image": "images/travel_after_grad.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3718,
+    "word": "予約",
+    "reading": "よやく",
+    "meaning": "Reservation",
+    "level": 14,
+    "sentences": [
+      {
+        "japanese": "レストランの予約をしました。",
+        "english": "I made a reservation at the restaurant.",
+        "image": "images/restaurant_reservation.png"
+      },
+      {
+        "japanese": "予約はありますか。",
+        "english": "Do you have a reservation?",
+        "image": "images/have_reservation.png"
+      }
+    ]
+  },
+  {
+    "subject_id": 3905,
+    "word": "練習する",
+    "reading": "れんしゅうする",
+    "meaning": "To Practice",
+    "level": 15,
+    "sentences": [
+      {
+        "japanese": "ピアノを練習することが好きです。",
+        "english": "I like practicing piano.",
+        "image": "images/piano_practice.png"
+      },
+      {
+        "japanese": "もっと練習する必要があります。",
+        "english": "We need to practice more.",
+        "image": "images/practice_important.png"
+      }
+    ]
   }
 ]
