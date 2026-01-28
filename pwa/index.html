@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>WK Trainer</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 16px;
+            padding-top: env(safe-area-inset-top, 16px);
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00d4ff;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .card {
+            background: #16213e;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 12px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .sentence {
+            font-size: 1.6rem;
+            line-height: 1.5;
+            text-align: center;
+            margin: 16px 0;
+            min-height: 70px;
+        }
+
+        .blank {
+            background: #00d4ff33;
+            border-radius: 4px;
+            padding: 2px 10px;
+            border-bottom: 3px solid #00d4ff;
+        }
+
+        .english {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            font-style: italic;
+            margin: 8px 0;
+        }
+
+        .word-info {
+            text-align: center;
+            padding: 16px;
+            background: #0f3460;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .kanji { font-size: 2.2rem; color: #00d4ff; }
+        .reading { font-size: 1.1rem; color: #aaa; margin-top: 4px; }
+        .meaning { font-size: 1rem; color: #fff; margin-top: 6px; }
+
+        .timer {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin: 16px 0;
+            transition: color 0.3s;
+        }
+        .timer.ready { color: #4ecdc4; }
+
+        .instruction {
+            text-align: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin: 8px 0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 6px 0;
+            transition: all 0.15s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active { transform: scale(0.98); }
+        button:disabled { opacity: 0.4; }
+
+        .reveal-btn { background: #00d4ff; color: #1a1a2e; font-weight: 600; }
+
+        .rating-btns { display: flex; gap: 8px; }
+        .rating-btns button { flex: 1; }
+        .easy { background: #4ecdc4; color: #1a1a2e; }
+        .medium { background: #ffe66d; color: #1a1a2e; }
+        .hard { background: #ff6b6b; color: #fff; }
+
+        /* Stats & Headers */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .brain-state {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #0f3460;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .brain-state.flow { color: #4ecdc4; border: 1px solid #4ecdc4; }
+        .brain-state.lock { color: #ff6b6b; border: 1px solid #ff6b6b; }
+
+        .streak-badge {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffe66d;
+            text-shadow: 0 0 10px rgba(255, 230, 109, 0.5);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .streak-badge.visible { opacity: 1; transform: scale(1); }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            background: #0f3460;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .stat { text-align: center; }
+        .stat-value { font-size: 1.3rem; color: #00d4ff; }
+        .stat-label { font-size: 0.7rem; color: #888; }
+
+        .progress {
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Animation classes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .animate-slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.25s ease-out forwards;
+        }
+
+        /* Smooth transitions for toggled elements */
+        .sentence-image {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .sentence {
+            transition: opacity 0.3s ease;
+        }
+
+        .word-info {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .setup {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .setup h2 { color: #00d4ff; margin-bottom: 20px; }
+        .setup p { color: #888; margin: 12px 0; line-height: 1.5; }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            background: #0f3460;
+            border: 2px solid #00d4ff33;
+            border-radius: 10px;
+            color: #fff;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .sync-status {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #4ecdc4;
+            margin-top: 8px;
+        }
+
+        .offline-badge {
+            position: fixed;
+            top: env(safe-area-inset-top, 8px);
+            right: 8px;
+            background: #ff6b6b;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            z-index: 1000;
+        }
+
+        .ready-badge {
+            position: fixed;
+            top: env(safe-area-inset-top, 8px);
+            right: 8px;
+            background: #4ecdc4;
+            color: #1a1a2e;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .audio-btn {
+            background: #0f3460;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 18px 32px;
+            margin: 6px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .audio-btn:disabled {
+            color: #666;
+        }
+        .audio-btn svg {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+        }
+
+        .audio-status {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .sentence-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            margin: 12px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .sentence-image.hidden {
+            display: none;
+        }
+
+        .show-image-btn {
+            background: #0f3460;
+            color: #888;
+            font-size: 0.8rem;
+            padding: 8px 16px;
+            margin: 8px auto;
+            width: auto;
+            display: block;
+        }
+        .show-image-btn:hover {
+            color: #00d4ff;
+        }
+        .toggle-btns {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 8px auto;
+        }
+        .toggle-btns button {
+            width: auto;
+            flex: 0;
+        }
+
+        /* Toast notification system */
+        .toast-container {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 12px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.7s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .toast.success { border-left-color: #4ecdc4; }
+        .toast.warning { border-left-color: #ffe66d; }
+        .toast.error { border-left-color: #ff6b6b; }
+        .toast.speed { border-left-color: #ff00ff; background: linear-gradient(135deg, #16213e 0%, #2a1a4a 100%); }
+
+        .toast-icon { font-size: 1.2rem; }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        /* Progress bar toward unlock */
+        .unlock-progress {
+            background: #0a0a1a;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+        }
+
+        .unlock-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .unlock-progress-label {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .unlock-progress-value {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .unlock-progress-value.flow { color: #4ecdc4; }
+        .unlock-progress-value.learning { color: #ffe66d; }
+        .unlock-progress-value.lock { color: #ff6b6b; }
+
+        .progress-bar-container {
+            background: #1a1a2e;
+            border-radius: 4px;
+            height: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease, background 0.3s ease;
+        }
+
+        .progress-bar-fill.flow { background: linear-gradient(90deg, #4ecdc4, #00d4ff); }
+        .progress-bar-fill.learning { background: linear-gradient(90deg, #ffe66d, #ffa500); }
+        .progress-bar-fill.lock { background: linear-gradient(90deg, #ff6b6b, #ff4444); }
+
+        .progress-bar-threshold {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #fff;
+            opacity: 0.5;
+        }
+
+        .unlock-progress-hint {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        /* Speed indicator */
+        .speed-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+            z-index: 1500;
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.1s ease-out;
+        }
+
+        .speed-indicator.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            animation: speedPop 0.6s ease-out forwards;
+        }
+
+        @keyframes speedPop {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        /* Word mastery indicator */
+        .word-mastery {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .mastery-star {
+            font-size: 1rem;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .mastery-star.active {
+            opacity: 1;
+        }
+
+        /* Enhanced brain state display */
+        .brain-state-panel {
+            background: #0a0a1a;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .brain-state-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .brain-state-title.flow { color: #4ecdc4; }
+        .brain-state-title.learning { color: #ffe66d; }
+        .brain-state-title.lock { color: #ff6b6b; }
+
+        .brain-state-description {
+            font-size: 0.7rem;
+            color: #888;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Stats row improvements */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .stat-box {
+            background: #0f3460;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .stat-box-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .stat-box-label {
+            font-size: 0.6rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* Rating button hints */
+        .rating-hint {
+            font-size: 0.65rem;
+            color: #666;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* Help button */
+        .help-btn {
+            position: fixed;
+            bottom: env(safe-area-inset-bottom, 16px);
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #0f3460;
+            color: #888;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            border: none;
+            padding: 0;
+        }
+
+        .help-btn:hover { color: #00d4ff; }
+
+        /* Help modal */
+        .help-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-modal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .help-content {
+            background: #16213e;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .help-content h3 {
+            color: #00d4ff;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .help-section {
+            margin-bottom: 16px;
+        }
+
+        .help-section h4 {
+            color: #ffe66d;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .help-section p {
+            color: #aaa;
+            font-size: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .help-close {
+            background: #00d4ff;
+            color: #1a1a2e;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="offline-badge" class="offline-badge hidden">Offline</div>
+    <div id="ready-badge" class="ready-badge hidden">Ready for Offline</div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Speed indicator -->
+    <div id="speed-indicator" class="speed-indicator">⚡</div>
+
+    <div class="top-bar">
+        <h1>WK Trainer</h1>
+        <div id="streak-badge" class="streak-badge">x2 Streak!</div>
+    </div>
+
+    <!-- Help button -->
+    <button class="help-btn" onclick="toggleHelp()">?</button>
+
+    <!-- Help modal -->
+    <div id="help-modal" class="help-modal" onclick="toggleHelp()">
+        <div class="help-content" onclick="event.stopPropagation()">
+            <h3>How This Works</h3>
+
+            <div class="help-section">
+                <h4>🧠 Brain States</h4>
+                <p><strong>Flow (≥90% accuracy):</strong> You're crushing it! New words unlock automatically.<br>
+                <strong>Learning (75-90%):</strong> Keep going, building toward flow.<br>
+                <strong>Locked (&lt;75%):</strong> Focus on current words until accuracy improves.</p>
+            </div>
+
+            <div class="help-section">
+                <h4>⚡ Speed Streaks</h4>
+                <p>Answer correctly in under 1.5 seconds to build a streak. Fast answers mean the word is becoming automatic—that's the goal!</p>
+            </div>
+
+            <div class="help-section">
+                <h4>⭐ Word Mastery</h4>
+                <p><strong>Hard:</strong> Full support (image + sentence shown)<br>
+                <strong>Medium:</strong> Image hidden next time (1 star)<br>
+                <strong>Easy:</strong> Image + sentence hidden (2 stars) - ready for WaniKani sync</p>
+            </div>
+
+            <div class="help-section">
+                <h4>📊 The Numbers</h4>
+                <p><strong>Active:</strong> Words currently in rotation<br>
+                <strong>Accuracy:</strong> Last 20 reviews (determines brain state)<br>
+                <strong>Queue:</strong> Cards remaining this session</p>
+            </div>
+
+            <button class="help-close" onclick="toggleHelp()">Got It</button>
+        </div>
+    </div>
+
+    <!-- Setup Screen -->
+    <div id="setup" class="card setup">
+        <h2>Load Practice Data</h2>
+        <p>Paste your sentences.json content below, or it will try to load from the data folder.</p>
+        <textarea id="json-input" placeholder='Paste JSON here or leave empty to auto-load...'></textarea>
+        <button class="reveal-btn" onclick="loadData()" style="margin-top: 16px;">Start Training</button>
+        <div id="sync-status" class="sync-status"></div>
+    </div>
+
+    <!-- Training Screen -->
+    <div id="app" class="hidden">
+        <!-- Brain State Panel -->
+        <div class="brain-state-panel">
+            <div id="brain-state-title" class="brain-state-title learning">🧠 Learning Mode</div>
+            <div id="brain-state-description" class="brain-state-description">Keep practicing to reach Flow State</div>
+        </div>
+
+        <!-- Progress toward unlock -->
+        <div class="unlock-progress">
+            <div class="unlock-progress-header">
+                <span class="unlock-progress-label">Accuracy (last 20)</span>
+                <span id="accuracy-display" class="unlock-progress-value learning">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-threshold" style="left: 75%;" title="Lock threshold (75%)"></div>
+                <div class="progress-bar-threshold" style="left: 90%;" title="Flow threshold (90%)"></div>
+                <div id="accuracy-bar" class="progress-bar-fill learning" style="width: 0%;"></div>
+            </div>
+            <div id="unlock-hint" class="unlock-progress-hint">Need 90% accuracy to unlock new words</div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-box-value" id="active-count">0</div>
+                <div class="stat-box-label">Active Words</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="queue-count">0</div>
+                <div class="stat-box-label">Queue</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="streak-display">0</div>
+                <div class="stat-box-label">Streak</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-value" id="mastered-count">0</div>
+                <div class="stat-box-label">Mastered</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="instruction" id="phase-instruction">Predict the missing word...</p>
+            <img id="sentence-image" class="sentence-image hidden" alt="Sentence illustration">
+            <div id="toggle-btns" class="toggle-btns hidden">
+                <button id="show-image-btn" class="show-image-btn hidden" onclick="toggleImage()">Show Image</button>
+                <button id="show-sentence-btn" class="show-image-btn hidden" onclick="toggleSentence()">Show Sentence</button>
+            </div>
+            <div class="sentence" id="sentence"></div>
+            <div class="english hidden" id="english"></div>
+
+            <!-- Audio playback button -->
+            <button class="audio-btn" id="play-audio-btn" onclick="playCurrentAudio()" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                Play Audio
+            </button>
+            <div class="audio-status" id="audio-status"></div>
+
+            <div id="timer-section">
+                <div class="timer" id="timer">5</div>
+                <p class="instruction">Think about what fits...</p>
+            </div>
+
+            <div id="reveal-section" class="hidden">
+                <button class="reveal-btn" id="reveal-btn">Reveal Answer</button>
+            </div>
+
+            <div id="answer-section" class="hidden">
+                <div class="word-info">
+                    <div class="kanji" id="answer-word"></div>
+                    <div class="reading" id="answer-reading"></div>
+                    <div class="meaning" id="answer-meaning"></div>
+                    <div class="word-mastery" id="word-mastery">
+                        <span class="mastery-star" id="star-1">⭐</span>
+                        <span class="mastery-star" id="star-2">⭐</span>
+                    </div>
+                </div>
+
+                <p class="instruction" id="rating-instruction">How was your prediction?</p>
+                <div class="rating-btns">
+                    <button class="easy" onclick="rate('easy')">Easy</button>
+                    <button class="medium" onclick="rate('medium')">Medium</button>
+                    <button class="hard" onclick="rate('hard')">Hard</button>
+                </div>
+                <div id="rating-hint" class="rating-hint">Easy/Medium = correct prediction, Hard = didn't know</div>
+            </div>
+        </div>
+        <div class="progress" id="progress"></div>
+        <div style="text-align: center; color: #444; font-size: 0.6rem; margin-top: 10px;">v1.9.1</div>
+    </div>
+
+    <!-- Complete Screen -->
+    <div id="complete" class="card hidden">
+        <h2 style="text-align: center; color: #4ecdc4; margin-bottom: 16px;">Queue Empty!</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="final-streak">0</div>
+                <div class="stat-label">Max Streak</div>
+            </div>
+             <div class="stat">
+                <div class="stat-value" id="final-acc">0%</div>
+                <div class="stat-label">Session Acc</div>
+            </div>
+        </div>
+        <p style="text-align: center; color:#888; margin:16px 0;">Check back later or add more sentences.</p>
+        <button class="reveal-btn" onclick="restart()">Review Again</button>
+        <button id="export-easy-btn" style="background: #4ecdc4; color: #1a1a2e; display: none;" onclick="exportEasyReviews()">
+            Export Easy Reviews for WaniKani
+        </button>
+        <div id="export-status" class="sync-status"></div>
+        <button style="background: #0f3460; color: #888;" onclick="resetData()">Load New Data</button>
+    </div>
+
+    <!-- Hidden audio element -->
+    <audio id="audio-player" preload="auto"></audio>
+
+    <script>
+        // --- Constants ---
+        // For prototype with 5 items, we use small numbers. 
+        // Real app: GATING_WINDOW=100, LESSON_BATCH=10
+        const GATING_WINDOW = 20; 
+        const LESSON_BATCH_SIZE = 2;
+        const UNLOCK_THRESHOLD = 0.9; // 90%
+        const LOCK_THRESHOLD = 0.75; // 75%
+        const SPEED_THRESHOLD = 1500; // 1.5s for dopamine bonus
+        
+        const STORAGE_KEY = 'wk_trainer_library';
+        const STATE_KEY = 'wk_trainer_state'; 
+        const EXPORT_KEY = 'wk_easy_reviews';
+
+        // --- State ---
+        let library = []; // All data loaded from JSON
+        let audioManifest = [];
+        let easyReviews = []; // Sync queue
+
+        // Persistent User State
+        let userState = {
+            activeIds: [],   // list of subject_ids currently in rotation
+            reviewHistory: [], // list of { t: timestamp, correct: bool, speed: ms }
+            masteredIds: [], // subject_ids fully mastered
+            imageHiddenIds: [], // subject_ids where image is hidden
+            fullyMasteredIds: [], // subject_ids where sentence is hidden
+            streak: 0,
+            maxStreak: 0
+        };
+
+        // Session State
+        let sessionQueue = []; // Array of { item, sentenceIndex }
+        let currentCard = null;
+        let timerInterval = null;
+        let predictionStartTime = 0;
+        let audioAvailable = false;
+
+        const audioPlayer = document.getElementById('audio-player');
+
+        // Track previous state for change detection
+        let previousBrainState = null;
+
+        // --- Toast Notification System ---
+        function showToast(message, type = 'info', icon = '💡') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+
+            // Remove after animation
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // --- Speed Indicator ---
+        function showSpeedIndicator() {
+            const indicator = document.getElementById('speed-indicator');
+            indicator.classList.remove('show');
+            // Force reflow
+            void indicator.offsetWidth;
+            indicator.classList.add('show');
+        }
+
+        // --- Help Modal ---
+        function toggleHelp() {
+            document.getElementById('help-modal').classList.toggle('visible');
+        }
+
+        // --- Offline / Audio Logic (Kept from original) ---
+        function updateOnlineStatus() {
+            const badge = document.getElementById('offline-badge');
+            if (navigator.onLine) badge.classList.add('hidden');
+            else badge.classList.remove('hidden');
+        }
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+
+        async function loadAudioManifest() {
+            try {
+                const response = await fetch('audio/manifest.json');
+                if (response.ok) {
+                    audioManifest = await response.json();
+                    audioAvailable = audioManifest.length > 0;
+                }
+            } catch (e) { audioAvailable = false; }
+        }
+
+        function getAudioFile(word, sentenceIndex) {
+            const entry = audioManifest.find(a => a.word === word && a.sentence_index === sentenceIndex);
+            return entry ? `audio/${entry.file}` : null;
+        }
+
+        async function checkOfflineReadiness() {
+            try {
+                const manifestRes = await caches.match('audio/manifest.json');
+                if (manifestRes) document.getElementById('ready-badge').classList.remove('hidden');
+            } catch (e) {}
+        }
+
+        // --- Core Data Logic ---
+
+        function saveState() {
+            localStorage.setItem(STATE_KEY, JSON.stringify(userState));
+        }
+
+        function getRecentAccuracy() {
+            const history = userState.reviewHistory.slice(-GATING_WINDOW);
+            if (history.length === 0) return 0;
+            const correct = history.filter(h => h.correct).length;
+            return correct / history.length;
+        }
+
+        function getBrainState() {
+            const acc = getRecentAccuracy();
+            const historyLen = userState.reviewHistory.length;
+            
+            // Need some history to determine state
+            if (historyLen < 5) return 'learning';
+
+            if (acc >= UNLOCK_THRESHOLD) return 'flow';
+            if (acc < LOCK_THRESHOLD) return 'lock';
+            return 'learning';
+        }
+
+        function replenishQueue() {
+            // 1. Identify which items are active
+            const activeItems = library.filter(i => userState.activeIds.includes(i.subject_id));
+            
+            // 2. Build a queue from active items
+            // Simple logic: Add all sentences of active items
+            // In a real SRS, this would check due dates. Here we just rotate active items.
+            let newQueue = [];
+            activeItems.forEach(item => {
+                item.sentences.forEach((s, idx) => {
+                    newQueue.push({ item: item, sentenceIndex: idx });
+                });
+            });
+
+            // Shuffle
+            newQueue.sort(() => Math.random() - 0.5);
+            sessionQueue = newQueue;
+        }
+
+        function checkLevelUp() {
+            const state = getBrainState();
+            const activeCount = userState.activeIds.length;
+            const libraryCount = library.length;
+
+            if (state === 'lock') {
+                // Locked: focus on current active items
+                return; 
+            }
+
+            // If we are in Flow (or just starting and have room), try to add lessons
+            // "Actor" Logic: Ungate lessons if high accuracy
+            if (state === 'flow' || activeCount === 0) {
+                const potentialLessons = library.filter(i => !userState.activeIds.includes(i.subject_id));
+                
+                if (potentialLessons.length > 0) {
+                    // Add batch
+                    const toAdd = potentialLessons.slice(0, LESSON_BATCH_SIZE);
+                    toAdd.forEach(i => userState.activeIds.push(i.subject_id));
+                    console.log(`Leveled Up! Added ${toAdd.length} new items.`);
+                    
+                    // Trigger a re-shuffle to include them immediately? 
+                    // For now, they'll appear next "restart" or we could inject them.
+                    // Let's inject them into the BACK of the current session queue
+                    toAdd.forEach(item => {
+                        item.sentences.forEach((s, idx) => {
+                            sessionQueue.push({ item: item, sentenceIndex: idx });
+                        });
+                    });
+                }
+            }
+        }
+
+        // --- UI Logic ---
+
+        function updateUIStats() {
+            const acc = getRecentAccuracy();
+            const accPercent = Math.round(acc * 100);
+            const state = getBrainState();
+
+            // Accuracy display and progress bar
+            const accDisplay = document.getElementById('accuracy-display');
+            const accBar = document.getElementById('accuracy-bar');
+            accDisplay.textContent = `${accPercent}%`;
+            accDisplay.className = `unlock-progress-value ${state}`;
+            accBar.style.width = `${accPercent}%`;
+            accBar.className = `progress-bar-fill ${state}`;
+
+            // Unlock hint
+            const hintEl = document.getElementById('unlock-hint');
+            if (state === 'flow') {
+                const remaining = library.filter(i => !userState.activeIds.includes(i.subject_id)).length;
+                hintEl.textContent = remaining > 0
+                    ? `🎉 Flow State! ${remaining} words available to unlock`
+                    : '🏆 All words unlocked!';
+            } else if (state === 'lock') {
+                const needed = Math.ceil(LOCK_THRESHOLD * GATING_WINDOW) - userState.reviewHistory.slice(-GATING_WINDOW).filter(h => h.correct).length;
+                hintEl.textContent = `🔒 Locked - focus on current words (need ~${Math.max(0, needed)} more correct)`;
+            } else {
+                const correctNeeded = Math.ceil(UNLOCK_THRESHOLD * GATING_WINDOW);
+                const currentCorrect = userState.reviewHistory.slice(-GATING_WINDOW).filter(h => h.correct).length;
+                const needed = correctNeeded - currentCorrect;
+                hintEl.textContent = needed > 0
+                    ? `Need ~${needed} more correct answers to reach Flow State`
+                    : 'Almost there! Keep going!';
+            }
+
+            // Brain State Panel
+            const stateTitle = document.getElementById('brain-state-title');
+            const stateDesc = document.getElementById('brain-state-description');
+            if (state === 'flow') {
+                stateTitle.textContent = '⚡ Flow State';
+                stateTitle.className = 'brain-state-title flow';
+                stateDesc.textContent = 'Your brain is ready for new challenges! New words will unlock automatically.';
+            } else if (state === 'lock') {
+                stateTitle.textContent = '🔒 Locked Mode';
+                stateTitle.className = 'brain-state-title lock';
+                stateDesc.textContent = 'Too many errors. Focus on mastering current words before adding new ones.';
+            } else {
+                stateTitle.textContent = '🧠 Learning Mode';
+                stateTitle.className = 'brain-state-title learning';
+                stateDesc.textContent = 'Building accuracy. Reach 90% to unlock Flow State!';
+            }
+
+            // Detect state changes and show toast
+            if (previousBrainState !== null && previousBrainState !== state) {
+                if (state === 'flow') {
+                    showToast('Flow State unlocked! New words incoming!', 'success', '⚡');
+                } else if (state === 'lock') {
+                    showToast('Locked - focus on current words', 'error', '🔒');
+                } else if (previousBrainState === 'lock') {
+                    showToast('Unlocked! Keep building accuracy', 'success', '🔓');
+                }
+            }
+            previousBrainState = state;
+
+            // Stats row
+            document.getElementById('active-count').textContent = userState.activeIds.length;
+            document.getElementById('queue-count').textContent = sessionQueue.length;
+            document.getElementById('streak-display').textContent = userState.streak;
+            document.getElementById('mastered-count').textContent = userState.fullyMasteredIds.length;
+
+            // Streak badge (top right)
+            const streakBadge = document.getElementById('streak-badge');
+            if (userState.streak > 1) {
+                streakBadge.textContent = `x${userState.streak} Streak!`;
+                streakBadge.classList.add('visible');
+            } else {
+                streakBadge.classList.remove('visible');
+            }
+        }
+
+        function updateWordMastery(item) {
+            const star1 = document.getElementById('star-1');
+            const star2 = document.getElementById('star-2');
+
+            const isImageHidden = userState.imageHiddenIds.includes(item.subject_id);
+            const isFullyMastered = userState.fullyMasteredIds.includes(item.subject_id);
+
+            star1.classList.toggle('active', isImageHidden || isFullyMastered);
+            star2.classList.toggle('active', isFullyMastered);
+        }
+
+        async function loadData() {
+            const input = document.getElementById('json-input').value.trim();
+            const statusEl = document.getElementById('sync-status');
+
+            try {
+                // Load raw data (Library)
+                if (input) {
+                    library = JSON.parse(input);
+                    statusEl.textContent = 'Loaded from paste';
+                } else {
+                    const cached = localStorage.getItem(STORAGE_KEY);
+                    if (cached) {
+                        library = JSON.parse(cached);
+                        statusEl.textContent = 'Loaded from cache';
+                    } else {
+                        let response = await fetch('sentences.json').catch(() => null);
+                        if (!response || !response.ok) response = await fetch('../data/sentences.json').catch(() => null);
+                        if (!response || !response.ok) throw new Error('No data file found');
+                        library = await response.json();
+                        statusEl.textContent = 'Loaded from file';
+                    }
+                }
+
+                // Filter valid
+                library = library.filter(item => item.sentences && item.sentences.length > 0);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
+
+                // Load User State
+                const savedState = localStorage.getItem(STATE_KEY);
+                if (savedState) {
+                    userState = JSON.parse(savedState);
+                } else {
+                    // Init: If no state, take first batch as active
+                    const initialBatch = library.slice(0, 3); // Start with 3 items
+                    userState.activeIds = initialBatch.map(i => i.subject_id);
+                }
+
+                await loadAudioManifest();
+                
+                // Initialize Session
+                replenishQueue();
+
+                // Setup UI
+                document.getElementById('setup').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                updateUIStats();
+                showCard();
+
+            } catch (e) {
+                statusEl.textContent = 'Error: ' + e.message;
+                statusEl.style.color = '#ff6b6b';
+                console.error(e);
+            }
+        }
+
+        function showCard() {
+            if (sessionQueue.length === 0) {
+                showComplete();
+                return;
+            }
+
+            // Pop next card
+            currentCard = sessionQueue.shift();
+            const { item, sentenceIndex } = currentCard;
+            const sentence = item.sentences[sentenceIndex];
+
+            // Setup UI Visibility based on Mastery
+            const imageEl = document.getElementById('sentence-image');
+            const showImageBtn = document.getElementById('show-image-btn');
+            const showSentenceBtn = document.getElementById('show-sentence-btn');
+            const toggleBtns = document.getElementById('toggle-btns');
+            
+            const isImageHidden = userState.imageHiddenIds.includes(item.subject_id) || userState.fullyMasteredIds.includes(item.subject_id);
+            const isFullyMastered = userState.fullyMasteredIds.includes(item.subject_id);
+
+            // Reset UI
+            toggleBtns.classList.add('hidden');
+            showImageBtn.classList.add('hidden');
+            showSentenceBtn.classList.add('hidden');
+
+            const sentenceEl = document.getElementById('sentence');
+            const englishEl = document.getElementById('english');
+            const answerSection = document.getElementById('answer-section');
+
+            const timerSection = document.getElementById('timer-section');
+
+            // Reset animation classes so they can re-trigger
+            sentenceEl.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            englishEl.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            answerSection.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            imageEl.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+            timerSection.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+
+            const revealSection = document.getElementById('reveal-section');
+            revealSection.classList.remove('animate-fade-in', 'animate-slide-down', 'animate-scale-in');
+
+            sentenceEl.classList.add('hidden');
+            englishEl.classList.add('hidden');
+            timerSection.classList.add('hidden');
+            revealSection.classList.add('hidden');
+            answerSection.classList.add('hidden');
+            document.getElementById('phase-instruction').textContent = 'Listen to the sentence...';
+
+            // Image logic
+            if (sentence.image) {
+                imageEl.src = sentence.image;
+                if (isImageHidden) {
+                    imageEl.classList.add('hidden');
+                    showImageBtn.classList.remove('hidden');
+                    showImageBtn.textContent = 'Show Image';
+                    toggleBtns.classList.remove('hidden');
+                } else {
+                    imageEl.classList.remove('hidden');
+                }
+            } else {
+                imageEl.classList.add('hidden');
+            }
+
+            // Sentence logic
+            if (isFullyMastered) {
+                showSentenceBtn.classList.remove('hidden');
+                showSentenceBtn.textContent = 'Show Sentence';
+                toggleBtns.classList.remove('hidden');
+            }
+
+            // Answer info
+            document.getElementById('answer-word').textContent = item.word;
+            document.getElementById('answer-reading').textContent = item.reading;
+            document.getElementById('answer-meaning').textContent = item.meaning;
+
+            // Audio Playback
+            const audioFile = getAudioFile(item.word, sentenceIndex);
+            const audioBtn = document.getElementById('play-audio-btn');
+
+            const startPredictionPhase = () => {
+                // Clear onended so replay doesn't restart the phase
+                audioPlayer.onended = null;
+
+                // Prepare sentence text
+                const blankSentence = sentence.japanese.replace(item.word, '<span class="blank">???</span>');
+                const sentenceEl = document.getElementById('sentence');
+                sentenceEl.innerHTML = blankSentence;
+                document.getElementById('english').textContent = sentence.english;
+
+                if (!isFullyMastered) {
+                    sentenceEl.classList.remove('hidden');
+                    sentenceEl.classList.add('animate-fade-in');
+                    document.getElementById('phase-instruction').textContent = 'Predict the missing word...';
+                } else {
+                    document.getElementById('phase-instruction').textContent = 'Listen and predict...';
+                }
+
+                const timerSection = document.getElementById('timer-section');
+                timerSection.classList.remove('hidden');
+                timerSection.classList.add('animate-fade-in');
+
+                // Track start time for speed bonus
+                predictionStartTime = Date.now();
+                startTimer();
+            };
+
+            if (audioFile && audioAvailable) {
+                audioBtn.style.display = 'inline-flex';
+                audioPlayer.src = audioFile;
+                audioPlayer.onended = startPredictionPhase;
+                audioPlayer.play().catch(() => startPredictionPhase());
+            } else {
+                audioBtn.style.display = 'none';
+                setTimeout(startPredictionPhase, 500);
+            }
+
+            // Update mastery stars for this word
+            updateWordMastery(item);
+
+            updateUIStats();
+        }
+
+        function startTimer() {
+            let seconds = 5;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = seconds;
+            timerEl.classList.remove('ready');
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                seconds--;
+                if (seconds > 0) {
+                    timerEl.textContent = seconds;
+                } else {
+                    clearInterval(timerInterval);
+                    timerEl.textContent = '✓';
+                    timerEl.classList.add('ready');
+                    // Auto reveal after timeout? No, user must reveal to confirm prediction.
+                    // But we enable reveal button visibility if hidden
+                    document.getElementById('timer-section').classList.add('hidden');
+                    const revealSection = document.getElementById('reveal-section');
+                    revealSection.classList.remove('hidden');
+                    revealSection.classList.add('animate-scale-in');
+                    document.getElementById('phase-instruction').textContent = 'Ready?';
+                }
+            }, 1000);
+        }
+
+        // Toggles
+        function toggleImage() {
+            const el = document.getElementById('sentence-image');
+            const btn = document.getElementById('show-image-btn');
+            el.classList.toggle('hidden');
+            btn.textContent = el.classList.contains('hidden') ? 'Show Image' : 'Hide Image';
+        }
+        function toggleSentence() {
+            const el = document.getElementById('sentence');
+            const btn = document.getElementById('show-sentence-btn');
+            el.classList.toggle('hidden');
+            btn.textContent = el.classList.contains('hidden') ? 'Show Sentence' : 'Hide Sentence';
+        }
+
+        // Reveal
+        document.getElementById('reveal-btn').addEventListener('click', () => {
+            const duration = Date.now() - predictionStartTime;
+            const { item, sentenceIndex } = currentCard;
+            const sentence = item.sentences[sentenceIndex];
+
+            // Stop timer
+            if (timerInterval) clearInterval(timerInterval);
+
+            // Show full sentence with animation
+            const sentenceEl = document.getElementById('sentence');
+            sentenceEl.innerHTML = sentence.japanese;
+            sentenceEl.classList.remove('hidden');
+            sentenceEl.classList.add('animate-fade-in');
+
+            const englishEl = document.getElementById('english');
+            englishEl.classList.remove('hidden');
+            englishEl.classList.add('animate-fade-in');
+
+            // Show image if available with animation
+            if (sentence.image) {
+                const imageEl = document.getElementById('sentence-image');
+                imageEl.classList.remove('hidden');
+                imageEl.classList.add('animate-scale-in');
+            }
+
+            // Hide toggle buttons - no longer needed after reveal
+            document.getElementById('toggle-btns').classList.add('hidden');
+
+            document.getElementById('reveal-section').classList.add('hidden');
+
+            // Show answer section with animation
+            const answerSection = document.getElementById('answer-section');
+            answerSection.classList.remove('hidden');
+            answerSection.classList.add('animate-slide-down');
+
+            document.getElementById('phase-instruction').textContent = 'How was your prediction?';
+
+            // Store duration on the button for the rating handler
+            answerSection.dataset.duration = duration;
+        });
+
+        function rate(rating) {
+            const duration = parseInt(document.getElementById('answer-section').dataset.duration || '5000');
+            const isCorrect = (rating === 'easy' || rating === 'medium');
+            const { item } = currentCard;
+
+            // Track previous mastery for change detection
+            const wasImageHidden = userState.imageHiddenIds.includes(item.subject_id);
+            const wasFullyMastered = userState.fullyMasteredIds.includes(item.subject_id);
+            const previousActiveCount = userState.activeIds.length;
+
+            // 1. Update History
+            userState.reviewHistory.push({
+                t: Date.now(),
+                correct: isCorrect,
+                speed: duration
+            });
+            // Keep history manageable
+            if (userState.reviewHistory.length > 200) userState.reviewHistory.shift();
+
+            // 2. Streak & Speed Bonus
+            if (isCorrect) {
+                if (duration < SPEED_THRESHOLD) {
+                    // Fast! Dopamine hit.
+                    userState.streak++;
+                    showSpeedIndicator();
+                    if (userState.streak > 1) {
+                        showToast(`⚡ Speed streak x${userState.streak}! (${(duration/1000).toFixed(1)}s)`, 'speed', '🔥');
+                    } else {
+                        showToast(`Fast! ${(duration/1000).toFixed(1)}s - building automaticity`, 'speed', '⚡');
+                    }
+                }
+                // Correct but slow - streak doesn't increase
+            } else {
+                if (userState.streak > 2) {
+                    showToast(`Streak broken at x${userState.streak}`, 'warning', '💔');
+                }
+                userState.streak = 0;
+            }
+            if (userState.streak > userState.maxStreak) userState.maxStreak = userState.streak;
+
+            // 3. Mastery State (Easy/Medium/Hard logic)
+            if (rating === 'medium') {
+                if (!userState.imageHiddenIds.includes(item.subject_id)) {
+                    userState.imageHiddenIds.push(item.subject_id);
+                    showToast(`"${item.word}" leveled up! Image hidden next time`, 'success', '⭐');
+                }
+            }
+            if (rating === 'easy') {
+                if (!userState.fullyMasteredIds.includes(item.subject_id)) {
+                    userState.fullyMasteredIds.push(item.subject_id);
+                    showToast(`"${item.word}" mastered! Ready for WaniKani sync`, 'success', '⭐⭐');
+                    // Add to sync queue
+                    if (!easyReviews.find(r => r.subject_id === item.subject_id)) {
+                        easyReviews.push({
+                            subject_id: item.subject_id,
+                            word: item.word,
+                            reading: item.reading,
+                            meaning: item.meaning
+                        });
+                    }
+                }
+            }
+            // Hard resets mastery
+            if (rating === 'hard') {
+                const hadMastery = wasImageHidden || wasFullyMastered;
+                userState.fullyMasteredIds = userState.fullyMasteredIds.filter(id => id !== item.subject_id);
+                userState.imageHiddenIds = userState.imageHiddenIds.filter(id => id !== item.subject_id);
+                if (hadMastery) {
+                    showToast(`"${item.word}" reset - full support restored`, 'warning', '🔄');
+                }
+            }
+
+            // 4. Check Gating / Level Up
+            checkLevelUp();
+
+            // Detect if new words were added
+            if (userState.activeIds.length > previousActiveCount) {
+                const added = userState.activeIds.length - previousActiveCount;
+                showToast(`+${added} new word${added > 1 ? 's' : ''} unlocked!`, 'success', '🆕');
+            }
+
+            // 5. Save & Next
+            saveState();
+            showCard();
+        }
+
+        function playCurrentAudio() {
+            // Helper to replay audio - clear onended so it doesn't restart timer
+            if (!currentCard) return;
+            const { item, sentenceIndex } = currentCard;
+            const file = getAudioFile(item.word, sentenceIndex);
+            if (file) {
+                audioPlayer.onended = null; // Don't trigger prediction phase again
+                audioPlayer.src = file;
+                audioPlayer.play();
+            }
+        }
+
+        function showComplete() {
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('complete').classList.remove('hidden');
+            
+            document.getElementById('final-streak').textContent = userState.maxStreak;
+            
+            // Session Accuracy
+            // Simple calculation: last N items match session size approx
+            // Or just use recent history
+            const acc = Math.round(getRecentAccuracy() * 100);
+            document.getElementById('final-acc').textContent = acc + '%';
+
+            // Export btn
+            if (easyReviews.length > 0) {
+                document.getElementById('export-easy-btn').style.display = 'block';
+                document.getElementById('export-status').textContent = `${easyReviews.length} items to sync`;
+            }
+        }
+
+        function restart() {
+            // Replenish queue and go again
+            replenishQueue();
+            document.getElementById('complete').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            showCard();
+        }
+
+        function resetData() {
+            if(confirm("Reset all progress?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(STATE_KEY);
+                location.reload();
+            }
+        }
+
+        function exportEasyReviews() {
+             if (easyReviews.length === 0) return;
+            const exportData = JSON.stringify(easyReviews, null, 2);
+            localStorage.setItem(EXPORT_KEY, exportData);
+            
+            const blob = new Blob([exportData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'easy_reviews.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            easyReviews = [];
+            document.getElementById('export-easy-btn').style.display = 'none';
+            document.getElementById('export-status').textContent = 'Exported!';
+        }
+
+        // Init
+        window.addEventListener('load', () => {
+            checkOfflineReadiness();
+            loadData();
+        });
+
+        // SW
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                navigator.serviceWorker.addEventListener('message', event => {
+                    if (event.data?.type === 'OFFLINE_READY') document.getElementById('ready-badge').classList.remove('hidden');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
