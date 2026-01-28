@@ -77,3 +77,27 @@ python -m http.server 8000    # Access at http://localhost:8000/pwa/
 - Service Worker (`sw.js`) provides offline capability with cache-first strategy
 - Mobile deployment: Copy `pwa/` folder to iCloud Drive, open in Safari, Add to Home Screen
 - No framework dependencies - pure vanilla JS
+
+## Deployment (GitHub Pages)
+
+**IMPORTANT:** When committing/pushing changes, always update BOTH branches:
+
+```bash
+# 1. Commit and push to main
+git add <files>
+git commit -m "message"
+git push origin main
+
+# 2. Update gh-pages branch (serves the live website)
+git stash                           # Save any uncommitted changes
+git checkout gh-pages
+git checkout main -- pwa/           # Get pwa folder from main
+cp -r pwa/* . && rm -rf pwa         # Copy contents to root
+git add -A
+git commit -m "same commit message"
+git push origin gh-pages
+git checkout main
+git stash pop                       # Restore uncommitted changes
+```
+
+The `gh-pages` branch contains the contents of `pwa/` at the root level for GitHub Pages hosting.
