@@ -839,6 +839,7 @@
         let sessionQueue = []; // Array of { item, sentenceIndex }
         let currentCard = null;
         let timerInterval = null;
+        let audioPhaseTimeout = null;
         let predictionStartTime = 0;
         let audioAvailable = false;
 
@@ -1170,6 +1171,10 @@
 
             sentenceEl.classList.add('hidden');
             englishEl.classList.add('hidden');
+            sentenceEl.innerHTML = '';
+            englishEl.textContent = '';
+            showImageBtn.textContent = 'Show Image';
+            showSentenceBtn.textContent = 'Show Sentence';
             timerSection.classList.add('hidden');
             revealSection.classList.add('hidden');
             answerSection.classList.add('hidden');
@@ -1210,6 +1215,8 @@
                 // Clear onended so replay doesn't restart the phase
                 audioPlayer.onended = null;
 
+                if (audioPhaseTimeout) { clearTimeout(audioPhaseTimeout); audioPhaseTimeout = null; }
+
                 // Prepare sentence text
                 const blankSentence = sentence.japanese.replace(item.word, '<span class="blank">???</span>');
                 const sentenceEl = document.getElementById('sentence');
@@ -1232,6 +1239,11 @@
                 predictionStartTime = Date.now();
                 startTimer();
             };
+
+            // Watchdog: if audio playback hangs or onended never fires (iOS Safari),
+            // start the prediction phase anyway after a few seconds.
+            if (audioPhaseTimeout) clearTimeout(audioPhaseTimeout);
+            audioPhaseTimeout = setTimeout(startPredictionPhase, 6000);
 
             if (audioFile && audioAvailable) {
                 audioBtn.style.display = 'inline-flex';
